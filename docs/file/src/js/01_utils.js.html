@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../">
+  <title data-ice="title">src/js/01_utils.js | mdfwjs</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<meta name="description" content="Material Design Framework for JS"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="mdfwjs"><meta property="twitter:description" content="Material Design Framework for JS"></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/mhbrgn/MDFWjs"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#js">js</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/00_meta.js~Config.html">Config</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/00_meta.js~FWBlockSchemas.html">FWBlockSchemas</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/01_utils.js~ColorFix.html">ColorFix</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/01_utils.js~Log.html">Log</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/01_utils.js~UnFocusService.html">UnFocusService</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/01_utils.js~Utils.html">Utils</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/01_utils.js~WaitScreen.html">WaitScreen</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/02_widgets_base.js~IconView.html">IconView</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/02_widgets_base.js~InputLock.html">InputLock</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/02_widgets_base.js~TextView.html">TextView</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/03_base.js~MenuItem.html">MenuItem</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/03_base.js~Screen.html">Screen</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/04_widgets.js~Button.html">Button</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/04_widgets.js~RowView.html">RowView</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/04_widgets.js~SpinnerView.html">SpinnerView</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/04_widgets.js~SpoilerView.html">SpoilerView</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/04_widgets.js~SubHeader.html">SubHeader</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/04_widgets.js~TextInputView.html">TextInputView</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/04_widgets.js~ToolbarView.html">ToolbarView</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/04_widgets.js~WaitlockView.html">WaitlockView</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/20_paged_screen.js~SlideView.html">SlideView</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/20_paged_screen.js~SlidingScreen.html">SlidingScreen</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/30_settings_screen.js~FWSettingsScreen.html">FWSettingsScreen</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/98_Init.js~FWInit.html">FWInit</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">src/js/01_utils.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">
+/**
+ * Framework utilities.
+ */
+class Utils {
+	/**
+	 * Generate HTMLElement by user-provide schema
+	 * @param {object} data Structure for block generation
+	 * @returns {HTMLElement}
+	 */
+	static inflate(data) {
+		var block = document.createElement(data.type);
+		if (data.class) block.className = data.class;
+		if (data.id) block.id = data.id;
+		if (data.inner) block.innerHTML = data.inner;
+		if (data.height) block.style.height = data.height;
+		if (data.color) block.style.color = data.color;
+
+		if (data.childs) for (var a in data.childs)
+			block[a] = block.appendChild(Utils.inflate(data.childs[a]));
+
+		// Block-view hook
+		block.IS_VIEW = true;
+		block.getBlock = function() {return this;}
+		block.appendView = function(v) {
+			if(!v.IS_VIEW) Log.w(&quot;HTMLInflatorView&quot;, &quot;Not a view!&quot;);
+			this.appendChild(v.getBlock());
+			return this;
+		}
+
+		// Install addons
+		Utils.addLongTouchEvent(block);
+
+		return block;
+	}
+
+	/**
+	 * Create promise with timeout
+	 * @param {number} time Wait time in ms
+	 */
+	static timer(time) {
+		return new Promise(function (resolve) {
+			setTimeout(function () {
+				resolve();
+			}, time);
+		});
+	}
+
+	/**
+	 * Add LongTouch listener to block
+	 * 
+	 * @param {HTMLElement} block Block to use
+	 */
+	static addLongTouchEvent(block) {
+		var timer = -1;
+		block.onlongtap = null;
+		block.addEventListener(&quot;touchstart&quot;,function(e){
+			if(!block.onlongtap) return true;
+			timer = setTimeout(function(e){
+				if(block.onlongtap) block.onlongtap(e);
+			}, 500);
+			return false;
+		});
+		block.addEventListener(&quot;touchmove&quot;, function(){
+			if(timer) clearTimeout(timer);
+		});
+		block.addEventListener(&quot;touchend&quot;, function(){
+			if(timer) clearTimeout(timer);
+			return false;
+		});
+	}
+}
+
+/**
+ * Display loading overlay
+ */
+class WaitScreen {
+	/**
+	 * Default contructor
+	 */
+	constructor() {
+		/**
+		 * Root container
+		 * @type {HTMLElement}
+		 */
+		this.block = Utils.inflate(FWBlockSchemas.WAITSCREEN);
+	}
+
+	/**
+	 * Show this overlay
+	 */
+	show() { document.body.appendChild(this.block); }
+
+	/**
+	 * Hide this overlay
+	 */
+	hide() { this.block.remove(); }
+}
+
+/**
+ * Logs provider class
+ */
+class Log {
+	/**
+	 * Send debug log
+	 * @param {string} tag Class name or other identifer
+	 * @param {*} data Data to logging
+	 */
+	static d(tag, data) {
+		Log.journal += &quot;&lt;div&gt;[&quot; + tag + &quot;] &quot; + data + &quot;&lt;/div&gt;&quot;;
+		//		if(!AppConfig.enableDebug) return;
+		console.log(&quot;[&quot; + tag + &quot;]&quot;, data);
+	}
+
+	/**
+	 * Send info-level log
+	 * @param {string} tag Class name or other identifer
+	 * @param {*} data Data to logging
+	 */
+	static i(tag, data) {
+		Log.journal += &quot;&lt;div style=&apos;color:#00a&apos;&gt;[&quot; + tag + &quot;] &quot; + data + &quot;&lt;/div&gt;&quot;;
+		console.info(&quot;[&quot; + tag + &quot;]&quot;, data);
+	}
+
+	/**
+	 * Send warring
+	 * @param {string} tag Class name or other identifer
+	 * @param {*} data Data to logging
+	 */
+	static w(tag, data) {
+		Log.journal += &quot;&lt;div style=&apos;color:#aa0&apos;&gt;[&quot; + tag + &quot;] &quot; + data + &quot;&lt;/div&gt;&quot;;
+		console.warn(&quot;[&quot; + tag + &quot;]&quot;, data);
+	}
+
+	/**
+	 * Send error
+	 * @param {string} tag Class name or other identifer
+	 * @param {*} data Data to logging
+	 */
+	static e(tag, data) {
+		Log.journal += &quot;&lt;div style=&apos;color:#f00&apos;&gt;[&quot; + tag + &quot;] &quot; + data + &quot;&lt;/div&gt;&quot;;
+		console.error(&quot;[&quot; + tag + &quot;]&quot;, data);
+	}
+}
+
+Log.journal = &quot;&quot;;
+
+/**
+ * This service automaticly removes focus after item click to remove click highlight.
+ * @deprecated Didn&apos;t work. Will be removed!
+ */
+class UnFocusService {
+
+	/**
+	 * Do unFocus on block
+	 * @param {HTMLElement} block Block to execute
+	 */
+	static _exec(block) {
+		if(!Config.unfocusEnabled) return false;
+		block.blur();
+	}
+	
+	/**
+	 * Register unFocus listener to element
+	 * @param {HTMLElement} block Element to register
+	 */
+	static add(block) {
+		block.addEventListener(&quot;click&quot;, function(){
+			UnFocusService._exec(block);
+		});
+	}
+}
+
+
+/**
+ * Stylesheet generator for current accent color
+ * @deprecated 
+ */
+class ColorFix {
+	/**
+	 * Re-generate color stylesheet
+	 */
+	static execute() {
+		var d = document.getElementById(&quot;colorfix&quot;);
+		if(d) d.remove();
+
+		var css = &quot;.fw-button.style-flat::before {background-color: &quot;+Config.mainColor+&quot;}&quot;,
+			style = document.createElement(&quot;style&quot;);
+
+		if (style.styleSheet) {
+			style.styleSheet.cssText = css;
+		} else {
+			style.appendChild(document.createTextNode(css));
+		}
+
+		d = document.createElement(&quot;div&quot;);
+		d.id = &quot;colorfix&quot;;
+		d.appendChild(style);
+
+		document.getElementsByTagName(&apos;head&apos;)[0].appendChild(d);
+	}
+}
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

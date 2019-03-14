@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../">
+  <title data-ice="title">src/js/04_widgets.js | mdfwjs</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<meta name="description" content="Material Design Framework for JS"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="mdfwjs"><meta property="twitter:description" content="Material Design Framework for JS"></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/mhbrgn/MDFWjs"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#js">js</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/00_meta.js~Config.html">Config</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/00_meta.js~FWBlockSchemas.html">FWBlockSchemas</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/01_utils.js~ColorFix.html">ColorFix</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/01_utils.js~Log.html">Log</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/01_utils.js~UnFocusService.html">UnFocusService</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/01_utils.js~Utils.html">Utils</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/01_utils.js~WaitScreen.html">WaitScreen</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/02_widgets_base.js~IconView.html">IconView</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/02_widgets_base.js~InputLock.html">InputLock</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/02_widgets_base.js~TextView.html">TextView</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/03_base.js~MenuItem.html">MenuItem</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/03_base.js~Screen.html">Screen</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/04_widgets.js~Button.html">Button</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/04_widgets.js~RowView.html">RowView</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/04_widgets.js~SpinnerView.html">SpinnerView</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/04_widgets.js~SpoilerView.html">SpoilerView</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/04_widgets.js~SubHeader.html">SubHeader</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/04_widgets.js~TextInputView.html">TextInputView</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/04_widgets.js~ToolbarView.html">ToolbarView</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/04_widgets.js~WaitlockView.html">WaitlockView</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/20_paged_screen.js~SlideView.html">SlideView</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/20_paged_screen.js~SlidingScreen.html">SlidingScreen</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/30_settings_screen.js~FWSettingsScreen.html">FWSettingsScreen</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/98_Init.js~FWInit.html">FWInit</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">src/js/04_widgets.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">/**
+ * Text input widget. Based on HTML Input.
+ */
+class TextInputView {
+	get IS_VIEW() { return true; }
+	/**
+	 * Default contructor
+	 */
+    constructor() {
+        this.block = Utils.inflate({type: &quot;div&quot;, class: &quot;fw-listitem textedit&quot;, childs: {
+            titlebx: {type: &quot;div&quot;, class: &quot;item-title&quot;},
+            editor: {type: &quot;input&quot;, class: &quot;input&quot;}
+        }});
+    }
+
+	/**
+	 * Mark input as readonly
+	 */
+	makeReadonly() {
+		this.block.editor.setAttribute(&quot;readonly&quot;, &quot;true&quot;);
+        this.block.classList.add(&quot;readonly&quot;);
+        return this;
+    }
+	
+	/**
+	 * Remove readonly mark
+	 */
+	unmakeReadonly() {
+		this.block.editor.setAttribute(&quot;readonly&quot;, &quot;false&quot;);
+		this.block.classList.remove(&quot;readonly&quot;);
+        return this;
+    }
+
+	/**
+	 * Set placeholder text
+	 * 
+	 * @param {string} s Placeholder text
+	 */
+	setHolder(s) {
+        this.block.editor.placeholder = s;
+        return this;
+    }
+
+	/**
+	 * Get block.
+	 */
+    getBlock() {return this.block;}
+
+	/**
+	 * Get value of input
+	 * @returns {string} value
+	 */
+    toString() {
+        return this.block.editor.value;
+	}
+	
+	/**
+	 * Set input type.
+	 * 
+	 * Use any HTML4-5 compitable input type as parameter.
+	 * @param {string} type Input type
+	 * @returns {TextInputView} Callback
+	 */
+	setType(type) {
+		this.block.editor.type = type;
+		return this;
+	}
+
+	/**
+	 * Set value to input
+	 * 
+	 * @param {string} value Value
+	 */
+    fromString(value) {
+        this.block.editor.value = value;
+        return this;
+    }
+
+	/**
+	 * Set input title
+	 * 
+	 * @param {string} title Title
+	 */
+    setTitle(title) {
+        this.block.titlebx.innerHTML = title;
+        return this;
+    }
+
+	/**
+	 * Remove block.
+	 */
+    remove() {
+        this.block.remove();
+    }
+}
+
+/**
+ * Row widget, great way to provide item in list
+ */
+class RowView {
+	get IS_VIEW() { return true; }
+
+	/**
+	 * Constructor :-)
+	 */
+	constructor() {
+		this._title = &quot;&quot;;
+		this._icon = &quot;&quot;;
+		this._subtitle = &quot;&quot;;
+		this._click = null;
+		this._longtap = null;
+	}
+
+	/**
+	 * Set item title.
+	 * 
+	 * @param {string} title Title value
+	 * @returns {RowView} self-return
+	 */
+	setTitle(title) {
+		this._title = title;
+		return this;
+	}
+
+	/**
+	 * Set item summary, second level information
+	 * 
+	 * @param {string} title Summary value
+	 * @returns {RowView} self-return
+	 */
+	setSummary(title) {
+		this._subtitle = title;
+		return this;
+	}
+
+	/**
+	 * Set item icon.
+	 * 
+	 * @param {string} icon Icon name from material.io/icons
+	 * @returns {RowView} self-return
+	 */
+	setIcon(icon) {
+		this._icon = icon;
+		return this;
+	}
+
+	/**
+	 * Add secondary action.
+	 * 
+	 * @param {string} title Accesibility name
+	 * @param {string} icon Icon name from material.io/icons
+	 * @param {function} click On click function
+	 * @returns {RowView} self-return
+	 */
+	setAction(title,icon,click) {
+		this._action = {t: title, i: icon, c: click};
+		return this;
+	}
+
+	/**
+	 * Set on click function
+	 * 
+	 * @param {function} c Function
+	 * @returns {RowView} self-return
+	 */
+	setOnClickListener(c) {
+		this._click = c;
+		return this;
+	}
+
+	/**
+	 * Set long touch event listner
+	 * 
+	 * @param {function} c Function
+	 * @returns {RowView} self-return
+	 */
+	setOnLongToucListener(c) {
+		this._longtap = c;
+		return this;
+	}
+
+	/**
+	 * Build and get block!
+	 */
+	getBlock() {
+		let b = Utils.inflate({ type: &quot;div&quot;, class: &quot;fw-rowview&quot;, childs: {
+			box_a: {type: &quot;div&quot;},
+			box_b: {type: &quot;div&quot;, class: &quot;text&quot;},
+			box_c: {type: &quot;div&quot;}
+		} }), ctx = this;
+
+		UnFocusService.add(b);
+
+		b.onclick = this._click;
+		b.onlongtap = this._longtap;
+		if(this._title) b.box_b.appendChild(Utils.inflate({
+			type: &quot;div&quot;, class: &quot;title&quot;, inner: this._title
+		}));
+
+		if(this._subtitle) {
+			b.classList.add(&quot;twoline&quot;);
+			b.box_b.appendChild(Utils.inflate({
+				type: &quot;div&quot;, class: &quot;summary&quot;, inner: this._subtitle
+			}));
+		}
+
+		if(this._icon) {
+			b.box_a.className = &quot;icon&quot;;
+			b.box_a.appendView(new IconView(this._icon));
+		}
+
+		if(this._action) {
+			b.box_c.className = &quot;action&quot;;
+			b.box_c.appendView(new IconView(this._action.i).disableColor());
+			b.box_c.onclick = function(event){
+				event.preventDefault();
+				event.stopPropagation();
+				ctx._action.c();
+			}
+			b.box_c.title = this._action.t;
+		}
+
+		return b;
+	}
+}
+
+/**
+ * SubHeader is view (widget) that provides list separator with title.
+ */
+class SubHeader {
+	get IS_VIEW() { return true; }
+	/**
+	 * Constructor
+	 * @param {string} text Header value
+	 */
+	constructor(text) {
+		this.text = text;
+	}
+	/**
+	 * Build and return HTMLElement
+	 */
+	getBlock() {
+		var d = Utils.inflate({type: &quot;div&quot;, class: &quot;fw-listheader&quot;});
+		d.innerHTML = this.text;
+		d.style.color = Config.mainColor;
+		return d;
+	}
+}
+
+/**
+ * Provides simple button widget
+ */
+class Button {
+	get IS_VIEW() { return true; }
+	/**
+	 * Flat (non-filled) button style id
+	 */
+	static get STYLE_FLAT() { return &quot;style-flat&quot;; }
+	/**
+	 * Contained (filled) button style id
+	 */
+	static get STYLE_CONTAINED() { return &quot;style-contained&quot;; }
+
+	/**
+	 * Returns default button style
+	 */
+	_getDefaultStyle() {
+		return Button.STYLE_FLAT;
+	}
+
+	/**
+	 * Default constructor
+	 */
+	constructor() {
+		this.mBlock = Utils.inflate({ type: &quot;button&quot;, class: &quot;fw-button &quot; + this._getDefaultStyle() });
+		UnFocusService.add(this.mBlock);
+		this.style = this._getDefaultStyle();
+		this._reDecorate();
+	}
+
+	/**
+	 * Re-install style-specific properties
+	 */
+	_reDecorate() {
+		if(this.style == Button.STYLE_FLAT) {
+			this.mBlock.style.backgroundColor = &quot;&quot;;
+			this.mBlock.style.color = Config.mainColor;
+		} else if(this.style == Button.STYLE_CONTAINED) {
+			this.mBlock.style.backgroundColor = Config.mainColor;
+			this.mBlock.style.color = null;
+		} else {
+			Log.w(&quot;Button&quot;, &quot;Style &quot;+this.style+&quot; isn&apos;t defined. Can&apos;t provide decoration!&quot;);
+		}
+	}
+
+	/**
+	 * Returns button block
+	 */
+	getBlock() {
+		return this.mBlock;
+	}
+
+	/**
+	 * Set text to display on button.
+	 * 
+	 * @param {string} value Text to display
+	 * @returns {Button} self-return
+	 */
+	setText(value) {
+		this.mBlock.innerHTML = value;
+		return this;
+	}
+
+	/**
+	 * Set on button click function
+	 * 
+	 * @param {function} fnc On click function
+	 * @returns {Button} self-return
+	 */
+	setOnClickListener(fnc) {
+		this.mBlock.onclick = fnc;
+		return this;
+	}
+
+	/**
+	 * Set button style. Use `Button.STYLE_*` constants.
+	 * 
+	 * @param {string} style Style id
+	 * @returns {Button} self-return
+	 */
+	setStyle(style) {
+		this.mBlock.className = &quot;fw-button &quot; + style;
+		this.style = style;
+		this._reDecorate();
+		return this;
+	}
+}
+
+/**
+ * Spin animation view widget
+ */
+class SpinnerView {
+	get IS_VIEW() {return true;}
+
+	constructor() {}
+
+	getBlock() {
+		var b = Utils.inflate({type: &quot;div&quot;, class: &quot;fw-spinner&quot;});
+		b.style.color = Config.mainColor;
+		return b;
+	}
+}
+
+/**
+ * Spin animation activity lock view.
+ */
+class WaitlockView {
+	get IS_VIEW() { return true; }
+	get IS_FIXED_VIEW() { return true; }
+
+	/**
+	 * Default constructor.
+	 * @param {Screen} ctx Context screen
+	 */
+	constructor(ctx) {
+		this.ctx = ctx;
+		this.block = Utils.inflate({type: &quot;div&quot;, class: &quot;fw-waitlock-view&quot;});
+		this.block.appendView(new SpinnerView());
+	}
+
+	getBlock() {return this.block;}
+
+	/**
+	 * Show widget
+	 */
+	show() {
+		this.ctx._activity_contents.scrollTop = 0;
+		this.block.classList.add(&quot;show&quot;);
+	}
+
+	/**
+	 * Hide widget
+	 */
+	hide() {
+		this.block.classList.remove(&quot;show&quot;);
+	}
+}
+
+/**
+ * Toolbar widget.
+ */
+class ToolbarView {
+	get IS_VIEW(){return true;}
+
+	/**
+	 * Default constuctor
+	 */
+	constructor() {
+		this.block = Utils.inflate({type: &quot;div&quot;, class: &quot;fw-toolbar&quot;})
+	}
+
+	getBlock() {return this.block;}
+
+	/**
+	 * Remove all content from toolbar
+	 */
+	wipe() {
+		this.block.innerHTML = &quot;&quot;;
+	}
+
+	/**
+	 * Add new icon to toolbar
+	 * 
+	 * @param {string} title Title
+	 * @param {string} icon Icon name by material.io/icons
+	 * @param {function} click onclick function
+	 */
+	add(title, icon, click) {
+		var i = new IconView(icon).disableColor().getBlock();
+		i.title = title;
+		i.onclick = click;
+		this.block.appendChild(i);
+		return this;
+	}
+
+	/**
+	 * Add whitespace to toolbar
+	 */
+	addSeparator() {
+		this.block.appendChild(Utils.inflate({type: &quot;a&quot;}));
+		return this;
+	}
+}
+
+/**
+ * Expandable row view.
+ */
+class SpoilerView extends RowView {
+	/**
+	 * Default constructor
+	 */
+	constructor() {
+		super();
+
+		var ctx = this;
+		this.contents = Utils.inflate({type: &quot;div&quot;});
+		this.contents.style.display = &quot;none&quot;;
+		this._icon = &quot;keyboard_arrow_down&quot;;
+		this._click = function() {
+			ctx.toggle();
+		}
+	}
+
+	getBlock() {
+		this.row = super.getBlock();
+		var b = Utils.inflate({type: &quot;div&quot;});
+		b.appendChild(this.row);
+		b.appendChild(this.contents);
+		return b;
+	}
+
+	/**
+	 * Append view to expandable container
+	 * @param {View} v view to append
+	 */
+	appendView(v) {
+		return this.contents.appendView(v);
+	}
+
+	/**
+	 * Toggle contents visiblilty
+	 */
+	toggle() {
+		if(this.contents.style.display == &quot;none&quot;) {
+			// Show!
+			this.contents.style.display = &quot;&quot;;
+			this._icon = &quot;keyboard_arrow_up&quot;;
+
+			var b = super.getBlock();
+			this.row = this.row.replaceWith(b);
+			this.row = b;
+		} else {
+			// Hide!
+			this.contents.style.display = &quot;none&quot;;
+			this._icon = &quot;keyboard_arrow_down&quot;;
+
+			var b = super.getBlock();
+			this.row = this.row.replaceWith(b);
+			this.row = b;
+		}
+	}
+}
+
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

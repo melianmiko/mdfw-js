@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../">
+  <title data-ice="title">src/js/05_dialogs.js | mdfwjs</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<meta name="description" content="Material Design Framework for JS"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="mdfwjs"><meta property="twitter:description" content="Material Design Framework for JS"></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/mhbrgn/MDFWjs"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#js">js</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/00_meta.js~Config.html">Config</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/00_meta.js~FWBlockSchemas.html">FWBlockSchemas</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/01_utils.js~ColorFix.html">ColorFix</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/01_utils.js~Log.html">Log</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/01_utils.js~UnFocusService.html">UnFocusService</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/01_utils.js~Utils.html">Utils</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/01_utils.js~WaitScreen.html">WaitScreen</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/02_widgets_base.js~IconView.html">IconView</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/02_widgets_base.js~InputLock.html">InputLock</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/02_widgets_base.js~TextView.html">TextView</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/03_base.js~MenuItem.html">MenuItem</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/03_base.js~Screen.html">Screen</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/04_widgets.js~Button.html">Button</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/04_widgets.js~RowView.html">RowView</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/04_widgets.js~SpinnerView.html">SpinnerView</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/04_widgets.js~SpoilerView.html">SpoilerView</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/04_widgets.js~SubHeader.html">SubHeader</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/04_widgets.js~TextInputView.html">TextInputView</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/04_widgets.js~ToolbarView.html">ToolbarView</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/04_widgets.js~WaitlockView.html">WaitlockView</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/20_paged_screen.js~SlideView.html">SlideView</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/20_paged_screen.js~SlidingScreen.html">SlidingScreen</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/30_settings_screen.js~FWSettingsScreen.html">FWSettingsScreen</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/98_Init.js~FWInit.html">FWInit</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">src/js/05_dialogs.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">class Alert {
+    setTitle(t) {
+        this.title = t;
+        return this;
+    }
+    setMessage(m) {
+        this.message = m;
+        return this;
+    }
+    setOnClickListener(c) {
+        this.click = c;
+        return this;
+    }
+	setOnCancelListener(c) {
+		this.oncancel = c;
+		return this;
+	}
+    show() {
+        var c = this;
+		var d = new Dialog().setMessage(this.message).setTitle(this.title)
+			.setOnCancelListener(this.oncancel)
+            .addButton(new Button().setText(&quot;Ok&quot;).setOnClickListener(function(){
+                d.hide();
+                c.click();
+            })).show();
+    }
+}
+
+class Confirm {
+	constructor() {
+		this.okbtn = &quot;Ok&quot;;
+		this.cancelbtn = &quot;Cancel&quot;;
+	}
+	setPositiveButtonText(t) {
+		this.okbtn = t;
+		return this;
+	}
+	setNegativeButtonText(t) {
+		this.cancelbtn = t;
+		return this;
+	}
+    setTitle(t) {
+        this.title = t;
+        return this;
+    }
+    setMessage(m) {
+        this.message = m;
+        return this;
+    }
+    setOnConfirmListener(c) {
+        this.click = c;
+        return this;
+    }
+    show() {
+        var c = this;
+        var d = new Dialog().setMessage(this.message).setTitle(this.title)
+			.setOnCancelListener(this.oncancel)
+			.addButton(new Button().setText(this.cancelbtn).setOnClickListener(function(){
+				d.hide(true);
+			})).addButton(new Button().setText(this.okbtn).setOnClickListener(function(){
+                d.hide();
+                c.click();
+            })).show();
+    }
+
+	setOnCancelListener(c) {
+		this.oncancel = c;
+		return this;
+	}
+}
+
+class Dialog {
+	constructor() {
+		this.buttons = [];
+		this.views = [];
+		this.title = &quot;&quot;;
+		this.message = &quot;&quot;;
+	}
+
+	setTitle(t) {
+		this.title = t;
+		return this;
+	}
+
+	setMessage(m) {
+		this.message = m;
+		return this;
+	}
+
+	addButton(b) {
+		if(!b.IS_VIEW) return false;
+		this.buttons[this.buttons.length] = b;
+		return this;
+	}
+
+	appendView(v) {
+		if(!v.IS_VIEW) return false;
+		this.views[this.views.length] = v;
+		return this;
+	}
+
+	show() {
+		if(this.shown) return Log.w(&quot;FWDialog&quot;, &quot;Dialog can&apos;t be shown repeatedly! Create new instance of class and then show it!&quot;);
+		var m = new ModalWindow().setOnCancelListener(this.oncancel),
+			t = Utils.inflate({type: &quot;div&quot;, class: &quot;textbox&quot;});
+
+		m.appendView(t);
+
+		if(this.title) 
+			t.appendView(Utils.inflate({type: &quot;header&quot;, class: &quot;title&quot;, inner: this.title}));
+
+		if(this.message)
+			t.appendView(Utils.inflate({type: &quot;div&quot;, class: &quot;message&quot;, inner: this.message}));
+
+		for(var a in this.views) m.appendView(this.views[a]);
+
+		var btns = Utils.inflate({type: &quot;div&quot;, class: &quot;buttons&quot;});
+		for(var a in this.buttons) btns.appendChild(this.buttons[a].getBlock());
+		m.appendView(btns);
+		
+		this.shown = true;
+		this.modal = m;
+
+		m.show();
+		return this;
+	}
+
+	hide(c) {
+		this.modal.hide(c);
+	}
+
+	setOnCancelListener(c) {
+		this.oncancel = c;
+		return this;
+	}
+}
+
+class ModalWindow {
+	constructor() {
+        var ctx = this;
+		this.blk = Utils.inflate({type: &quot;div&quot;, class: &quot;fw-dialog&quot;, childs: {
+            container: {type: &quot;div&quot;, class: &quot;container&quot;}
+        }});
+
+        this.blk.onclick = function(){
+            ctx.hide(true); // Cancel dialog!
+        }
+
+        this.blk.container.onclick = function(e){
+            e.stopPropagation();
+        }
+	}
+
+	appendView(v) {
+		if(!v.IS_VIEW) return Log.w(&quot;ModalWindow&quot;, &quot;not a view!&quot;);
+		this.blk.container.appendChild(v.getBlock());
+	}
+
+	setOnCancelListener(c) {
+		this.oncancel = c;
+		return this;
+	}
+
+	show() {
+		var blk = this.blk;
+		document.body.appendChild(blk);
+        Utils.timer(50).then(function(){
+            blk.style.opacity = 1;
+		});
+	}
+
+	hide(cancel) {
+		let blk = this.blk;
+		if(cancel &amp;&amp; this.oncancel) this.oncancel();
+
+        blk.style.opacity = 0;
+        Utils.timer(450).then(function(){
+            blk.remove();
+		});
+	}
+}
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

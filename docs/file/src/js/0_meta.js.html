@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../">
+  <title data-ice="title">src/js/0_meta.js | mdfwjs</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<meta name="description" content="Material Design Framework for JS"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="mdfwjs"><meta property="twitter:description" content="Material Design Framework for JS"></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/mhbrgn/MDFWjs"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#js">js</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/0_meta.js~Config.html">Config</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/1_utils.js~ColorFix.html">ColorFix</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/1_utils.js~Log.html">Log</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/1_utils.js~UnFocusService.html">UnFocusService</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/1_utils.js~Utils.html">Utils</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/1_utils.js~WaitScreen.html">WaitScreen</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/2_widgets_base.js~IconView.html">IconView</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/2_widgets_base.js~InputLock.html">InputLock</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/2_widgets_base.js~TextView.html">TextView</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/3_base.js~MenuItem.html">MenuItem</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/3_base.js~Screen.html">Screen</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/4_widgets.js~Button.html">Button</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/4_widgets.js~RowView.html">RowView</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/4_widgets.js~SpinnerView.html">SpinnerView</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/4_widgets.js~SpoilerView.html">SpoilerView</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/4_widgets.js~SubHeader.html">SubHeader</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/4_widgets.js~TextInputView.html">TextInputView</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/4_widgets.js~ToolbarView.html">ToolbarView</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/4_widgets.js~WaitlockView.html">WaitlockView</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">src/js/0_meta.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">/**
+ * Global framework configuration class
+ */
+class Config {
+	/**
+	 * Initialize static properties
+	 * @returns {void}
+	 */
+	static _init() {
+		Config.mainColor = &quot;#009999&quot;;
+
+		/**
+		 * Toggle boolean for global unfocus service (see UnFocusService class)
+		 * @type {boolean}
+		 */
+		Config.unfocusEnabled = true;
+	}
+
+	/**
+	 * Getter of main accent color from framework skin
+	 */
+	static get mainColor() {
+		return Config._mainColor;
+	}
+
+	/**
+	 * Setter of main accent color from framework skin
+	 */
+	static set mainColor(c) {
+		Config._mainColor = c;
+		ColorFix.execute();
+	}
+}
+
+class FWBlockSchemas {
+	static get ACTIVITY() {
+		return {
+			class: &quot;fw-screen&quot;, type: &quot;div&quot;, childs: {
+				root: { type: &quot;div&quot;, class: &quot;fw-root-container&quot; , childs: {
+					topbar: {type: &quot;div&quot;, class: &quot;fw-topbar&quot;, childs: {
+						container: {
+							type: &quot;div&quot;, class: &quot;container&quot;, childs: {
+								z_home: { type: &quot;div&quot;, class: &quot;zone-home&quot; },
+								z_left: { type: &quot;div&quot;, class: &quot;zone-left&quot; },
+								z_title: { type: &quot;div&quot;, class: &quot;zone-title&quot; },
+								z_right: { type: &quot;div&quot;, class: &quot;zone-left&quot; }
+							}
+						}
+					}},
+					contents: {type: &quot;div&quot;, class: &quot;box-contents&quot;, childs: {
+						tbh_fixed: {type: &quot;div&quot;, class: &quot;fw-topbar-holder&quot;},
+						holder: {type: &quot;div&quot;, class: &quot;holder&quot;, childs: {
+							tbh_scroll: {type: &quot;div&quot;, class: &quot;fw-topbar-holder&quot;},
+							container: {type: &quot;div&quot;, class: &quot;container&quot;}
+						}}
+					}}
+				}}
+			}
+		};
+	}
+	static get WAITSCREEN() {
+		return {
+			type: &quot;div&quot;,
+			class: &quot;fw-spinactivity&quot;, childs: {
+				spinner: { type: &quot;div&quot;, class: &quot;fw-spinner&quot;, inner: &quot;Please wait...&quot; }
+			}
+		};
+	}
+}
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

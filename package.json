@@ -1,0 +1,25 @@
+{
+  "name": "mdfwjs",
+  "version": "1.0.0",
+  "description": "Material Design Framework for JS",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mhbrgn/MDFWjs.git"
+  },
+  "author": "",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/mhbrgn/MDFWjs/issues"
+  },
+  "homepage": "https://github.com/mhbrgn/MDFWjs#readme",
+  "devDependencies": {
+    "clean-css": "^4.2.1",
+    "clean-css-cli": "^4.2.1",
+    "esdoc": "^1.1.0",
+    "esdoc-standard-plugin": "^1.0.0",
+    "uglify-es": "^3.3.9"
+  }
+}

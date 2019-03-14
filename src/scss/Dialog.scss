@@ -1,0 +1,28 @@
+.fw-dialog {
+    position: fixed; top: 0; left: 0;
+    width: 100%; height: 100%; 
+    font-family: $font_family;
+    transition: opacity .25s;opacity: 0;
+    background: rgba(0,0,0,0.2);
+    display: flex; align-items: center; justify-content: center;
+
+    & > .container {
+        width: 80%; background: #ffffff;
+        border-radius: 4*$dp; padding: 8*$dp;
+        padding-top: 16*$dp;
+        box-shadow: elevation(24);max-width: 400*$dp;
+
+        & > .textbox {
+            padding: 0 16*$dp;
+
+            & > .title {font-size: 20*$dp; padding-bottom: 16*$dp;color:#000000de;padding-top: 8*$dp;}
+            & > .message {margin-bottom: 32px;font-size: 16*$dp; color: #00000099;}    
+        }
+
+        & > .buttons {text-align: right;}
+
+        & > .title, .message {@include noselect;}
+    }
+
+}
+

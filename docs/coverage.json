@@ -1,0 +1,180 @@
+{
+  "coverage": "59.63%",
+  "expectCount": 275,
+  "actualCount": 164,
+  "files": {
+    "src/js/00_meta.js": {
+      "expectCount": 10,
+      "actualCount": 10,
+      "undocumentLines": []
+    },
+    "src/js/01_utils.js": {
+      "expectCount": 19,
+      "actualCount": 19,
+      "undocumentLines": []
+    },
+    "src/js/02_widgets_base.js": {
+      "expectCount": 17,
+      "actualCount": 11,
+      "undocumentLines": [
+        6,
+        13,
+        21,
+        46,
+        66,
+        74
+      ]
+    },
+    "src/js/03_base.js": {
+      "expectCount": 48,
+      "actualCount": 48,
+      "undocumentLines": []
+    },
+    "src/js/04_widgets.js": {
+      "expectCount": 76,
+      "actualCount": 47,
+      "undocumentLines": [
+        5,
+        10,
+        101,
+        107,
+        108,
+        109,
+        110,
+        111,
+        156,
+        231,
+        237,
+        254,
+        275,
+        277,
+        343,
+        345,
+        347,
+        358,
+        359,
+        366,
+        367,
+        371,
+        393,
+        399,
+        402,
+        446,
+        448,
+        454,
+        455
+      ]
+    },
+    "src/js/05_dialogs.js": {
+      "expectCount": 49,
+      "actualCount": 0,
+      "undocumentLines": [
+        1,
+        2,
+        3,
+        6,
+        7,
+        10,
+        11,
+        14,
+        15,
+        18,
+        29,
+        30,
+        31,
+        32,
+        34,
+        38,
+        42,
+        43,
+        46,
+        47,
+        50,
+        51,
+        54,
+        66,
+        67,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        80,
+        85,
+        90,
+        96,
+        102,
+        121,
+        122,
+        128,
+        132,
+        133,
+        138,
+        139,
+        141,
+        154,
+        159,
+        160,
+        164,
+        172
+      ]
+    },
+    "src/js/06_widget_fab.js": {
+      "expectCount": 15,
+      "actualCount": 0,
+      "undocumentLines": [
+        1,
+        2,
+        3,
+        5,
+        6,
+        7,
+        8,
+        10,
+        11,
+        18,
+        23,
+        28,
+        33,
+        38,
+        50
+      ]
+    },
+    "src/js/20_paged_screen.js": {
+      "expectCount": 27,
+      "actualCount": 22,
+      "undocumentLines": [
+        105,
+        191,
+        201,
+        202,
+        203
+      ]
+    },
+    "src/js/30_settings_screen.js": {
+      "expectCount": 5,
+      "actualCount": 4,
+      "undocumentLines": [
+        35
+      ]
+    },
+    "src/js/98_Init.js": {
+      "expectCount": 3,
+      "actualCount": 3,
+      "undocumentLines": []
+    },
+    "src/js/99_testmod.js": {
+      "expectCount": 6,
+      "actualCount": 0,
+      "undocumentLines": [
+        1,
+        2,
+        86,
+        87,
+        148,
+        149
+      ]
+    }
+  }
+}

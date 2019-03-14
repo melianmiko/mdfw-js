@@ -1,0 +1,17 @@
+.fw-bcfg-darkmode {
+    .fw-screen, .fw-page, .fw-dialog .container {
+        background: #000!important; color: #fff;
+    }
+
+    .fw-pager-view {
+        background: #111;
+    }
+
+    .fw-listitem {border-color: #111; }
+
+    .fw-listitem.textedit .input, 
+    .fw-textedit .input {color: #fff}
+
+    .fw-spinactivity, .fw-spinner:after, 
+    .fw-spinner:before {background: #000;}
+}

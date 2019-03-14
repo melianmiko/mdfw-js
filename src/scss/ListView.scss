@@ -1,0 +1,52 @@
+
+// TODO: Refactor listItem!
+.fw-listitem {
+    border-bottom: thin #eee solid;
+    padding: 4px;
+
+    .item-title {
+        font-size: .7em; padding: 4px 8px; 
+        color: #555; @include noselect;
+    }
+
+    &.textedit .input {
+        border: none; background: none; width: 100%;
+        box-sizing: border-box; font-size: 1em; padding: 8px;
+
+        &.ta {resize: none; height: 40px;font-family: $font_family;}
+    }
+
+    &.flex {
+        display: flex;
+
+        .flex-expand  {flex: 1;}
+    }
+
+    .material-icons {color: $fw_maincolor; font-size: 20px; }
+}
+
+.fw-rowview {
+    padding: 16*$dp;
+    transition: background 0.5s;
+    background: transparent;
+    @include noselect;
+    display: flex;
+    border-bottom: thin solid #eee;
+
+    .icon {padding-right: 32*$dp;font-size: 24*$dp; height: 24*$dp;}
+    .text {flex: 1; display: flex; flex-direction: column; justify-content: center;}
+    .title {font-size: 16*$dp; color: #000000de;}
+    .summary {font-size: 14*$dp; color: #00000099;padding-top: 8*$dp;}
+    .action {
+        font-size: 24*$dp; color: #999;
+        background: transparent; transition: background 0.5s;
+    }
+
+    &:hover {background: rgba(0,0,0,0.05)};
+    &:active, &:focus {background: rgba(0,0,0,0.2)};
+}
+
+.fw-listheader {
+    font-size: .7em; padding: 4px 8px; 
+    color: $fw_maincolor; @include noselect;
+}
