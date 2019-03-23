@@ -39,8 +39,12 @@ class SlidingScreen extends Screen {
      * Append view locker method
      * @param {View} v view
      */
-	appendView(v) {
-		Log.e("SlidingScreen", "Use getPage(page).appendView(view) instance of appendView!");
+	appendView(view) {
+		if(!view.IS_VIEW) return false;
+		if(view.IS_FIXED_VIEW)
+			this._activity_root.root.appendChild(view.getBlock());
+		else
+    		Log.e("SlidingScreen", "Use getPage(page).appendView(view) instance of appendView!");
 	}
 
     /**
@@ -57,7 +61,6 @@ class SlidingScreen extends Screen {
     wipe() {
         this._ss_pages = [];
         this._ss_view.wrapper.innerHTML = "";
-        this.openPage(0);
     }
 
     /**
