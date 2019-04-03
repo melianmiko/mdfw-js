@@ -70,6 +70,7 @@ class SlidingScreen extends Screen {
         var id = this._ss_pages.length,
             blk = Utils.inflate(FWBlockSchemas.PAGE_SCHEMA);
 
+
         blk.style.left = (100*id)+"%";
         this._ss_pages[id] = new SlideView(this, blk, id);
         this._ss_view.wrapper.appendView(blk);
@@ -105,7 +106,7 @@ class SlidingScreen extends Screen {
      * @param {number} p Page ID
      */
     _ss_cfgscroll(p) {
-        this._ss_scrl_blk = this.getPage(p).getBlock();
+        if(this.getPage(p)) this._ss_scrl_blk = this.getPage(p).getBlock();
         for(var a in this._ss_pages)
             this._ss_pages[a].getBlock().scrollTop = 0;
     }
@@ -203,6 +204,7 @@ class SlideView {
     constructor(context, block, id) {
         this.ctx = context;
         this.block = block;
+        this.id = id;
         this.tb = new ToolbarView();
 
         block.appendView(this.tb);
@@ -238,5 +240,19 @@ class SlideView {
      */
     getToolbar() {
         return this.tb;
+    }
+
+    /**
+     * Returns page ID
+     */
+    getId() {
+        return this.id;
+    }
+
+    /**
+     * Go to this page
+     */
+    open() {
+        this.ctx.openPage(this.id);
     }
 }

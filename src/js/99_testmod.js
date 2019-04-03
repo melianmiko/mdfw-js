@@ -86,7 +86,8 @@ class TestScreen extends Screen {
 class TestScreen2 extends Screen {
     onCreate() {
         var tv = new TextInputView().setTitle("Text input demo").setHolder("Empty"),
-            tv2 = new TextInputView().setTitle("Password input demo").setHolder("Empty").setType("password");
+            tv2 = new TextInputView().setTitle("Password input demo").setHolder("Empty").setType("password"),
+            tv3 = new BigTextInputView().setTitle("Big input demo").setHolder("Empty");
 
         this.setHomeAsUpAction();
         this.setTitle("Widgets test mode!");
@@ -112,9 +113,10 @@ class TestScreen2 extends Screen {
         this.appendView(new SubHeader("Input tests"));
         this.appendView(tv);
         this.appendView(tv2);
+        this.appendView(tv3);
         this.appendView(new RowView().setTitle("Show value").setOnClickListener(function(){
             new Alert().setTitle("Text form value:").setMessage(tv.toString()).show();
-        }).setOnLongToucListener(function(){
+        }).setOnLongTouchListener(function(){
             new Alert().setTitle("Long tap!").show();
         }));
 
@@ -148,14 +150,22 @@ class TestScreen2 extends Screen {
 class TestScreen3 extends SlidingScreen {
     onCreate() {
         this.setHomeAsUpAction();
+    }
+    onUpdate() {
+        this.wipe();
 
         var a = this.newPage(),
-            b = this.newPage();
+            b = this.newPage(),
+            ctx = this;
 
         a.appendView(new TextView("title", "Page 1"));
         for(var i = 0; i < 50; i++) a.appendView(new RowView().setTitle("Row A"+i));
+
         b.appendView(new TextView("title", "Page 2"));
-        for(var i = 0; i < 50; i++) b.appendView(new RowView().setTitle("Row B"+i));
+        for(var i = 0; i < 50; i++) b.appendView(new RowView()
+            .setTitle("Row B"+i).setOnClickListener(function(){
+                ctx.onUpdate();
+            }));
     }
 }
 

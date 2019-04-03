@@ -53,21 +53,37 @@ class Utils {
 	 */
 	static addLongTouchEvent(block) {
 		var timer = -1;
+
+		var supportsPassive = false;
+		try {
+		  var opts = Object.defineProperty({}, 'passive', {
+		    get: function() {
+		      supportsPassive = true;
+		    }
+		  });
+		  window.addEventListener("testPassive", null, opts);
+		  window.removeEventListener("testPassive", null, opts);
+		} catch (e) {}
+
 		block.onlongtap = null;
 		block.addEventListener("touchstart",function(e){
 			if(!block.onlongtap) return true;
 			timer = setTimeout(function(e){
 				if(block.onlongtap) block.onlongtap(e);
 			}, 500);
-			return false;
-		});
+			return !block.onlongtap;
+		}, supportsPassive ? {passive: true} : false);
 		block.addEventListener("touchmove", function(){
 			if(timer) clearTimeout(timer);
-		});
+		}, supportsPassive ? {passive: true} : false);
 		block.addEventListener("touchend", function(){
 			if(timer) clearTimeout(timer);
-			return false;
+			return !block.onlongtap;
 		});
+		block.oncontextmenu = function(e){
+			if(block.onlongtap) block.onlongtap(e);
+			return !block.onlongtap;
+		}
 	}
 }
 

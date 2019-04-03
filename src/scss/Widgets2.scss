@@ -53,6 +53,9 @@
 
 .fw-toolbar {
 
+    max-width: $activity_maxwidth;
+    margin: auto;
+
     i {
         color: #999; padding: 8*$dp;margin: 4*$dp;
         font-size: 24*$dp; border-radius: 50%;

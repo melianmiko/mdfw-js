@@ -29,10 +29,10 @@ class FWSettingsScreen extends Screen {
      * @param {Object} loc Localization override
      */
     onCreate(loc) {
-        var local = FWSettingsScreen.LOCALE;
-        if(loc) for(var a in loc) local[a] = loc[a];
+        var locale = FWSettingsScreen.LOCALE;
+        if(loc) for(var a in loc) locale[a] = loc[a];
         this.setHomeAsUpAction();
-        this.locale = loc;
+        this.locale = locale;
         this.onUpdate();
     }
 
