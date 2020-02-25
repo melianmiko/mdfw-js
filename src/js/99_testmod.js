@@ -127,6 +127,7 @@ class TestScreen2 extends Screen {
         this.appendView(new Button().setText("Default button"));
         this.appendView(new Button().setStyle(Button.STYLE_CONTAINED).setText("Contained button"));
         this.appendView(new Button().setStyle(Button.STYLE_FLAT).setText("Flat button"));
+        this.appendView(new Button().setStyle(Button.STYLE_OUTLINE).setText("Flat button"));
 
         this.appendView(new SubHeader("RowView tests"));
         this.appendView(new RowView().setTitle("Single-line"));

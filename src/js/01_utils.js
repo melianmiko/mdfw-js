@@ -200,7 +200,8 @@ class ColorFix {
 		var d = document.getElementById("colorfix");
 		if(d) d.remove();
 
-		var css = ".fw-button.style-flat::before {background-color: "+Config.mainColor+"}",
+		var css = ".fw-button.style-flat::before, .fw-button.style-outline::before "+
+			"{background-color: "+Config.mainColor+"}",
 			style = document.createElement("style");
 
 		if (style.styleSheet) {

@@ -289,6 +289,10 @@ class Button {
 	 * Contained (filled) button style id
 	 */
 	static get STYLE_CONTAINED() { return "style-contained"; }
+	/**
+	 * Outlined button style id
+	 */
+	static get STYLE_OUTLINE() { return "style-outline"; }
 
 	/**
 	 * Returns default button style
@@ -311,9 +315,11 @@ class Button {
 	 * Re-install style-specific properties
 	 */
 	_reDecorate() {
-		if(this.style == Button.STYLE_FLAT) {
+		if(this.style == Button.STYLE_FLAT || 
+			this.style == Button.STYLE_OUTLINE) {
 			this.mBlock.style.backgroundColor = "";
 			this.mBlock.style.color = Config.mainColor;
+			this.mBlock.style.borderColor = Config.mainColor;
 		} else if(this.style == Button.STYLE_CONTAINED) {
 			this.mBlock.style.backgroundColor = Config.mainColor;
 			this.mBlock.style.color = null;

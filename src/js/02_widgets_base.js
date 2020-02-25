@@ -80,4 +80,11 @@ class TextView {
 	getBlock() {
 		return this.blk;
 	}
+
+	/**
+	 * Set new text
+	 */
+	 setText(text) {
+	 	this.blk.innerHTML = text;
+	 }
 }
