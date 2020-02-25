@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Material Design Framework for JS",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dist": "babel src --out-file dist/mdfw.js --minified && sass src/scss/index.scss dist/mdfw.css"
   },
   "repository": {
     "type": "git",
@@ -16,10 +16,11 @@
   },
   "homepage": "https://github.com/mhbrgn/MDFWjs#readme",
   "devDependencies": {
-    "clean-css": "^4.2.1",
-    "clean-css-cli": "^4.2.1",
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.8.4",
+    "@babel/preset-env": "^7.8.4",
     "esdoc": "^1.1.0",
     "esdoc-standard-plugin": "^1.0.0",
-    "uglify-es": "^3.3.9"
+    "sass": "^1.26.0"
   }
 }
