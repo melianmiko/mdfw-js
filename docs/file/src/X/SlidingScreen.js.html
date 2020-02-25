@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../">
+  <title data-ice="title">src/X/SlidingScreen.js | mdfwjs</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<meta name="description" content="Material Design Framework for JS"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="mdfwjs"><meta property="twitter:description" content="Material Design Framework for JS"></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/mhbrgn/MDFWjs"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/index.js~FWInit.html">FWInit</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#base">Base</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Base/ColorFix.js~ColorFix.html">ColorFix</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Base/Config.js~Config.html">Config</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Base/UnFocusService.js~UnFocusService.html">UnFocusService</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#frames">Frames</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Frames/InputLock.js~InputLock.html">InputLock</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Frames/Screen.js~Screen.html">Screen</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Frames/WaitScreen.js~WaitScreen.html">WaitScreen</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#utils">Utils</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Utils/Log.js~Log.html">Log</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Utils/MenuItem.js~MenuItem.html">MenuItem</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Utils/Utils.js~Utils.html">Utils</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#view">View</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/View/IconView.js~IconView.html">IconView</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/View/RowView.js~RowView.html">RowView</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/View/SpoilerView.js~SpoilerView.html">SpoilerView</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/View/TextView.js~TextView.html">TextView</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/View/WaitlockView.js~WaitlockView.html">WaitlockView</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#widget">Widget</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Widget/Button.js~Button.html">Button</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Widget/Spinner.js~Spinner.html">Spinner</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Widget/SubHeader.js~SubHeader.html">SubHeader</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Widget/TextInput.js~TextInput.html">TextInput</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Widget/Toolbar.js~Toolbar.html">Toolbar</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#x">X</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/X/FWSettingsScreen.js~FWSettingsScreen.html">FWSettingsScreen</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/X/SlidingScreen.js~SlideView.html">SlideView</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/X/SlidingScreen.js~SlidingScreen.html">SlidingScreen</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">src/X/SlidingScreen.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">/**
+ * SlidingScreen - screen with multiple slides support.
+ */
+class SlidingScreen extends Screen {
+    /**
+     * Default constructor (overrides `super(data)` constructor)
+     * @param {*} data Data for onCreate event
+     */
+    constructor(data) {
+        super(data);
+
+        /**
+         * Root view of pager
+         */
+        this._ss_view = Utils.inflate({type: &quot;div&quot;, class: &quot;fw-pager-view&quot;, childs: {
+            wrapper: {type: &quot;div&quot;, class: &quot;fw-pager-wrapper&quot;}
+        }});
+        this._ss_view.IS_FIXED_VIEW = true;
+
+        /**
+         * Is swipe enabled
+         * @type {boolean}
+         */
+        this._ss_swipeOn = true;
+        /**
+         * Pages array
+         * @type {SlideView[]}
+         */
+        this._ss_pages = [];
+        /**
+         * Active screen id
+         * @type {number}
+         */
+        this._ss_active = 0;
+
+        super.appendView(this._ss_view);
+        this._ss_swipeinit();
+    }
+
+    /**
+     * Append view locker method
+     * @param {View} v view
+     */
+	appendView(view) {
+		if(!view.IS_VIEW) return false;
+		if(view.IS_FIXED_VIEW)
+			this._activity_root.root.appendChild(view.getBlock());
+		else
+    		Log.e(&quot;SlidingScreen&quot;, &quot;Use getPage(page).appendView(view) instance of appendView!&quot;);
+	}
+
+    /**
+     * Get page ID
+     * @param {number} p Page ID
+     */
+    getPage(p) {
+        return this._ss_pages[p];
+    }
+
+    /**
+     * Remove all pages!
+     */
+    wipe() {
+        this._ss_pages = [];
+        this._ss_view.wrapper.innerHTML = &quot;&quot;;
+    }
+
+    /**
+     * Add new clear page
+     */
+    newPage() {
+        var id = this._ss_pages.length,
+            blk = Utils.inflate({type: &quot;div&quot;, class: &quot;fw-page&quot;, childs: {
+                container: {type: &quot;div&quot;, class: &quot;container&quot;, childs: {
+                    filler: {type: &quot;div&quot;, class: &quot;filler&quot;},
+                    contents: {type: &quot;div&quot;, class: &quot;page-contents&quot;}
+                }}
+            }});
+
+
+        blk.style.left = (100*id)+&quot;%&quot;;
+        this._ss_pages[id] = new SlideView(this, blk, id);
+        this._ss_view.wrapper.appendView(blk);
+
+        this._ss_cfgscroll(this._ss_active);
+        this.initScrollMode();
+        return this._ss_pages[id];
+    }
+
+    /**
+     * Go to page
+     * @param {number} p Page ID
+     */
+    openPage(p) {
+		let wrp = this._ss_view.wrapper, ctx = this;
+		this._ss_active = p;
+
+		wrp.style.transition = &quot;left 0.25s&quot;;
+		Utils.timer(2).then(function() {
+			wrp.style.left = -(100*p)+&quot;%&quot;;
+			return Utils.timer(240);
+		}).then(function(){
+            wrp.style.transition = &quot;&quot;;
+            ctx._ss_cfgscroll(p);
+            ctx.initScrollMode();
+        }).catch(function(e) {
+            console.error(e);
+        });
+    }
+
+    /**
+     * Reconfigure page-scroll attachment
+     * @param {number} p Page ID
+     */
+    _ss_cfgscroll(p) {
+        if(this.getPage(p)) this._ss_scrl_blk = this.getPage(p).getBlock();
+        for(var a in this._ss_pages)
+            this._ss_pages[a].getBlock().scrollTop = 0;
+    }
+
+    /**
+     * Override getScrollBlock method
+     */
+    getScrollerBlock() {
+        if(!this._ss_scrl_blk) return super.getScrollerBlock();
+        return this._ss_scrl_blk;
+    }
+
+    /**
+     * Go to page back
+     */
+    prevPage() {
+        if(this._ss_active == 0) return;
+        this.openPage(this._ss_active-1);
+    }
+
+    /**
+     * Go to page next
+     */
+    nextPage() {
+        if(this._ss_active == this._ss_pages.length-1) return;
+        this.openPage(this._ss_active+1);
+    }
+
+    /**
+     * Set swipe mode enabled/disabled.
+     * @param {boolean} bool Is swipe enabled?
+     */
+    setSwipeEnabled(bool) {
+        this._ss_swipeOn = bool;
+    }
+
+    /**
+     * Init swipe events
+     */
+    _ss_swipeinit() {
+        var wrp = this._ss_view.wrapper,
+            touchData = {}, context = this;
+                
+        wrp.ontouchstart = function(e) {
+            if(!context._ss_swipeOn) return;
+            touchData.direction = null;
+            touchData.startX = e.targetTouches[0].pageX;
+            touchData.startY = e.targetTouches[0].pageY;
+            touchData.startPos = this.getBoundingClientRect().left;
+        };
+
+        wrp.ontouchmove = function(e) {
+            if(!context._ss_swipeOn) return;
+            var rx = e.targetTouches[0].pageX-touchData.startX;
+            var ry = e.targetTouches[0].pageY-touchData.startY;
+            if(touchData.direction == null) {
+                if( rx &gt; 30 || rx &lt; -30) touchData.direction = &quot;h&quot;;
+                else if( ry &gt; 30 || ry &lt; -30) touchData.direction = &quot;v&quot;;
+            }
+            if(touchData.direction == &quot;h&quot;) {
+                e.stopPropagation();
+                e.preventDefault();
+                this.style.left = touchData.startPos+rx+&quot;px&quot;;
+            }
+        };
+
+        wrp.ontouchend = function(e) {
+            if(!context._ss_swipeOn) return;
+            if(touchData.direction != &quot;h&quot;) return;
+            var ex = e.changedTouches[0].pageX;
+            var newPage = context._ss_active;
+            if(ex &lt; touchData.startX-75) newPage = context._ss_active+1;
+            else if(ex &gt; touchData.startX+75) newPage = context._ss_active-1;
+
+            if(newPage == -1) newPage = 0;
+            else if(newPage &gt; context._ss_pages.length-1) newPage = context._ss_pages.length-1;
+            context.openPage(newPage);
+        }
+    }
+}
+
+/**
+ * Slide view widget
+ */
+class SlideView {
+    get IS_VIEW() {return true;}
+    
+    /**
+     * Default constructor
+     * 
+     * @param {SlidingScreen} context Context screen
+     * @param {HTMLElement} block Page root block
+     * @param {number} id Page ID
+     */
+    constructor(context, block, id) {
+        this.ctx = context;
+        this.block = block;
+        this.id = id;
+        this.tb = new Toolbar();
+
+        block.appendView(this.tb);
+        block.addEventListener(&quot;scroll&quot;, function(){
+			if(context._ss_active == id) context._ab_scrolltrg();
+		})
+
+        this.tb.add(&quot;Back&quot;, &quot;arrow_back&quot;, function(){
+            context.prevPage();
+        });
+        this.tb.add(&quot;Next&quot;, &quot;arrow_forward&quot;, function(){
+            context.nextPage();
+        });
+    }
+
+    /**
+     * Append view to page
+     * @param {View} v View
+     */
+    appendView(v) {
+        this.block.container.appendView(v);
+    }
+
+    /**
+     * Return page root block
+     */
+    getBlock() {
+        return this.block;
+    }
+
+    /**
+     * Return page toolbar (at bottom)
+     */
+    getToolbar() {
+        return this.tb;
+    }
+
+    /**
+     * Returns page ID
+     */
+    getId() {
+        return this.id;
+    }
+
+    /**
+     * Go to this page
+     */
+    open() {
+        this.ctx.openPage(this.id);
+    }
+}
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

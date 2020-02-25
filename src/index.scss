@@ -1,0 +1,76 @@
+$fw_maincolor: #009999;
+$dp: .0625rem;
+$sp: $dp;
+$font_family: "Roboto", Arial, sans;
+$activity_maxwidth: 560px;
+
+// Setup font sizes
+html {font-size: 16px;} // For pretty dp/sp calculation
+body {font-size: 16px; }
+
+// Elevation function
+@function elevation($e) {
+    @return 0 $e*$dp $e*2*$dp 0 rgba(0,0,0,0.2);
+}
+
+// Unselectable item mixin
+@mixin noselect {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; 
+    cursor: default;
+}
+
+// Compitability fixes
+* {outline: none; -webkit-tap-highlight-color: transparent;}
+
+// Material icons
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Material Icons'),
+       local('MaterialIcons-Regular'),
+       url(MaterialIcons.woff2) format('woff');
+}
+
+.material-icons {
+  @include noselect;
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24*$dp;
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: 'liga';
+}
+
+// Imports
+@import "etc/ListView.scss";
+@import "etc/Dark.scss";
+
+@import "Frames/Frames.scss";
+@import "Frames/Dialog.scss";
+@import "Frames/Screen.scss";
+
+@import "View/TextView.scss";
+@import "View/RowView.scss";
+
+@import "Widget/FloatingActionButton.scss";
+@import "Widget/Button.scss";
+@import "Widget/Spinner.scss";
+@import "Widget/SubHeader.scss";
+@import "Widget/Toolbar.scss";
+
+@import "X/SlidingScreen.scss";

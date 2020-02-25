@@ -1,0 +1,20 @@
+.fw-rowview {
+    padding: 16*$dp;
+    transition: background 0.5s;
+    background: transparent;
+    @include noselect;
+    display: flex;
+    border-bottom: thin solid #eee;
+
+    .icon {padding-right: 32*$dp;font-size: 24*$dp; height: 24*$dp;}
+    .text {flex: 1; display: flex; flex-direction: column; justify-content: center;}
+    .title {font-size: 16*$dp; color: #000000de;}
+    .summary {font-size: 14*$dp; color: #00000099;padding-top: 8*$dp;}
+    .action {
+        font-size: 24*$dp; color: #999;
+        background: transparent; transition: background 0.5s;
+    }
+
+    &:hover {background: rgba(0,0,0,0.05)};
+    &:active, &:focus {background: rgba(0,0,0,0.2)};
+}

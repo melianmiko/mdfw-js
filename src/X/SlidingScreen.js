@@ -12,7 +12,9 @@ class SlidingScreen extends Screen {
         /**
          * Root view of pager
          */
-        this._ss_view = Utils.inflate(FWBlockSchemas.PAGER_SCHEMA);
+        this._ss_view = Utils.inflate({type: "div", class: "fw-pager-view", childs: {
+            wrapper: {type: "div", class: "fw-pager-wrapper"}
+        }});
         this._ss_view.IS_FIXED_VIEW = true;
 
         /**
@@ -68,7 +70,12 @@ class SlidingScreen extends Screen {
      */
     newPage() {
         var id = this._ss_pages.length,
-            blk = Utils.inflate(FWBlockSchemas.PAGE_SCHEMA);
+            blk = Utils.inflate({type: "div", class: "fw-page", childs: {
+                container: {type: "div", class: "container", childs: {
+                    filler: {type: "div", class: "filler"},
+                    contents: {type: "div", class: "page-contents"}
+                }}
+            }});
 
 
         blk.style.left = (100*id)+"%";
@@ -205,7 +212,7 @@ class SlideView {
         this.ctx = context;
         this.block = block;
         this.id = id;
-        this.tb = new ToolbarView();
+        this.tb = new Toolbar();
 
         block.appendView(this.tb);
         block.addEventListener("scroll", function(){

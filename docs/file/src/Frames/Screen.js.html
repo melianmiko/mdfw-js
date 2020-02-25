@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../">
+  <title data-ice="title">src/Frames/Screen.js | mdfwjs</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<meta name="description" content="Material Design Framework for JS"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="mdfwjs"><meta property="twitter:description" content="Material Design Framework for JS"></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/mhbrgn/MDFWjs"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/index.js~FWInit.html">FWInit</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#base">Base</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Base/ColorFix.js~ColorFix.html">ColorFix</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Base/Config.js~Config.html">Config</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Base/UnFocusService.js~UnFocusService.html">UnFocusService</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#frames">Frames</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Frames/InputLock.js~InputLock.html">InputLock</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Frames/Screen.js~Screen.html">Screen</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Frames/WaitScreen.js~WaitScreen.html">WaitScreen</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#utils">Utils</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Utils/Log.js~Log.html">Log</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Utils/MenuItem.js~MenuItem.html">MenuItem</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Utils/Utils.js~Utils.html">Utils</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#view">View</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/View/IconView.js~IconView.html">IconView</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/View/RowView.js~RowView.html">RowView</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/View/SpoilerView.js~SpoilerView.html">SpoilerView</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/View/TextView.js~TextView.html">TextView</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/View/WaitlockView.js~WaitlockView.html">WaitlockView</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#widget">Widget</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Widget/Button.js~Button.html">Button</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Widget/Spinner.js~Spinner.html">Spinner</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Widget/SubHeader.js~SubHeader.html">SubHeader</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Widget/TextInput.js~TextInput.html">TextInput</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Widget/Toolbar.js~Toolbar.html">Toolbar</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#x">X</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/X/FWSettingsScreen.js~FWSettingsScreen.html">FWSettingsScreen</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/X/SlidingScreen.js~SlideView.html">SlideView</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/X/SlidingScreen.js~SlidingScreen.html">SlidingScreen</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">src/Frames/Screen.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">/**
+ * Screen class. This class provides basics of application screen.
+ * Do not use directly! Create your own class that extends this and
+ * inside him provide manipulations. Example:
+ * 
+ * ```js
+ * class MyGreatScreen extends Screen {
+ *   onCreate(data) {
+ *     // Do screen filling here!
+ *     this.appendView(new TextView(&quot;title&quot;, &quot;Hello&quot;))
+ *   }
+ * }
+ * ```
+ * 
+ * To start a screen: `new MyGreatScreen().start()`
+ */
+class Screen {
+	/**
+	 * Root scren mode. This mode will disable open/close animations.
+	 * See `Screen.setMode(mode)`.
+	 */
+	static get MODE_ROOT() { return 1; }
+	/**
+	 * Default screen mode. See `Screen.setMode(mode)`.
+	 */
+	static get MODE_DEFAULT() { return 0; }
+	/**
+	 * Fade in/out duration
+	 * @deprecated Will be moved to Config
+	 */
+	static get FADE_DURATION() { return 350; }
+	/**
+	 * Actionbar scroll mode: hide on scroll.
+	 * See `Screen.setScrollMode(mode)`.
+	 */
+	static get AB_MODE_HIDE() {return 1;}
+	/**
+	 * Actionbar scroll mode: do not hide on scroll.
+	 * See `Screen.setScrollMode(mode)`.
+	 */
+	static get AB_MODE_NONE() {return 0;}
+	/**
+	 * Basic screen layout
+	 */
+	static get LAYOUT() {return {
+			class: &quot;fw-screen&quot;, type: &quot;div&quot;, childs: {
+				root: { type: &quot;div&quot;, class: &quot;fw-root-container&quot; , childs: {
+					topbar: {type: &quot;div&quot;, class: &quot;fw-topbar&quot;, childs: {
+						container: {
+							type: &quot;div&quot;, class: &quot;container&quot;, childs: {
+								z_home: { type: &quot;div&quot;, class: &quot;zone-home&quot; },
+								z_left: { type: &quot;div&quot;, class: &quot;zone-left&quot; },
+								z_title: { type: &quot;div&quot;, class: &quot;zone-title&quot; },
+								z_right: { type: &quot;div&quot;, class: &quot;zone-left&quot; }
+							}
+						}
+					}},
+					contents: {type: &quot;div&quot;, class: &quot;box-contents&quot;, childs: {
+						tbh_fixed: {type: &quot;div&quot;, class: &quot;fw-topbar-holder&quot;},
+						holder: {type: &quot;div&quot;, class: &quot;holder&quot;, childs: {
+							tbh_scroll: {type: &quot;div&quot;, class: &quot;fw-topbar-holder&quot;},
+							container: {type: &quot;div&quot;, class: &quot;container&quot;}
+						}}
+					}}
+				}}
+			}
+		};}
+
+	/**
+	 * Default constructor for Screen
+	 * @param {*} data Anything taht you want give for `onCreate` method
+	 */
+	constructor(data) {
+		var t = this;
+		this.onInit();
+		/**
+		 * Current activity mode. See `Screen.setMode(mode)`.
+		 * @type {number}
+		 */
+		this._activity_mode = 0;
+		/**
+		 * SetInterval return code for timer reset
+		 */
+		this._refresh_timer = false;
+		/**
+		 * Constructor data backup
+		 */
+		this._bundle = data;
+		/**
+		 * Activity root block
+		 * @type {HTMLElement}
+		 */
+		this._activity_root = Utils.inflate(Screen.LAYOUT);
+		/**
+		 * Activity actionbar root block
+		 * @type {HTMLElement}
+		 */
+		this._activity_ab_root = this._activity_root.root.topbar;
+		/**
+		 * Symlink to activity contents
+		 * @type {HTMLElement}
+		 */
+		this._activity_contents = this._activity_root.root.contents.holder;
+		/**
+		 * Action bar title
+		 * @type {string}
+		 */
+		this._ab_title = &quot;&quot;;
+		/**
+		 * Left zone action bar items
+		 * @type {MenuItem[]}
+		 */
+		this._ab_left = [];
+		/**
+		 * Right zone action bar items
+		 * @type {MenuItem[]}
+		 */
+		this._ab_right = [];
+		/**
+		 * Current action bar scroll mode.
+		 * See `Screen.setScrollMode(mode)`
+		 */
+		this._ab_scrollmod = 0;
+
+		this._activity_contents.addEventListener(&quot;scroll&quot;, function(){
+			t._ab_scrolltrg();
+		});
+		this.initScrollMode();
+	}
+
+	/**
+	 * Set action bar behavior on page scroll.
+	 * 
+	 * Use `Screen.AB_MODE_*` constants to provide mode.
+	 * Default mode is `AB_MODE_NONE`.
+	 * 
+	 * @param {number} m Scrool mode.
+	 */
+	setScrollMode(m) {
+		this._ab_scrollmod = m;
+		this.initScrollMode();
+	}
+
+	/**
+	 * Initialize selected scroll mode
+	 */
+	initScrollMode() {
+		/**
+		 * Previout scroll offset
+		 * @type {number}
+		 */
+		this._ab_scm_prev_scy = this.getScrollerBlock().scrollTop;
+		if(this._ab_scrollmod == Screen.AB_MODE_HIDE) {
+			// Use dynamic holder
+			this._activity_root.root.contents.tbh_fixed.classList.add(&quot;hide&quot;);
+			this._activity_root.root.contents.holder.tbh_scroll.classList.remove(&quot;hide&quot;);
+		} else {
+			// Use fixed holder
+			this._activity_root.root.contents.tbh_fixed.classList.remove(&quot;hide&quot;);
+			this._activity_root.root.contents.holder.tbh_scroll.classList.add(&quot;hide&quot;);
+		}
+		this._ab_scrolltrg();
+	}
+
+	/**
+	 * Calls on scroll to provide ActionBar scroll mode
+	 */
+	_ab_scrolltrg() {
+		var df = this.getScrollerBlock().scrollTop-this._ab_scm_prev_scy;
+
+		this._activity_ab_root.className = &quot;fw-topbar&quot;;
+
+		if(this.getScrollerBlock().scrollTop &gt; 16) 
+			this._activity_ab_root.className += &quot; mode-elevate&quot;;
+
+		if(df &gt; 0 &amp;&amp; this._ab_scrollmod == Screen.AB_MODE_HIDE) {
+			// Down. Hide.
+			this._activity_ab_root.className += &quot; hide&quot;;
+		}
+
+		this._ab_scm_prev_scy = this.getScrollerBlock().scrollTop;
+	}
+
+	/**
+	 * Add icon to left action bar zone
+	 * @param {MenuItem} item Item to add
+	 * @deprecated Left zone will be removed!
+	 */
+	addLeftIcon(item) {
+		this._ab_left[this._ab_left.length] = item;
+		this._rebuildActionbar();
+	}
+
+	/**
+	 * Remove all actions from action bar
+	 */
+	wipeActions() {
+		this._ab_right = [];
+		this._rebuildActionbar();
+	}
+
+	/**
+	 * Add icon to right action bar zone
+	 * @param {MenuItem} item Item to add
+	 * @deprecated Use addAction instance of this!
+	 */
+	addRightIcon(item) {
+		Log.w(&quot;Screen&quot;, &quot;addRightIcon is deprecated!&quot;);
+		this.addAction(item);
+	}
+
+	/**
+	 * Add action to activity topbar.
+	 * @param {MenuItem} item Item to add
+	 */
+	addAction(item) {
+		this._ab_right[this._ab_right.length] = item;
+		this._rebuildActionbar();
+	}
+
+	/**
+	 * Use item as screen home action.
+	 * @param {MenuItem} item Item
+	 */
+	setHomeAction(item) {
+		this._activity_ab_root.container.z_home.innerHTML = &quot;&quot;;
+
+		if(!item) return;
+		let b = item.inflate();
+		this._activity_ab_root.container.z_home.appendChild(b);
+	}
+
+	/**
+	 * Enable back button as home action.
+	 */
+	setHomeAsUpAction() {
+		let c = this;
+		this.setHomeAction(new MenuItem(&quot;Back&quot;, &quot;arrow_back&quot;, function () {
+			c.finish();
+		}));
+	}
+
+	/**
+	 * Set screen title in action bar
+	 * @param {string} title Title
+	 */
+	setTitle(title) {
+		this._ab_title = title;
+		this._rebuildActionbar();
+	}
+
+	/**
+	 * Re-generate action bar block contents
+	 */
+	_rebuildActionbar() {
+		let root = this._activity_ab_root;
+
+		// title
+		root.container.z_title.innerHTML = this._ab_title;
+
+		// Leftframe
+		root.container.z_left.innerHTML = &quot;&quot;;
+		for (var a in this._ab_left)
+			root.container.z_left.appendChild(this._ab_left[a].inflate());
+
+		// Rightframe
+		root.container.z_right.innerHTML = &quot;&quot;;
+		for (var a in this._ab_right)
+			root.container.z_right.appendChild(this._ab_right[a].inflate());
+	}
+
+	/**
+	 * Add style class to activity.
+	 * @deprecated
+	 * @param {string} style Style name
+	 */
+	addStyle(style) {
+		this._activity_root.classList.add(&quot;activity-style-&quot; + style);
+	}
+
+	/**
+	 * Add automatic call to `onUpdate` in interval
+	 * 
+	 * @todo Remove old timer before install new
+	 * @param {number} timer Refresh time in ms
+	 */
+	doAutoUpdate(timer) {
+		let c = this;
+		c._refresh_timer = setInterval(function () {
+			c.onUpdate();
+		}, timer);
+	}
+
+	/**
+	 * Append view to screen.
+	 * 
+	 * If `view.IS_FIXED_VIEW == true`, view will be added to relative zone.
+	 * 
+	 * @param {View} view View to append
+	 */
+	appendView(view) {
+		if(!view.IS_VIEW) return false;
+		if(view.IS_FIXED_VIEW)
+			this._activity_root.root.appendChild(view.getBlock());
+		else
+			this._activity_contents.container.appendChild(view.getBlock());
+	}
+
+	/**
+	 * Set activity mode.
+	 * 
+	 * Use `Screen.MODE_*` constants to set mode.
+	 * Default mode is `MODE_DEFAULT` (0).
+	 * 
+	 * @param {number} mode Activity mode ID
+	 */
+	setMode(mode) { this._activity_mode = mode; }
+
+	/**
+	 * Returns activity contents root block
+	 * @deprecated
+	 */
+	getRootBlock() {
+		Log.w(&quot;Screen&quot;, &quot;getRootBlock method is deprecated and will be removed!&quot;)
+		return this._activity_contents.container;
+	}
+	
+	/**
+	 * Returns scrolling block from activity.
+	 * Used to setup onScroll listeners.
+	 * 
+	 * @returns {HTMLElement}
+	 */
+	getScrollerBlock() {
+		return this._activity_contents;
+	}
+
+	/**
+	 * Remove all activity contents, except config and fixed views
+	 */
+	wipeContents() {
+		this._activity_contents.container.innerHTML = &quot;&quot;;
+	}
+
+	// Events
+	/**
+	 * Event listener, calls on screen start
+	 * @param {*} data User-rpovided data from constructor
+	 */
+	onCreate(data) {
+		Log.w(&quot;Screen&quot;, &quot;onCreate is not overriden!&quot;);
+	}
+
+	/**
+	 * Event listener, calls on screen refresh or manually
+	 */
+	onUpdate() { }
+	/**
+	 * Event listener, calls before screen construct
+	 */
+	onInit() { }
+	/**
+	 * Event listener, calls on screen destroy. Must return a boolean.
+	 * 
+	 * If returns `false`, screen finish will be cancelled.
+	 * 
+	 * @returns {boolean} is finish allowed?
+	 */
+	onFinish() {
+		// Always allow
+		return true;
+	}
+
+	// Actions
+	/**
+	 * Do screen destory
+	 */
+	finish() {
+		let context = this, il = new InputLock();
+		if (this.onFinish()) {
+			// Finish allowed. Breaking...
+			clearInterval(context._refresh_timer);
+			il.enable();
+			Utils.timer(50).then(function () {
+				context._activity_root.classList.remove(&quot;show&quot;);
+				return Utils.timer(Screen.FADE_DURATION);
+			}).then(function () {
+				il.disable();
+				context._activity_root.remove();
+			});
+		}
+	}
+
+	/**
+	 * Do activity build and display
+	 */
+	start() {
+		let context = this, il = new InputLock;
+		this.onCreate(this._bundle);
+		this.onUpdate();
+
+		il.enable();
+		document.body.appendChild(this._activity_root);
+		Utils.timer(50).then(function () {
+			context._activity_root.classList.add(&quot;show&quot;);
+			if (context._activity_mode == Screen.MODE_ROOT)
+				context._activity_root.classList.add(&quot;noanim&quot;);
+			return Utils.timer(Screen.FADE_DURATION);
+		}).then(function () {
+			il.disable();
+		});
+	}
+}
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

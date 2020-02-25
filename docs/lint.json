@@ -1,1 +1,34 @@
-[]
+[
+  {
+    "name": "SlidingScreen#appendView",
+    "filePath": "src/X/SlidingScreen.js",
+    "lines": [
+      {
+        "lineNumber": 39,
+        "line": "    /**\r"
+      },
+      {
+        "lineNumber": 40,
+        "line": "     * Append view locker method\r"
+      },
+      {
+        "lineNumber": 41,
+        "line": "     * @param {View} v view\r"
+      },
+      {
+        "lineNumber": 42,
+        "line": "     */\r"
+      },
+      {
+        "lineNumber": 43,
+        "line": "\tappendView(view) {\r"
+      }
+    ],
+    "codeParams": [
+      "view"
+    ],
+    "docParams": [
+      "v"
+    ]
+  }
+]

@@ -1,72 +1,25 @@
 {
-  "coverage": "59.63%",
-  "expectCount": 275,
+  "coverage": "58.15%",
+  "expectCount": 282,
   "actualCount": 164,
   "files": {
-    "src/js/00_meta.js": {
+    "src/Base/ColorFix.js": {
+      "expectCount": 2,
+      "actualCount": 2,
+      "undocumentLines": []
+    },
+    "src/Base/Config.js": {
+      "expectCount": 5,
+      "actualCount": 5,
+      "undocumentLines": []
+    },
+    "src/Base/UnFocusService.js": {
+      "expectCount": 3,
+      "actualCount": 3,
+      "undocumentLines": []
+    },
+    "src/Frames/Alert.js": {
       "expectCount": 10,
-      "actualCount": 10,
-      "undocumentLines": []
-    },
-    "src/js/01_utils.js": {
-      "expectCount": 19,
-      "actualCount": 19,
-      "undocumentLines": []
-    },
-    "src/js/02_widgets_base.js": {
-      "expectCount": 17,
-      "actualCount": 11,
-      "undocumentLines": [
-        6,
-        13,
-        21,
-        46,
-        66,
-        74
-      ]
-    },
-    "src/js/03_base.js": {
-      "expectCount": 48,
-      "actualCount": 48,
-      "undocumentLines": []
-    },
-    "src/js/04_widgets.js": {
-      "expectCount": 76,
-      "actualCount": 47,
-      "undocumentLines": [
-        5,
-        10,
-        101,
-        107,
-        108,
-        109,
-        110,
-        111,
-        156,
-        231,
-        237,
-        254,
-        275,
-        277,
-        343,
-        345,
-        347,
-        358,
-        359,
-        366,
-        367,
-        371,
-        393,
-        399,
-        402,
-        446,
-        448,
-        454,
-        455
-      ]
-    },
-    "src/js/05_dialogs.js": {
-      "expectCount": 49,
       "actualCount": 0,
       "undocumentLines": [
         1,
@@ -78,49 +31,164 @@
         11,
         14,
         15,
-        18,
-        29,
-        30,
-        31,
-        32,
-        34,
-        38,
-        42,
-        43,
-        46,
-        47,
-        50,
-        51,
-        54,
-        66,
-        67,
-        72,
-        73,
-        74,
-        75,
-        76,
-        77,
-        80,
-        85,
-        90,
-        96,
-        102,
-        121,
-        122,
-        128,
-        132,
-        133,
-        138,
-        139,
-        141,
-        154,
-        159,
-        160,
-        164,
-        172
+        18
       ]
     },
-    "src/js/06_widget_fab.js": {
+    "src/Frames/Confirm.js": {
+      "expectCount": 15,
+      "actualCount": 0,
+      "undocumentLines": [
+        1,
+        2,
+        3,
+        4,
+        6,
+        10,
+        14,
+        15,
+        18,
+        19,
+        22,
+        23,
+        26,
+        38,
+        39
+      ]
+    },
+    "src/Frames/Dialog.js": {
+      "expectCount": 16,
+      "actualCount": 0,
+      "undocumentLines": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        9,
+        14,
+        19,
+        25,
+        31,
+        50,
+        51,
+        57,
+        61,
+        62
+      ]
+    },
+    "src/Frames/InputLock.js": {
+      "expectCount": 5,
+      "actualCount": 4,
+      "undocumentLines": [
+        10
+      ]
+    },
+    "src/Frames/ModalWindow.js": {
+      "expectCount": 8,
+      "actualCount": 0,
+      "undocumentLines": [
+        1,
+        2,
+        4,
+        17,
+        22,
+        23,
+        27,
+        35
+      ]
+    },
+    "src/Frames/Screen.js": {
+      "expectCount": 43,
+      "actualCount": 43,
+      "undocumentLines": []
+    },
+    "src/Frames/WaitScreen.js": {
+      "expectCount": 5,
+      "actualCount": 5,
+      "undocumentLines": []
+    },
+    "src/index.js": {
+      "expectCount": 3,
+      "actualCount": 3,
+      "undocumentLines": []
+    },
+    "src/Utils/Log.js": {
+      "expectCount": 5,
+      "actualCount": 5,
+      "undocumentLines": []
+    },
+    "src/Utils/MenuItem.js": {
+      "expectCount": 6,
+      "actualCount": 6,
+      "undocumentLines": []
+    },
+    "src/Utils/Utils.js": {
+      "expectCount": 4,
+      "actualCount": 4,
+      "undocumentLines": []
+    },
+    "src/View/IconView.js": {
+      "expectCount": 7,
+      "actualCount": 4,
+      "undocumentLines": [
+        5,
+        12,
+        20
+      ]
+    },
+    "src/View/RowView.js": {
+      "expectCount": 16,
+      "actualCount": 9,
+      "undocumentLines": [
+        5,
+        11,
+        12,
+        13,
+        14,
+        15,
+        60
+      ]
+    },
+    "src/View/SpoilerView.js": {
+      "expectCount": 8,
+      "actualCount": 4,
+      "undocumentLines": [
+        12,
+        14,
+        20,
+        21
+      ]
+    },
+    "src/View/TextView.js": {
+      "expectCount": 6,
+      "actualCount": 4,
+      "undocumentLines": [
+        7,
+        15
+      ]
+    },
+    "src/View/WaitlockView.js": {
+      "expectCount": 9,
+      "actualCount": 4,
+      "undocumentLines": [
+        5,
+        6,
+        13,
+        14,
+        18
+      ]
+    },
+    "src/Widget/Button.js": {
+      "expectCount": 14,
+      "actualCount": 11,
+      "undocumentLines": [
+        5,
+        30,
+        32
+      ]
+    },
+    "src/Widget/FloatingActionButton.js": {
       "expectCount": 15,
       "actualCount": 0,
       "undocumentLines": [
@@ -141,39 +209,81 @@
         50
       ]
     },
-    "src/js/20_paged_screen.js": {
-      "expectCount": 27,
-      "actualCount": 22,
+    "src/Widget/Spinner.js": {
+      "expectCount": 4,
+      "actualCount": 1,
       "undocumentLines": [
-        105,
-        191,
-        201,
-        202,
-        203
+        5,
+        7,
+        9
       ]
     },
-    "src/js/30_settings_screen.js": {
+    "src/Widget/SubHeader.js": {
+      "expectCount": 5,
+      "actualCount": 3,
+      "undocumentLines": [
+        5,
+        11
+      ]
+    },
+    "src/Widget/TextInput.js": {
+      "expectCount": 13,
+      "actualCount": 11,
+      "undocumentLines": [
+        5,
+        10
+      ]
+    },
+    "src/Widget/Toolbar.js": {
+      "expectCount": 8,
+      "actualCount": 5,
+      "undocumentLines": [
+        5,
+        11,
+        14
+      ]
+    },
+    "src/X/BigTextInput.js": {
+      "expectCount": 5,
+      "actualCount": 0,
+      "undocumentLines": [
+        1,
+        2,
+        4,
+        15,
+        23
+      ]
+    },
+    "src/X/FWSettingsScreen.js": {
       "expectCount": 5,
       "actualCount": 4,
       "undocumentLines": [
         35
       ]
     },
-    "src/js/98_Init.js": {
-      "expectCount": 3,
-      "actualCount": 3,
-      "undocumentLines": []
+    "src/X/SlidingScreen.js": {
+      "expectCount": 30,
+      "actualCount": 24,
+      "undocumentLines": [
+        116,
+        202,
+        212,
+        213,
+        214,
+        215
+      ]
     },
-    "src/js/99_testmod.js": {
-      "expectCount": 6,
+    "src/X/TestScreen.js": {
+      "expectCount": 7,
       "actualCount": 0,
       "undocumentLines": [
         1,
         2,
         86,
         87,
-        148,
-        149
+        151,
+        152,
+        155
       ]
     }
   }

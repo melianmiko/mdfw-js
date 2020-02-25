@@ -12,7 +12,7 @@ class WaitlockView {
 	constructor(ctx) {
 		this.ctx = ctx;
 		this.block = Utils.inflate({type: "div", class: "fw-waitlock-view"});
-		this.block.appendView(new SpinnerView());
+		this.block.appendView(new Spinner());
 	}
 
 	getBlock() {return this.block;}

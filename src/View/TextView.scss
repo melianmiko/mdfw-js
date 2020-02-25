@@ -1,0 +1,19 @@
+.fw-textview-style {
+
+	&-title, &-title-center {
+		font-size: 2em; font-weight: bold;margin: 16*$dp;
+		@include noselect;
+
+		&-center {text-align: center; }
+	}
+
+	&-p {
+		margin: 16*$dp;
+	}
+
+	&-info {
+		margin: 8*$dp; font-size: 12*$sp;
+		color: #00000098; @include noselect;
+	}
+
+}

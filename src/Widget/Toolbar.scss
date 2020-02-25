@@ -1,0 +1,19 @@
+.fw-toolbar {
+
+    max-width: $activity_maxwidth;
+    margin: auto;
+
+    i {
+        color: #999; padding: 8*$dp;margin: 4*$dp;
+        font-size: 24*$dp; border-radius: 50%;
+        transition: background .5s;
+
+        &:hover {background: #00000010;}
+        &:active {background: #00000020;}
+    }
+    
+    a {
+        font-size: 36*$dp; margin: 0 8*$dp;
+        padding-left: 1*$dp; background: #ddd;
+    }
+}

@@ -57,7 +57,7 @@ class FWSettingsScreen extends Screen {
             .setIcon("format_size")
             .setSummary(Math.round(localStorage.fw_cfg_font_size*100)+"% of default")
             .setOnClickListener(function(){
-                var te = new TextInputView().setTitle(loc.fontSizeTitle)
+                var te = new TextInput().setTitle(loc.fontSizeTitle)
                     .fromString(Math.round(localStorage.fw_cfg_font_size*100));
                 
                 var d = new Dialog().appendView(te)
@@ -75,7 +75,7 @@ class FWSettingsScreen extends Screen {
             .setIcon("palette")
             .setSummary(localStorage.fw_main_color)
             .setOnClickListener(function(){
-                var te = new TextInputView().setTitle(loc.fontSizeTitle)
+                var te = new TextInput().setTitle(loc.fontSizeTitle)
                     .fromString(localStorage.fw_main_color);
                 
                 var d = new Dialog().appendView(te)

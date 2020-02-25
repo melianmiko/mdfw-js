@@ -85,14 +85,14 @@ class TestScreen extends Screen {
 
 class TestScreen2 extends Screen {
     onCreate() {
-        var tv = new TextInputView().setTitle("Text input demo").setHolder("Empty"),
-            tv2 = new TextInputView().setTitle("Password input demo").setHolder("Empty").setType("password"),
-            tv3 = new BigTextInputView().setTitle("Big input demo").setHolder("Empty");
+        var tv = new TextInput().setTitle("Text input demo").setHolder("Empty"),
+            tv2 = new TextInput().setTitle("Password input demo").setHolder("Empty").setType("password"),
+            tv3 = new BigTextInput().setTitle("Big input demo").setHolder("Empty");
 
         this.setHomeAsUpAction();
         this.setTitle("Widgets test mode!");
 
-        var tb = new ToolbarView();
+        var tb = new Toolbar();
         this.appendView(tb);
 
         tb.add("android","android", function(){
@@ -120,7 +120,7 @@ class TestScreen2 extends Screen {
             new Alert().setTitle("Long tap!").show();
         }));
 
-        this.appendView(new SpinnerView());
+        this.appendView(new Spinner());
 
         this.appendView(new TextView("info", "This is info TextView!"));
 

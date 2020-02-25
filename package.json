@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "Material Design Framework for JS",
   "scripts": {
-    "dist": "babel src --out-file dist/mdfw.js --minified && sass src/scss/index.scss dist/mdfw.css"
+    "build": "babel src --out-file dist/mdfw.js --minified && sass src/index.scss dist/mdfw.css",
+    "esdoc": "esdoc"
   },
   "repository": {
     "type": "git",

@@ -10,7 +10,12 @@ class WaitScreen {
 		 * Root container
 		 * @type {HTMLElement}
 		 */
-		this.block = Utils.inflate(FWBlockSchemas.WAITSCREEN);
+		this.block = Utils.inflate({
+			type: "div",
+			class: "fw-spinactivity", childs: {
+				spinner: { type: "div", class: "fw-spinner", inner: "Please wait..." }
+			}
+		});
 	}
 
 	/**
