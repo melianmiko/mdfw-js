@@ -1,0 +1,5 @@
+.fw-layout-expandable.expanded {
+	margin: 0 auto;
+	display: flex;
+	& > div {flex: 1;}
+}

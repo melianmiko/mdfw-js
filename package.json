@@ -1,6 +1,6 @@
 {
   "name": "mdfwjs",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Material Design Framework for JS",
   "scripts": {
     "build": "babel src --out-file dist/mdfw.js --minified && sass src/index.scss dist/mdfw.css",

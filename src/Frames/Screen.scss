@@ -10,6 +10,9 @@
     &.show {top: 0; opacity: 1;}
     &.noanim {transition: none;}
 
+    &.widescreen > .fw-root-container > 
+        .box-contents > .holder > .container {max-width: 100%;}
+
 	& > .fw-root-container {
         position: relative;
         height: 100%;

@@ -1,5 +1,9 @@
-.fw-toolbar {
+.fw-screen.widescreen .fw-toolbar {
+    // Widescreen mod fix
+    max-width: 100%;
+}
 
+.fw-toolbar {
     max-width: $activity_maxwidth;
     margin: auto;
 
