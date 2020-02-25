@@ -36,6 +36,7 @@
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#frames">Frames</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Frames/InputLock.js~InputLock.html">InputLock</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Frames/Screen.js~Screen.html">Screen</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Frames/WaitScreen.js~WaitScreen.html">WaitScreen</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#layout">Layout</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Layout/ExpandableLayout.js~ExpandableLayout.html">ExpandableLayout</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#utils">Utils</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Utils/Log.js~Log.html">Log</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Utils/MenuItem.js~MenuItem.html">MenuItem</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Utils/Utils.js~Utils.html">Utils</a></span></span></li>
@@ -728,7 +729,7 @@
         </p>
       </div>
       <div>
-        
+        <div class="deprecated" data-ice="deprecated">this get was deprecated. use mods!</div>
         
         <div data-ice="description"><p>Default screen mode.</p>
 </div>
@@ -757,38 +758,9 @@
         </p>
       </div>
       <div>
-        
+        <div class="deprecated" data-ice="deprecated">this get was deprecated. use mods!</div>
         
         <div data-ice="description"><p>Root scren mode.</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">private</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          
-          <span class="code" data-ice="name"><span><a href="class/src/Frames/Screen.js~Screen.html#instance-member-_ab_left">_ab_left</a></span></span><span class="code" data-ice="signature">: <span><span><a href="class/src/Utils/MenuItem.js~MenuItem.html">MenuItem</a></span><span>[]</span></span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p>Left zone action bar items</p>
 </div>
       </div>
     </td>
@@ -1130,71 +1102,13 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/Frames/Screen.js~Screen.html#instance-method-addLeftIcon">addLeftIcon</a></span></span><span class="code" data-ice="signature">(item: <span><a href="class/src/Utils/MenuItem.js~MenuItem.html">MenuItem</a></span>)</span>
+          <span class="code" data-ice="name"><span><a href="class/src/Frames/Screen.js~Screen.html#instance-method-addMod">addMod</a></span></span><span class="code" data-ice="signature">(mod: <span>*</span>)</span>
         </p>
       </div>
       <div>
-        <div class="deprecated" data-ice="deprecated">this method was deprecated. Left zone will be removed!</div>
         
-        <div data-ice="description"><p>Add icon to left action bar zone</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          
-          <span class="code" data-ice="name"><span><a href="class/src/Frames/Screen.js~Screen.html#instance-method-addRightIcon">addRightIcon</a></span></span><span class="code" data-ice="signature">(item: <span><a href="class/src/Utils/MenuItem.js~MenuItem.html">MenuItem</a></span>)</span>
-        </p>
-      </div>
-      <div>
-        <div class="deprecated" data-ice="deprecated">this method was deprecated. Use addAction instance of this!</div>
         
-        <div data-ice="description"><p>Add icon to right action bar zone</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          
-          <span class="code" data-ice="name"><span><a href="class/src/Frames/Screen.js~Screen.html#instance-method-addStyle">addStyle</a></span></span><span class="code" data-ice="signature">(style: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>)</span>
-        </p>
-      </div>
-      <div>
-        <div class="deprecated" data-ice="deprecated">this method was deprecated.</div>
-        
-        <div data-ice="description"><p>Add style class to activity.</p>
+        <div data-ice="description"><p>Install mod to this screen</p>
 </div>
       </div>
     </td>
@@ -1304,35 +1218,6 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/Frames/Screen.js~Screen.html#instance-method-getRootBlock">getRootBlock</a></span></span><span class="code" data-ice="signature">(): <span>*</span></span>
-        </p>
-      </div>
-      <div>
-        <div class="deprecated" data-ice="deprecated">this method was deprecated.</div>
-        
-        <div data-ice="description"><p>Returns activity contents root block</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          
           <span class="code" data-ice="name"><span><a href="class/src/Frames/Screen.js~Screen.html#instance-method-getScrollerBlock">getScrollerBlock</a></span></span><span class="code" data-ice="signature">(): <span>HTMLElement</span></span>
         </p>
       </div>
@@ -1369,6 +1254,35 @@
         
         
         <div data-ice="description"><p>Initialize selected scroll mode</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/Frames/Screen.js~Screen.html#instance-method-markAsRoot">markAsRoot</a></span></span><span class="code" data-ice="signature">()</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Mark screen as root.</p>
 </div>
       </div>
     </td>
@@ -1569,7 +1483,7 @@
         </p>
       </div>
       <div>
-        
+        <div class="deprecated" data-ice="deprecated">this method was deprecated. use markAsRoot() or addMod()</div>
         
         <div data-ice="description"><p>Set activity mode.</p>
 </div>

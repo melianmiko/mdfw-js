@@ -18,6 +18,12 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "mdfwjs/src/layout/expandablelayout.js~expandablelayout",
+    "class/src/Layout/ExpandableLayout.js~ExpandableLayout.html",
+    "<span>ExpandableLayout</span> <span class=\"search-result-import-path\">mdfwjs/src/Layout/ExpandableLayout.js</span>",
+    "class"
+  ],
+  [
     "mdfwjs/src/index.js~fwinit",
     "class/src/index.js~FWInit.html",
     "<span>FWInit</span> <span class=\"search-result-import-path\">mdfwjs/src/index.js</span>",
@@ -534,12 +540,6 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
-    "src/frames/screen.js~screen#_ab_left",
-    "class/src/Frames/Screen.js~Screen.html#instance-member-_ab_left",
-    "src/Frames/Screen.js~Screen#_ab_left",
-    "member"
-  ],
-  [
     "src/frames/screen.js~screen#_ab_right",
     "class/src/Frames/Screen.js~Screen.html#instance-member-_ab_right",
     "src/Frames/Screen.js~Screen#_ab_right",
@@ -618,21 +618,9 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "src/frames/screen.js~screen#addlefticon",
-    "class/src/Frames/Screen.js~Screen.html#instance-method-addLeftIcon",
-    "src/Frames/Screen.js~Screen#addLeftIcon",
-    "method"
-  ],
-  [
-    "src/frames/screen.js~screen#addrighticon",
-    "class/src/Frames/Screen.js~Screen.html#instance-method-addRightIcon",
-    "src/Frames/Screen.js~Screen#addRightIcon",
-    "method"
-  ],
-  [
-    "src/frames/screen.js~screen#addstyle",
-    "class/src/Frames/Screen.js~Screen.html#instance-method-addStyle",
-    "src/Frames/Screen.js~Screen#addStyle",
+    "src/frames/screen.js~screen#addmod",
+    "class/src/Frames/Screen.js~Screen.html#instance-method-addMod",
+    "src/Frames/Screen.js~Screen#addMod",
     "method"
   ],
   [
@@ -660,12 +648,6 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "src/frames/screen.js~screen#getrootblock",
-    "class/src/Frames/Screen.js~Screen.html#instance-method-getRootBlock",
-    "src/Frames/Screen.js~Screen#getRootBlock",
-    "method"
-  ],
-  [
     "src/frames/screen.js~screen#getscrollerblock",
     "class/src/Frames/Screen.js~Screen.html#instance-method-getScrollerBlock",
     "src/Frames/Screen.js~Screen#getScrollerBlock",
@@ -675,6 +657,12 @@ window.esdocSearchIndex = [
     "src/frames/screen.js~screen#initscrollmode",
     "class/src/Frames/Screen.js~Screen.html#instance-method-initScrollMode",
     "src/Frames/Screen.js~Screen#initScrollMode",
+    "method"
+  ],
+  [
+    "src/frames/screen.js~screen#markasroot",
+    "class/src/Frames/Screen.js~Screen.html#instance-method-markAsRoot",
+    "src/Frames/Screen.js~Screen#markAsRoot",
     "method"
   ],
   [
@@ -814,6 +802,102 @@ window.esdocSearchIndex = [
     "class/src/Frames/WaitScreen.js~WaitScreen.html#instance-method-show",
     "src/Frames/WaitScreen.js~WaitScreen#show",
     "method"
+  ],
+  [
+    "src/layout/expandablelayout.js",
+    "file/src/Layout/ExpandableLayout.js.html",
+    "src/Layout/ExpandableLayout.js",
+    "file"
+  ],
+  [
+    "src/layout/expandablelayout.js~expandablelayout#_columnmaxwidths",
+    "class/src/Layout/ExpandableLayout.js~ExpandableLayout.html#instance-member-_columnMaxWidths",
+    "src/Layout/ExpandableLayout.js~ExpandableLayout#_columnMaxWidths",
+    "member"
+  ],
+  [
+    "src/layout/expandablelayout.js~expandablelayout#_columnminwidths",
+    "class/src/Layout/ExpandableLayout.js~ExpandableLayout.html#instance-member-_columnMinWidths",
+    "src/Layout/ExpandableLayout.js~ExpandableLayout#_columnMinWidths",
+    "member"
+  ],
+  [
+    "src/layout/expandablelayout.js~expandablelayout#_columns",
+    "class/src/Layout/ExpandableLayout.js~ExpandableLayout.html#instance-member-_columns",
+    "src/Layout/ExpandableLayout.js~ExpandableLayout#_columns",
+    "member"
+  ],
+  [
+    "src/layout/expandablelayout.js~expandablelayout#_getexpandwidth",
+    "class/src/Layout/ExpandableLayout.js~ExpandableLayout.html#instance-method-_getExpandWidth",
+    "src/Layout/ExpandableLayout.js~ExpandableLayout#_getExpandWidth",
+    "method"
+  ],
+  [
+    "src/layout/expandablelayout.js~expandablelayout#_getmaxexpandwidth",
+    "class/src/Layout/ExpandableLayout.js~ExpandableLayout.html#instance-method-_getMaxExpandWidth",
+    "src/Layout/ExpandableLayout.js~ExpandableLayout#_getMaxExpandWidth",
+    "method"
+  ],
+  [
+    "src/layout/expandablelayout.js~expandablelayout#_register",
+    "class/src/Layout/ExpandableLayout.js~ExpandableLayout.html#instance-method-_register",
+    "src/Layout/ExpandableLayout.js~ExpandableLayout#_register",
+    "method"
+  ],
+  [
+    "src/layout/expandablelayout.js~expandablelayout#_root",
+    "class/src/Layout/ExpandableLayout.js~ExpandableLayout.html#instance-member-_root",
+    "src/Layout/ExpandableLayout.js~ExpandableLayout#_root",
+    "member"
+  ],
+  [
+    "src/layout/expandablelayout.js~expandablelayout#_unregister",
+    "class/src/Layout/ExpandableLayout.js~ExpandableLayout.html#instance-method-_unregister",
+    "src/Layout/ExpandableLayout.js~ExpandableLayout#_unregister",
+    "method"
+  ],
+  [
+    "src/layout/expandablelayout.js~expandablelayout#_updatewidth",
+    "class/src/Layout/ExpandableLayout.js~ExpandableLayout.html#instance-method-_updateWidth",
+    "src/Layout/ExpandableLayout.js~ExpandableLayout#_updateWidth",
+    "method"
+  ],
+  [
+    "src/layout/expandablelayout.js~expandablelayout#addcolumn",
+    "class/src/Layout/ExpandableLayout.js~ExpandableLayout.html#instance-method-addColumn",
+    "src/Layout/ExpandableLayout.js~ExpandableLayout#addColumn",
+    "method"
+  ],
+  [
+    "src/layout/expandablelayout.js~expandablelayout#getblock",
+    "class/src/Layout/ExpandableLayout.js~ExpandableLayout.html#instance-method-getBlock",
+    "src/Layout/ExpandableLayout.js~ExpandableLayout#getBlock",
+    "method"
+  ],
+  [
+    "src/layout/expandablelayout.js~expandablelayout#getcolumnroot",
+    "class/src/Layout/ExpandableLayout.js~ExpandableLayout.html#instance-method-getColumnRoot",
+    "src/Layout/ExpandableLayout.js~ExpandableLayout#getColumnRoot",
+    "method"
+  ],
+  [
+    "src/layout/expandablelayout.js~expandablelayout#isexpanded",
+    "class/src/Layout/ExpandableLayout.js~ExpandableLayout.html#instance-member-isExpanded",
+    "src/Layout/ExpandableLayout.js~ExpandableLayout#isExpanded",
+    "member"
+  ],
+  [
+    "src/mods/noanimationscreenmod.js",
+    "file/src/Mods/NoAnimationScreenMod.js.html",
+    "src/Mods/NoAnimationScreenMod.js",
+    "file"
+  ],
+  [
+    "src/mods/widescreenmod.js",
+    "file/src/Mods/WideScreenMod.js.html",
+    "src/Mods/WideScreenMod.js",
+    "file"
   ],
   [
     "src/utils/log.js",

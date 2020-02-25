@@ -36,6 +36,7 @@
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#frames">Frames</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Frames/InputLock.js~InputLock.html">InputLock</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Frames/Screen.js~Screen.html">Screen</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Frames/WaitScreen.js~WaitScreen.html">WaitScreen</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#layout">Layout</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Layout/ExpandableLayout.js~ExpandableLayout.html">ExpandableLayout</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#utils">Utils</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Utils/Log.js~Log.html">Log</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Utils/MenuItem.js~MenuItem.html">MenuItem</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Utils/Utils.js~Utils.html">Utils</a></span></span></li>
@@ -77,10 +78,12 @@ class Screen {
 	/**
 	 * Root scren mode. This mode will disable open/close animations.
 	 * See `Screen.setMode(mode)`.
+	 * @deprecated use mods!
 	 */
 	static get MODE_ROOT() { return 1; }
 	/**
 	 * Default screen mode. See `Screen.setMode(mode)`.
+	 * @deprecated use mods!
 	 */
 	static get MODE_DEFAULT() { return 0; }
 	/**
@@ -108,7 +111,6 @@ class Screen {
 						container: {
 							type: &quot;div&quot;, class: &quot;container&quot;, childs: {
 								z_home: { type: &quot;div&quot;, class: &quot;zone-home&quot; },
-								z_left: { type: &quot;div&quot;, class: &quot;zone-left&quot; },
 								z_title: { type: &quot;div&quot;, class: &quot;zone-title&quot; },
 								z_right: { type: &quot;div&quot;, class: &quot;zone-left&quot; }
 							}
@@ -165,11 +167,6 @@ class Screen {
 		 * @type {string}
 		 */
 		this._ab_title = &quot;&quot;;
-		/**
-		 * Left zone action bar items
-		 * @type {MenuItem[]}
-		 */
-		this._ab_left = [];
 		/**
 		 * Right zone action bar items
 		 * @type {MenuItem[]}
@@ -241,31 +238,11 @@ class Screen {
 	}
 
 	/**
-	 * Add icon to left action bar zone
-	 * @param {MenuItem} item Item to add
-	 * @deprecated Left zone will be removed!
-	 */
-	addLeftIcon(item) {
-		this._ab_left[this._ab_left.length] = item;
-		this._rebuildActionbar();
-	}
-
-	/**
 	 * Remove all actions from action bar
 	 */
 	wipeActions() {
 		this._ab_right = [];
 		this._rebuildActionbar();
-	}
-
-	/**
-	 * Add icon to right action bar zone
-	 * @param {MenuItem} item Item to add
-	 * @deprecated Use addAction instance of this!
-	 */
-	addRightIcon(item) {
-		Log.w(&quot;Screen&quot;, &quot;addRightIcon is deprecated!&quot;);
-		this.addAction(item);
 	}
 
 	/**
@@ -317,24 +294,10 @@ class Screen {
 		// title
 		root.container.z_title.innerHTML = this._ab_title;
 
-		// Leftframe
-		root.container.z_left.innerHTML = &quot;&quot;;
-		for (var a in this._ab_left)
-			root.container.z_left.appendChild(this._ab_left[a].inflate());
-
 		// Rightframe
 		root.container.z_right.innerHTML = &quot;&quot;;
 		for (var a in this._ab_right)
 			root.container.z_right.appendChild(this._ab_right[a].inflate());
-	}
-
-	/**
-	 * Add style class to activity.
-	 * @deprecated
-	 * @param {string} style Style name
-	 */
-	addStyle(style) {
-		this._activity_root.classList.add(&quot;activity-style-&quot; + style);
 	}
 
 	/**
@@ -372,16 +335,35 @@ class Screen {
 	 * Default mode is `MODE_DEFAULT` (0).
 	 * 
 	 * @param {number} mode Activity mode ID
+	 * @deprecated use markAsRoot() or addMod()
 	 */
-	setMode(mode) { this._activity_mode = mode; }
+	setMode(mode) { 
+		console.warn(&quot;setMode(int mode) is deprecated and will be removed. Use markAsRoot() and addMod() instance of this.&quot;);
+		this.markAsRoot();
+	}
 
 	/**
-	 * Returns activity contents root block
-	 * @deprecated
+	 * Install mod to this screen
+	 * 
+	 * Mods are classes with name `*ScreenMod`. For example:
+	 * ```js
+	 * this.addMod(new NoAnimationScreenMod());
+	 * ```
+	 * This will disable screen open/close animations
 	 */
-	getRootBlock() {
-		Log.w(&quot;Screen&quot;, &quot;getRootBlock method is deprecated and will be removed!&quot;)
-		return this._activity_contents.container;
+	addMod(mod) {
+		mod.install(this);
+	}
+
+	/**
+	 * Mark screen as root.
+	 *
+	 * Root screen can&apos;t be dismissed, don&apos;t use animations
+	 * and etc.
+	 */
+	markAsRoot() {
+		this.addMod(new NoAnimationScreenMod());
+		this.allowDismiss(false);
 	}
 	
 	/**
@@ -462,8 +444,6 @@ class Screen {
 		document.body.appendChild(this._activity_root);
 		Utils.timer(50).then(function () {
 			context._activity_root.classList.add(&quot;show&quot;);
-			if (context._activity_mode == Screen.MODE_ROOT)
-				context._activity_root.classList.add(&quot;noanim&quot;);
 			return Utils.timer(Screen.FADE_DURATION);
 		}).then(function () {
 			il.disable();

@@ -36,6 +36,7 @@
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#frames">Frames</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Frames/InputLock.js~InputLock.html">InputLock</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Frames/Screen.js~Screen.html">Screen</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Frames/WaitScreen.js~WaitScreen.html">WaitScreen</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#layout">Layout</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Layout/ExpandableLayout.js~ExpandableLayout.html">ExpandableLayout</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#utils">Utils</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Utils/Log.js~Log.html">Log</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Utils/MenuItem.js~MenuItem.html">MenuItem</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Utils/Utils.js~Utils.html">Utils</a></span></span></li>
@@ -244,7 +245,7 @@ inside him provide manipulations. Example:</p>
         </p>
       </div>
       <div>
-        
+        <div class="deprecated" data-ice="deprecated">this get was deprecated. use mods!</div>
         
         <div data-ice="description"><p>Default screen mode.</p>
 </div>
@@ -273,7 +274,7 @@ inside him provide manipulations. Example:</p>
         </p>
       </div>
       <div>
-        
+        <div class="deprecated" data-ice="deprecated">this get was deprecated. use mods!</div>
         
         <div data-ice="description"><p>Root scren mode.</p>
 </div>
@@ -329,35 +330,6 @@ inside him provide manipulations. Example:</p>
   <tbody>
   
   <tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">private</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          
-          <span class="code" data-ice="name"><span><a href="class/src/Frames/Screen.js~Screen.html#instance-member-_ab_left">_ab_left</a></span></span><span class="code" data-ice="signature">: <span><span><a href="class/src/Utils/MenuItem.js~MenuItem.html">MenuItem</a></span><span>[]</span></span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p>Left zone action bar items</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
     <td>
       <span class="access" data-ice="access">private</span>
       
@@ -697,71 +669,13 @@ inside him provide manipulations. Example:</p>
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/Frames/Screen.js~Screen.html#instance-method-addLeftIcon">addLeftIcon</a></span></span><span class="code" data-ice="signature">(item: <span><a href="class/src/Utils/MenuItem.js~MenuItem.html">MenuItem</a></span>)</span>
+          <span class="code" data-ice="name"><span><a href="class/src/Frames/Screen.js~Screen.html#instance-method-addMod">addMod</a></span></span><span class="code" data-ice="signature">(mod: <span>*</span>)</span>
         </p>
       </div>
       <div>
-        <div class="deprecated" data-ice="deprecated">this method was deprecated. Left zone will be removed!</div>
         
-        <div data-ice="description"><p>Add icon to left action bar zone</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          
-          <span class="code" data-ice="name"><span><a href="class/src/Frames/Screen.js~Screen.html#instance-method-addRightIcon">addRightIcon</a></span></span><span class="code" data-ice="signature">(item: <span><a href="class/src/Utils/MenuItem.js~MenuItem.html">MenuItem</a></span>)</span>
-        </p>
-      </div>
-      <div>
-        <div class="deprecated" data-ice="deprecated">this method was deprecated. Use addAction instance of this!</div>
         
-        <div data-ice="description"><p>Add icon to right action bar zone</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          
-          <span class="code" data-ice="name"><span><a href="class/src/Frames/Screen.js~Screen.html#instance-method-addStyle">addStyle</a></span></span><span class="code" data-ice="signature">(style: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>)</span>
-        </p>
-      </div>
-      <div>
-        <div class="deprecated" data-ice="deprecated">this method was deprecated.</div>
-        
-        <div data-ice="description"><p>Add style class to activity.</p>
+        <div data-ice="description"><p>Install mod to this screen</p>
 </div>
       </div>
     </td>
@@ -871,35 +785,6 @@ inside him provide manipulations. Example:</p>
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/Frames/Screen.js~Screen.html#instance-method-getRootBlock">getRootBlock</a></span></span><span class="code" data-ice="signature">(): <span>*</span></span>
-        </p>
-      </div>
-      <div>
-        <div class="deprecated" data-ice="deprecated">this method was deprecated.</div>
-        
-        <div data-ice="description"><p>Returns activity contents root block</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          
           <span class="code" data-ice="name"><span><a href="class/src/Frames/Screen.js~Screen.html#instance-method-getScrollerBlock">getScrollerBlock</a></span></span><span class="code" data-ice="signature">(): <span>HTMLElement</span></span>
         </p>
       </div>
@@ -936,6 +821,35 @@ inside him provide manipulations. Example:</p>
         
         
         <div data-ice="description"><p>Initialize selected scroll mode</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/Frames/Screen.js~Screen.html#instance-method-markAsRoot">markAsRoot</a></span></span><span class="code" data-ice="signature">()</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Mark screen as root.</p>
 </div>
       </div>
     </td>
@@ -1136,7 +1050,7 @@ inside him provide manipulations. Example:</p>
         </p>
       </div>
       <div>
-        
+        <div class="deprecated" data-ice="deprecated">this method was deprecated. use markAsRoot() or addMod()</div>
         
         <div data-ice="description"><p>Set activity mode.</p>
 </div>
@@ -1376,7 +1290,7 @@ inside him provide manipulations. Example:</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Frames/Screen.js.html#lineNumber36">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Frames/Screen.js.html#lineNumber38">source</a></span></span>
     </span>
   </h3>
 
@@ -1421,7 +1335,7 @@ See <code>Screen.setScrollMode(mode)</code>.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Frames/Screen.js.html#lineNumber41">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Frames/Screen.js.html#lineNumber43">source</a></span></span>
     </span>
   </h3>
 
@@ -1466,7 +1380,7 @@ See <code>Screen.setScrollMode(mode)</code>.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Frames/Screen.js.html#lineNumber31">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Frames/Screen.js.html#lineNumber33">source</a></span></span>
     </span>
   </h3>
 
@@ -1510,7 +1424,7 @@ See <code>Screen.setScrollMode(mode)</code>.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Frames/Screen.js.html#lineNumber45">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Frames/Screen.js.html#lineNumber47">source</a></span></span>
     </span>
   </h3>
 
@@ -1554,12 +1468,12 @@ See <code>Screen.setScrollMode(mode)</code>.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Frames/Screen.js.html#lineNumber26">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Frames/Screen.js.html#lineNumber28">source</a></span></span>
     </span>
   </h3>
 
   
-  
+  <div class="deprecated" data-ice="deprecated">this get was deprecated. use mods!</div>
   
   <div data-ice="description"><p>Default screen mode. See <code>Screen.setMode(mode)</code>.</p>
 </div>
@@ -1598,12 +1512,12 @@ See <code>Screen.setScrollMode(mode)</code>.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Frames/Screen.js.html#lineNumber22">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Frames/Screen.js.html#lineNumber23">source</a></span></span>
     </span>
   </h3>
 
   
-  
+  <div class="deprecated" data-ice="deprecated">this get was deprecated. use mods!</div>
   
   <div data-ice="description"><p>Root scren mode. This mode will disable open/close animations.
 See <code>Screen.setMode(mode)</code>.</p>
@@ -1647,7 +1561,7 @@ See <code>Screen.setMode(mode)</code>.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Frames/Screen.js.html#lineNumber73">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Frames/Screen.js.html#lineNumber74">source</a></span></span>
     </span>
   </h3>
 
@@ -1700,50 +1614,6 @@ See <code>Screen.setMode(mode)</code>.</p>
 <div data-ice="memberDetails"><h2 data-ice="title">Private Members</h2>
 
 <div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-member-_ab_left">
-    <span class="access" data-ice="access">private</span>
-    
-    
-    
-    
-    
-    <span class="code" data-ice="name">_ab_left</span><span class="code" data-ice="signature">: <span><span><a href="class/src/Utils/MenuItem.js~MenuItem.html">MenuItem</a></span><span>[]</span></span></span>
-    <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/src/Frames/Screen.js.html#lineNumber113">source</a></span></span>
-    </span>
-  </h3>
-
-  
-  
-  
-  <div data-ice="description"><p>Left zone action bar items</p>
-</div>
-
-  
-
-  <div data-ice="properties">
-</div>
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-  
-</div>
-<div class="detail" data-ice="detail">
   <h3 data-ice="anchor" id="instance-member-_ab_right">
     <span class="access" data-ice="access">private</span>
     
@@ -1755,7 +1625,7 @@ See <code>Screen.setMode(mode)</code>.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Frames/Screen.js.html#lineNumber118">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Frames/Screen.js.html#lineNumber114">source</a></span></span>
     </span>
   </h3>
 
@@ -1799,7 +1669,7 @@ See <code>Screen.setMode(mode)</code>.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Frames/Screen.js.html#lineNumber152">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Frames/Screen.js.html#lineNumber148">source</a></span></span>
     </span>
   </h3>
 
@@ -1843,7 +1713,7 @@ See <code>Screen.setMode(mode)</code>.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Frames/Screen.js.html#lineNumber123">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Frames/Screen.js.html#lineNumber119">source</a></span></span>
     </span>
   </h3>
 
@@ -1888,7 +1758,7 @@ See <code>Screen.setScrollMode(mode)</code></p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Frames/Screen.js.html#lineNumber108">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Frames/Screen.js.html#lineNumber109">source</a></span></span>
     </span>
   </h3>
 
@@ -1932,7 +1802,7 @@ See <code>Screen.setScrollMode(mode)</code></p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Frames/Screen.js.html#lineNumber98">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Frames/Screen.js.html#lineNumber99">source</a></span></span>
     </span>
   </h3>
 
@@ -1976,7 +1846,7 @@ See <code>Screen.setScrollMode(mode)</code></p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Frames/Screen.js.html#lineNumber103">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Frames/Screen.js.html#lineNumber104">source</a></span></span>
     </span>
   </h3>
 
@@ -2020,7 +1890,7 @@ See <code>Screen.setScrollMode(mode)</code></p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Frames/Screen.js.html#lineNumber80">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Frames/Screen.js.html#lineNumber81">source</a></span></span>
     </span>
   </h3>
 
@@ -2064,7 +1934,7 @@ See <code>Screen.setScrollMode(mode)</code></p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Frames/Screen.js.html#lineNumber93">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Frames/Screen.js.html#lineNumber94">source</a></span></span>
     </span>
   </h3>
 
@@ -2108,7 +1978,7 @@ See <code>Screen.setScrollMode(mode)</code></p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Frames/Screen.js.html#lineNumber88">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Frames/Screen.js.html#lineNumber89">source</a></span></span>
     </span>
   </h3>
 
@@ -2152,7 +2022,7 @@ See <code>Screen.setScrollMode(mode)</code></p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Frames/Screen.js.html#lineNumber84">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Frames/Screen.js.html#lineNumber85">source</a></span></span>
     </span>
   </h3>
 
@@ -2199,7 +2069,7 @@ See <code>Screen.setScrollMode(mode)</code></p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Frames/Screen.js.html#lineNumber216">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Frames/Screen.js.html#lineNumber192">source</a></span></span>
     </span>
   </h3>
 
@@ -2249,25 +2119,29 @@ See <code>Screen.setScrollMode(mode)</code></p>
   
 </div>
 <div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-method-addLeftIcon">
+  <h3 data-ice="anchor" id="instance-method-addMod">
     <span class="access" data-ice="access">public</span>
     
     
     
     
     
-    <span class="code" data-ice="name">addLeftIcon</span><span class="code" data-ice="signature">(item: <span><a href="class/src/Utils/MenuItem.js~MenuItem.html">MenuItem</a></span>)</span>
+    <span class="code" data-ice="name">addMod</span><span class="code" data-ice="signature">(mod: <span>*</span>)</span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Frames/Screen.js.html#lineNumber189">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Frames/Screen.js.html#lineNumber294">source</a></span></span>
     </span>
   </h3>
 
   
-  <div class="deprecated" data-ice="deprecated">this method was deprecated. Left zone will be removed!</div>
   
-  <div data-ice="description"><p>Add icon to left action bar zone</p>
+  
+  <div data-ice="description"><p>Install mod to this screen</p>
+<p>Mods are classes with name <code>*ScreenMod</code>. For example:</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">this.addMod(new NoAnimationScreenMod());</code>
+</code></pre>
+<p>This will disable screen open/close animations</p>
 </div>
 
   
@@ -2281,133 +2155,10 @@ See <code>Screen.setScrollMode(mode)</code></p>
     <tbody>
     
     <tr data-ice="property" data-depth="0">
-      <td data-ice="name" class="code" data-depth="0">item</td>
-      <td data-ice="type" class="code"><span><a href="class/src/Utils/MenuItem.js~MenuItem.html">MenuItem</a></span></td>
+      <td data-ice="name" class="code" data-depth="0">mod</td>
+      <td data-ice="type" class="code"><span>*</span></td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"><p>Item to add</p>
-</td>
-    </tr>
-</tbody>
-  </table>
-</div>
-</div>
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-  
-</div>
-<div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-method-addRightIcon">
-    <span class="access" data-ice="access">public</span>
-    
-    
-    
-    
-    
-    <span class="code" data-ice="name">addRightIcon</span><span class="code" data-ice="signature">(item: <span><a href="class/src/Utils/MenuItem.js~MenuItem.html">MenuItem</a></span>)</span>
-    <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/src/Frames/Screen.js.html#lineNumber207">source</a></span></span>
-    </span>
-  </h3>
-
-  
-  <div class="deprecated" data-ice="deprecated">this method was deprecated. Use addAction instance of this!</div>
-  
-  <div data-ice="description"><p>Add icon to right action bar zone</p>
-</div>
-
-  
-
-  <div data-ice="properties"><div data-ice="properties">
-  <h4 data-ice="title">Params:</h4>
-  <table class="params">
-    <thead>
-    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
-    </thead>
-    <tbody>
-    
-    <tr data-ice="property" data-depth="0">
-      <td data-ice="name" class="code" data-depth="0">item</td>
-      <td data-ice="type" class="code"><span><a href="class/src/Utils/MenuItem.js~MenuItem.html">MenuItem</a></span></td>
-      <td data-ice="appendix"></td>
-      <td data-ice="description"><p>Item to add</p>
-</td>
-    </tr>
-</tbody>
-  </table>
-</div>
-</div>
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-  
-</div>
-<div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-method-addStyle">
-    <span class="access" data-ice="access">public</span>
-    
-    
-    
-    
-    
-    <span class="code" data-ice="name">addStyle</span><span class="code" data-ice="signature">(style: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>)</span>
-    <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/src/Frames/Screen.js.html#lineNumber277">source</a></span></span>
-    </span>
-  </h3>
-
-  
-  <div class="deprecated" data-ice="deprecated">this method was deprecated.</div>
-  
-  <div data-ice="description"><p>Add style class to activity.</p>
-</div>
-
-  
-
-  <div data-ice="properties"><div data-ice="properties">
-  <h4 data-ice="title">Params:</h4>
-  <table class="params">
-    <thead>
-    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
-    </thead>
-    <tbody>
-    
-    <tr data-ice="property" data-depth="0">
-      <td data-ice="name" class="code" data-depth="0">style</td>
-      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
-      <td data-ice="appendix"></td>
-      <td data-ice="description"><p>Style name</p>
-</td>
+      <td data-ice="description"></td>
     </tr>
 </tbody>
   </table>
@@ -2443,7 +2194,7 @@ See <code>Screen.setScrollMode(mode)</code></p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Frames/Screen.js.html#lineNumber301">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Frames/Screen.js.html#lineNumber263">source</a></span></span>
     </span>
   </h3>
 
@@ -2517,7 +2268,7 @@ See <code>Screen.setScrollMode(mode)</code></p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Frames/Screen.js.html#lineNumber287">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Frames/Screen.js.html#lineNumber249">source</a></span></span>
     </span>
   </h3>
 
@@ -2578,7 +2329,7 @@ See <code>Screen.setScrollMode(mode)</code></p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Frames/Screen.js.html#lineNumber378">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Frames/Screen.js.html#lineNumber359">source</a></span></span>
     </span>
   </h3>
 
@@ -2611,62 +2362,6 @@ See <code>Screen.setScrollMode(mode)</code></p>
   
 </div>
 <div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-method-getRootBlock">
-    <span class="access" data-ice="access">public</span>
-    
-    
-    
-    
-    
-    <span class="code" data-ice="name">getRootBlock</span><span class="code" data-ice="signature">(): <span>*</span></span>
-    <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/src/Frames/Screen.js.html#lineNumber323">source</a></span></span>
-    </span>
-  </h3>
-
-  
-  <div class="deprecated" data-ice="deprecated">this method was deprecated.</div>
-  
-  <div data-ice="description"><p>Returns activity contents root block</p>
-</div>
-
-  
-
-  <div data-ice="properties">
-</div>
-
-  <div class="return-params" data-ice="returnParams">
-    <h4>Return:</h4>
-    <table>
-      <tbody>
-        <tr>
-          <td class="return-type code" data-ice="returnType"><span>*</span></td>
-          
-        </tr>
-      </tbody>
-    </table>
-    <div data-ice="returnProperties">
-</div>
-  </div>
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-  
-</div>
-<div class="detail" data-ice="detail">
   <h3 data-ice="anchor" id="instance-method-getScrollerBlock">
     <span class="access" data-ice="access">public</span>
     
@@ -2678,7 +2373,7 @@ See <code>Screen.setScrollMode(mode)</code></p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Frames/Screen.js.html#lineNumber334">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Frames/Screen.js.html#lineNumber315">source</a></span></span>
     </span>
   </h3>
 
@@ -2735,7 +2430,7 @@ Used to setup onScroll listeners.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Frames/Screen.js.html#lineNumber147">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Frames/Screen.js.html#lineNumber143">source</a></span></span>
     </span>
   </h3>
 
@@ -2743,6 +2438,52 @@ Used to setup onScroll listeners.</p>
   
   
   <div data-ice="description"><p>Initialize selected scroll mode</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-markAsRoot">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">markAsRoot</span><span class="code" data-ice="signature">()</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/Frames/Screen.js.html#lineNumber304">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Mark screen as root.</p>
+<p>Root screen can&apos;t be dismissed, don&apos;t use animations
+and etc.</p>
 </div>
 
   
@@ -2779,7 +2520,7 @@ Used to setup onScroll listeners.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Frames/Screen.js.html#lineNumber350">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Frames/Screen.js.html#lineNumber331">source</a></span></span>
     </span>
   </h3>
 
@@ -2840,7 +2581,7 @@ Used to setup onScroll listeners.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Frames/Screen.js.html#lineNumber369">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Frames/Screen.js.html#lineNumber350">source</a></span></span>
     </span>
   </h3>
 
@@ -2898,7 +2639,7 @@ Used to setup onScroll listeners.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Frames/Screen.js.html#lineNumber361">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Frames/Screen.js.html#lineNumber342">source</a></span></span>
     </span>
   </h3>
 
@@ -2942,7 +2683,7 @@ Used to setup onScroll listeners.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Frames/Screen.js.html#lineNumber357">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Frames/Screen.js.html#lineNumber338">source</a></span></span>
     </span>
   </h3>
 
@@ -2986,7 +2727,7 @@ Used to setup onScroll listeners.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Frames/Screen.js.html#lineNumber225">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Frames/Screen.js.html#lineNumber201">source</a></span></span>
     </span>
   </h3>
 
@@ -3047,7 +2788,7 @@ Used to setup onScroll listeners.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Frames/Screen.js.html#lineNumber236">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Frames/Screen.js.html#lineNumber212">source</a></span></span>
     </span>
   </h3>
 
@@ -3091,12 +2832,12 @@ Used to setup onScroll listeners.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Frames/Screen.js.html#lineNumber317">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Frames/Screen.js.html#lineNumber280">source</a></span></span>
     </span>
   </h3>
 
   
-  
+  <div class="deprecated" data-ice="deprecated">this method was deprecated. use markAsRoot() or addMod()</div>
   
   <div data-ice="description"><p>Set activity mode.</p>
 <p>Use <code>Screen.MODE_*</code> constants to set mode.
@@ -3154,7 +2895,7 @@ Default mode is <code>MODE_DEFAULT</code> (0).</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Frames/Screen.js.html#lineNumber139">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Frames/Screen.js.html#lineNumber135">source</a></span></span>
     </span>
   </h3>
 
@@ -3217,7 +2958,7 @@ Default mode is <code>AB_MODE_NONE</code>.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Frames/Screen.js.html#lineNumber247">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Frames/Screen.js.html#lineNumber223">source</a></span></span>
     </span>
   </h3>
 
@@ -3278,7 +3019,7 @@ Default mode is <code>AB_MODE_NONE</code>.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Frames/Screen.js.html#lineNumber397">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Frames/Screen.js.html#lineNumber378">source</a></span></span>
     </span>
   </h3>
 
@@ -3322,7 +3063,7 @@ Default mode is <code>AB_MODE_NONE</code>.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Frames/Screen.js.html#lineNumber197">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Frames/Screen.js.html#lineNumber183">source</a></span></span>
     </span>
   </h3>
 
@@ -3366,7 +3107,7 @@ Default mode is <code>AB_MODE_NONE</code>.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Frames/Screen.js.html#lineNumber341">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Frames/Screen.js.html#lineNumber322">source</a></span></span>
     </span>
   </h3>
 
@@ -3412,7 +3153,7 @@ Default mode is <code>AB_MODE_NONE</code>.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Frames/Screen.js.html#lineNumber168">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Frames/Screen.js.html#lineNumber164">source</a></span></span>
     </span>
   </h3>
 
@@ -3456,7 +3197,7 @@ Default mode is <code>AB_MODE_NONE</code>.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Frames/Screen.js.html#lineNumber255">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Frames/Screen.js.html#lineNumber231">source</a></span></span>
     </span>
   </h3>
 

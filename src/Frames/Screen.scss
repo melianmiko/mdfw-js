@@ -54,7 +54,7 @@
                 display: flex;
     
                 & > .zone-left, & > .zone-right, & > .zone-home {
-                    display: flex;cursor: pointer;
+                    display: flex;cursor: default;
                     & > .ab-btn {
                         margin: 8px;height: 40px; width: 40px;
                         background: transparent;transition: background 0.5s;

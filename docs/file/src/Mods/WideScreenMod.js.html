@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <base data-ice="baseUrl" href="../../../">
-  <title data-ice="title">src/Base/ColorFix.js | mdfwjs</title>
+  <title data-ice="title">src/Mods/WideScreenMod.js | mdfwjs</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
@@ -57,37 +57,12 @@
 </div>
 </nav>
 
-<div class="content" data-ice="content"><h1 data-ice="title">src/Base/ColorFix.js</h1>
-<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">/**
- * Stylesheet generator for current accent color
- * @deprecated 
- */
-class ColorFix {
-	/**
-	 * Re-generate color stylesheet
-	 */
-	static execute() {
-		var d = document.getElementById(&quot;colorfix&quot;);
-		if(d) d.remove();
-
-		var css = &quot;.fw-button.style-flat::before, .fw-button.style-outline::before &quot;+
-			&quot;{background-color: &quot;+Config.mainColor+&quot;}&quot;,
-			style = document.createElement(&quot;style&quot;);
-
-		if (style.styleSheet) {
-			style.styleSheet.cssText = css;
-		} else {
-			style.appendChild(document.createTextNode(css));
-		}
-
-		d = document.createElement(&quot;div&quot;);
-		d.id = &quot;colorfix&quot;;
-		d.appendChild(style);
-
-		document.getElementsByTagName(&apos;head&apos;)[0].appendChild(d);
+<div class="content" data-ice="content"><h1 data-ice="title">src/Mods/WideScreenMod.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">class WideScreenMod {
+	install(screen) {
+		screen._activity_root.classList.add(&quot;widescreen&quot;);
 	}
-}
-</code></pre>
+}</code></pre>
 
 </div>
 

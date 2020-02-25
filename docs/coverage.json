@@ -1,7 +1,7 @@
 {
-  "coverage": "58.15%",
-  "expectCount": 282,
-  "actualCount": 164,
+  "coverage": "58.52%",
+  "expectCount": 299,
+  "actualCount": 175,
   "files": {
     "src/Base/ColorFix.js": {
       "expectCount": 2,
@@ -99,8 +99,8 @@
       ]
     },
     "src/Frames/Screen.js": {
-      "expectCount": 43,
-      "actualCount": 43,
+      "expectCount": 40,
+      "actualCount": 40,
       "undocumentLines": []
     },
     "src/Frames/WaitScreen.js": {
@@ -112,6 +112,30 @@
       "expectCount": 3,
       "actualCount": 3,
       "undocumentLines": []
+    },
+    "src/Layout/ExpandableLayout.js": {
+      "expectCount": 16,
+      "actualCount": 14,
+      "undocumentLines": [
+        15,
+        17
+      ]
+    },
+    "src/Mods/NoAnimationScreenMod.js": {
+      "expectCount": 2,
+      "actualCount": 0,
+      "undocumentLines": [
+        1,
+        2
+      ]
+    },
+    "src/Mods/WideScreenMod.js": {
+      "expectCount": 2,
+      "actualCount": 0,
+      "undocumentLines": [
+        1,
+        2
+      ]
     },
     "src/Utils/Log.js": {
       "expectCount": 5,
@@ -279,11 +303,11 @@
       "undocumentLines": [
         1,
         2,
-        86,
-        87,
-        151,
-        152,
-        155
+        94,
+        95,
+        159,
+        160,
+        163
       ]
     }
   }

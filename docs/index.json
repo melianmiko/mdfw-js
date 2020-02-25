@@ -1977,7 +1977,7 @@
     "__docId__": 124,
     "kind": "file",
     "name": "src/Frames/Screen.js",
-    "content": "/**\r\n * Screen class. This class provides basics of application screen.\r\n * Do not use directly! Create your own class that extends this and\r\n * inside him provide manipulations. Example:\r\n * \r\n * ```js\r\n * class MyGreatScreen extends Screen {\r\n *   onCreate(data) {\r\n *     // Do screen filling here!\r\n *     this.appendView(new TextView(\"title\", \"Hello\"))\r\n *   }\r\n * }\r\n * ```\r\n * \r\n * To start a screen: `new MyGreatScreen().start()`\r\n */\r\nclass Screen {\r\n\t/**\r\n\t * Root scren mode. This mode will disable open/close animations.\r\n\t * See `Screen.setMode(mode)`.\r\n\t */\r\n\tstatic get MODE_ROOT() { return 1; }\r\n\t/**\r\n\t * Default screen mode. See `Screen.setMode(mode)`.\r\n\t */\r\n\tstatic get MODE_DEFAULT() { return 0; }\r\n\t/**\r\n\t * Fade in/out duration\r\n\t * @deprecated Will be moved to Config\r\n\t */\r\n\tstatic get FADE_DURATION() { return 350; }\r\n\t/**\r\n\t * Actionbar scroll mode: hide on scroll.\r\n\t * See `Screen.setScrollMode(mode)`.\r\n\t */\r\n\tstatic get AB_MODE_HIDE() {return 1;}\r\n\t/**\r\n\t * Actionbar scroll mode: do not hide on scroll.\r\n\t * See `Screen.setScrollMode(mode)`.\r\n\t */\r\n\tstatic get AB_MODE_NONE() {return 0;}\r\n\t/**\r\n\t * Basic screen layout\r\n\t */\r\n\tstatic get LAYOUT() {return {\r\n\t\t\tclass: \"fw-screen\", type: \"div\", childs: {\r\n\t\t\t\troot: { type: \"div\", class: \"fw-root-container\" , childs: {\r\n\t\t\t\t\ttopbar: {type: \"div\", class: \"fw-topbar\", childs: {\r\n\t\t\t\t\t\tcontainer: {\r\n\t\t\t\t\t\t\ttype: \"div\", class: \"container\", childs: {\r\n\t\t\t\t\t\t\t\tz_home: { type: \"div\", class: \"zone-home\" },\r\n\t\t\t\t\t\t\t\tz_left: { type: \"div\", class: \"zone-left\" },\r\n\t\t\t\t\t\t\t\tz_title: { type: \"div\", class: \"zone-title\" },\r\n\t\t\t\t\t\t\t\tz_right: { type: \"div\", class: \"zone-left\" }\r\n\t\t\t\t\t\t\t}\r\n\t\t\t\t\t\t}\r\n\t\t\t\t\t}},\r\n\t\t\t\t\tcontents: {type: \"div\", class: \"box-contents\", childs: {\r\n\t\t\t\t\t\ttbh_fixed: {type: \"div\", class: \"fw-topbar-holder\"},\r\n\t\t\t\t\t\tholder: {type: \"div\", class: \"holder\", childs: {\r\n\t\t\t\t\t\t\ttbh_scroll: {type: \"div\", class: \"fw-topbar-holder\"},\r\n\t\t\t\t\t\t\tcontainer: {type: \"div\", class: \"container\"}\r\n\t\t\t\t\t\t}}\r\n\t\t\t\t\t}}\r\n\t\t\t\t}}\r\n\t\t\t}\r\n\t\t};}\r\n\r\n\t/**\r\n\t * Default constructor for Screen\r\n\t * @param {*} data Anything taht you want give for `onCreate` method\r\n\t */\r\n\tconstructor(data) {\r\n\t\tvar t = this;\r\n\t\tthis.onInit();\r\n\t\t/**\r\n\t\t * Current activity mode. See `Screen.setMode(mode)`.\r\n\t\t * @type {number}\r\n\t\t */\r\n\t\tthis._activity_mode = 0;\r\n\t\t/**\r\n\t\t * SetInterval return code for timer reset\r\n\t\t */\r\n\t\tthis._refresh_timer = false;\r\n\t\t/**\r\n\t\t * Constructor data backup\r\n\t\t */\r\n\t\tthis._bundle = data;\r\n\t\t/**\r\n\t\t * Activity root block\r\n\t\t * @type {HTMLElement}\r\n\t\t */\r\n\t\tthis._activity_root = Utils.inflate(Screen.LAYOUT);\r\n\t\t/**\r\n\t\t * Activity actionbar root block\r\n\t\t * @type {HTMLElement}\r\n\t\t */\r\n\t\tthis._activity_ab_root = this._activity_root.root.topbar;\r\n\t\t/**\r\n\t\t * Symlink to activity contents\r\n\t\t * @type {HTMLElement}\r\n\t\t */\r\n\t\tthis._activity_contents = this._activity_root.root.contents.holder;\r\n\t\t/**\r\n\t\t * Action bar title\r\n\t\t * @type {string}\r\n\t\t */\r\n\t\tthis._ab_title = \"\";\r\n\t\t/**\r\n\t\t * Left zone action bar items\r\n\t\t * @type {MenuItem[]}\r\n\t\t */\r\n\t\tthis._ab_left = [];\r\n\t\t/**\r\n\t\t * Right zone action bar items\r\n\t\t * @type {MenuItem[]}\r\n\t\t */\r\n\t\tthis._ab_right = [];\r\n\t\t/**\r\n\t\t * Current action bar scroll mode.\r\n\t\t * See `Screen.setScrollMode(mode)`\r\n\t\t */\r\n\t\tthis._ab_scrollmod = 0;\r\n\r\n\t\tthis._activity_contents.addEventListener(\"scroll\", function(){\r\n\t\t\tt._ab_scrolltrg();\r\n\t\t});\r\n\t\tthis.initScrollMode();\r\n\t}\r\n\r\n\t/**\r\n\t * Set action bar behavior on page scroll.\r\n\t * \r\n\t * Use `Screen.AB_MODE_*` constants to provide mode.\r\n\t * Default mode is `AB_MODE_NONE`.\r\n\t * \r\n\t * @param {number} m Scrool mode.\r\n\t */\r\n\tsetScrollMode(m) {\r\n\t\tthis._ab_scrollmod = m;\r\n\t\tthis.initScrollMode();\r\n\t}\r\n\r\n\t/**\r\n\t * Initialize selected scroll mode\r\n\t */\r\n\tinitScrollMode() {\r\n\t\t/**\r\n\t\t * Previout scroll offset\r\n\t\t * @type {number}\r\n\t\t */\r\n\t\tthis._ab_scm_prev_scy = this.getScrollerBlock().scrollTop;\r\n\t\tif(this._ab_scrollmod == Screen.AB_MODE_HIDE) {\r\n\t\t\t// Use dynamic holder\r\n\t\t\tthis._activity_root.root.contents.tbh_fixed.classList.add(\"hide\");\r\n\t\t\tthis._activity_root.root.contents.holder.tbh_scroll.classList.remove(\"hide\");\r\n\t\t} else {\r\n\t\t\t// Use fixed holder\r\n\t\t\tthis._activity_root.root.contents.tbh_fixed.classList.remove(\"hide\");\r\n\t\t\tthis._activity_root.root.contents.holder.tbh_scroll.classList.add(\"hide\");\r\n\t\t}\r\n\t\tthis._ab_scrolltrg();\r\n\t}\r\n\r\n\t/**\r\n\t * Calls on scroll to provide ActionBar scroll mode\r\n\t */\r\n\t_ab_scrolltrg() {\r\n\t\tvar df = this.getScrollerBlock().scrollTop-this._ab_scm_prev_scy;\r\n\r\n\t\tthis._activity_ab_root.className = \"fw-topbar\";\r\n\r\n\t\tif(this.getScrollerBlock().scrollTop > 16) \r\n\t\t\tthis._activity_ab_root.className += \" mode-elevate\";\r\n\r\n\t\tif(df > 0 && this._ab_scrollmod == Screen.AB_MODE_HIDE) {\r\n\t\t\t// Down. Hide.\r\n\t\t\tthis._activity_ab_root.className += \" hide\";\r\n\t\t}\r\n\r\n\t\tthis._ab_scm_prev_scy = this.getScrollerBlock().scrollTop;\r\n\t}\r\n\r\n\t/**\r\n\t * Add icon to left action bar zone\r\n\t * @param {MenuItem} item Item to add\r\n\t * @deprecated Left zone will be removed!\r\n\t */\r\n\taddLeftIcon(item) {\r\n\t\tthis._ab_left[this._ab_left.length] = item;\r\n\t\tthis._rebuildActionbar();\r\n\t}\r\n\r\n\t/**\r\n\t * Remove all actions from action bar\r\n\t */\r\n\twipeActions() {\r\n\t\tthis._ab_right = [];\r\n\t\tthis._rebuildActionbar();\r\n\t}\r\n\r\n\t/**\r\n\t * Add icon to right action bar zone\r\n\t * @param {MenuItem} item Item to add\r\n\t * @deprecated Use addAction instance of this!\r\n\t */\r\n\taddRightIcon(item) {\r\n\t\tLog.w(\"Screen\", \"addRightIcon is deprecated!\");\r\n\t\tthis.addAction(item);\r\n\t}\r\n\r\n\t/**\r\n\t * Add action to activity topbar.\r\n\t * @param {MenuItem} item Item to add\r\n\t */\r\n\taddAction(item) {\r\n\t\tthis._ab_right[this._ab_right.length] = item;\r\n\t\tthis._rebuildActionbar();\r\n\t}\r\n\r\n\t/**\r\n\t * Use item as screen home action.\r\n\t * @param {MenuItem} item Item\r\n\t */\r\n\tsetHomeAction(item) {\r\n\t\tthis._activity_ab_root.container.z_home.innerHTML = \"\";\r\n\r\n\t\tif(!item) return;\r\n\t\tlet b = item.inflate();\r\n\t\tthis._activity_ab_root.container.z_home.appendChild(b);\r\n\t}\r\n\r\n\t/**\r\n\t * Enable back button as home action.\r\n\t */\r\n\tsetHomeAsUpAction() {\r\n\t\tlet c = this;\r\n\t\tthis.setHomeAction(new MenuItem(\"Back\", \"arrow_back\", function () {\r\n\t\t\tc.finish();\r\n\t\t}));\r\n\t}\r\n\r\n\t/**\r\n\t * Set screen title in action bar\r\n\t * @param {string} title Title\r\n\t */\r\n\tsetTitle(title) {\r\n\t\tthis._ab_title = title;\r\n\t\tthis._rebuildActionbar();\r\n\t}\r\n\r\n\t/**\r\n\t * Re-generate action bar block contents\r\n\t */\r\n\t_rebuildActionbar() {\r\n\t\tlet root = this._activity_ab_root;\r\n\r\n\t\t// title\r\n\t\troot.container.z_title.innerHTML = this._ab_title;\r\n\r\n\t\t// Leftframe\r\n\t\troot.container.z_left.innerHTML = \"\";\r\n\t\tfor (var a in this._ab_left)\r\n\t\t\troot.container.z_left.appendChild(this._ab_left[a].inflate());\r\n\r\n\t\t// Rightframe\r\n\t\troot.container.z_right.innerHTML = \"\";\r\n\t\tfor (var a in this._ab_right)\r\n\t\t\troot.container.z_right.appendChild(this._ab_right[a].inflate());\r\n\t}\r\n\r\n\t/**\r\n\t * Add style class to activity.\r\n\t * @deprecated\r\n\t * @param {string} style Style name\r\n\t */\r\n\taddStyle(style) {\r\n\t\tthis._activity_root.classList.add(\"activity-style-\" + style);\r\n\t}\r\n\r\n\t/**\r\n\t * Add automatic call to `onUpdate` in interval\r\n\t * \r\n\t * @todo Remove old timer before install new\r\n\t * @param {number} timer Refresh time in ms\r\n\t */\r\n\tdoAutoUpdate(timer) {\r\n\t\tlet c = this;\r\n\t\tc._refresh_timer = setInterval(function () {\r\n\t\t\tc.onUpdate();\r\n\t\t}, timer);\r\n\t}\r\n\r\n\t/**\r\n\t * Append view to screen.\r\n\t * \r\n\t * If `view.IS_FIXED_VIEW == true`, view will be added to relative zone.\r\n\t * \r\n\t * @param {View} view View to append\r\n\t */\r\n\tappendView(view) {\r\n\t\tif(!view.IS_VIEW) return false;\r\n\t\tif(view.IS_FIXED_VIEW)\r\n\t\t\tthis._activity_root.root.appendChild(view.getBlock());\r\n\t\telse\r\n\t\t\tthis._activity_contents.container.appendChild(view.getBlock());\r\n\t}\r\n\r\n\t/**\r\n\t * Set activity mode.\r\n\t * \r\n\t * Use `Screen.MODE_*` constants to set mode.\r\n\t * Default mode is `MODE_DEFAULT` (0).\r\n\t * \r\n\t * @param {number} mode Activity mode ID\r\n\t */\r\n\tsetMode(mode) { this._activity_mode = mode; }\r\n\r\n\t/**\r\n\t * Returns activity contents root block\r\n\t * @deprecated\r\n\t */\r\n\tgetRootBlock() {\r\n\t\tLog.w(\"Screen\", \"getRootBlock method is deprecated and will be removed!\")\r\n\t\treturn this._activity_contents.container;\r\n\t}\r\n\t\r\n\t/**\r\n\t * Returns scrolling block from activity.\r\n\t * Used to setup onScroll listeners.\r\n\t * \r\n\t * @returns {HTMLElement}\r\n\t */\r\n\tgetScrollerBlock() {\r\n\t\treturn this._activity_contents;\r\n\t}\r\n\r\n\t/**\r\n\t * Remove all activity contents, except config and fixed views\r\n\t */\r\n\twipeContents() {\r\n\t\tthis._activity_contents.container.innerHTML = \"\";\r\n\t}\r\n\r\n\t// Events\r\n\t/**\r\n\t * Event listener, calls on screen start\r\n\t * @param {*} data User-rpovided data from constructor\r\n\t */\r\n\tonCreate(data) {\r\n\t\tLog.w(\"Screen\", \"onCreate is not overriden!\");\r\n\t}\r\n\r\n\t/**\r\n\t * Event listener, calls on screen refresh or manually\r\n\t */\r\n\tonUpdate() { }\r\n\t/**\r\n\t * Event listener, calls before screen construct\r\n\t */\r\n\tonInit() { }\r\n\t/**\r\n\t * Event listener, calls on screen destroy. Must return a boolean.\r\n\t * \r\n\t * If returns `false`, screen finish will be cancelled.\r\n\t * \r\n\t * @returns {boolean} is finish allowed?\r\n\t */\r\n\tonFinish() {\r\n\t\t// Always allow\r\n\t\treturn true;\r\n\t}\r\n\r\n\t// Actions\r\n\t/**\r\n\t * Do screen destory\r\n\t */\r\n\tfinish() {\r\n\t\tlet context = this, il = new InputLock();\r\n\t\tif (this.onFinish()) {\r\n\t\t\t// Finish allowed. Breaking...\r\n\t\t\tclearInterval(context._refresh_timer);\r\n\t\t\til.enable();\r\n\t\t\tUtils.timer(50).then(function () {\r\n\t\t\t\tcontext._activity_root.classList.remove(\"show\");\r\n\t\t\t\treturn Utils.timer(Screen.FADE_DURATION);\r\n\t\t\t}).then(function () {\r\n\t\t\t\til.disable();\r\n\t\t\t\tcontext._activity_root.remove();\r\n\t\t\t});\r\n\t\t}\r\n\t}\r\n\r\n\t/**\r\n\t * Do activity build and display\r\n\t */\r\n\tstart() {\r\n\t\tlet context = this, il = new InputLock;\r\n\t\tthis.onCreate(this._bundle);\r\n\t\tthis.onUpdate();\r\n\r\n\t\til.enable();\r\n\t\tdocument.body.appendChild(this._activity_root);\r\n\t\tUtils.timer(50).then(function () {\r\n\t\t\tcontext._activity_root.classList.add(\"show\");\r\n\t\t\tif (context._activity_mode == Screen.MODE_ROOT)\r\n\t\t\t\tcontext._activity_root.classList.add(\"noanim\");\r\n\t\t\treturn Utils.timer(Screen.FADE_DURATION);\r\n\t\t}).then(function () {\r\n\t\t\til.disable();\r\n\t\t});\r\n\t}\r\n}\r\n",
+    "content": "/**\r\n * Screen class. This class provides basics of application screen.\r\n * Do not use directly! Create your own class that extends this and\r\n * inside him provide manipulations. Example:\r\n * \r\n * ```js\r\n * class MyGreatScreen extends Screen {\r\n *   onCreate(data) {\r\n *     // Do screen filling here!\r\n *     this.appendView(new TextView(\"title\", \"Hello\"))\r\n *   }\r\n * }\r\n * ```\r\n * \r\n * To start a screen: `new MyGreatScreen().start()`\r\n */\r\nclass Screen {\r\n\t/**\r\n\t * Root scren mode. This mode will disable open/close animations.\r\n\t * See `Screen.setMode(mode)`.\r\n\t * @deprecated use mods!\r\n\t */\r\n\tstatic get MODE_ROOT() { return 1; }\r\n\t/**\r\n\t * Default screen mode. See `Screen.setMode(mode)`.\r\n\t * @deprecated use mods!\r\n\t */\r\n\tstatic get MODE_DEFAULT() { return 0; }\r\n\t/**\r\n\t * Fade in/out duration\r\n\t * @deprecated Will be moved to Config\r\n\t */\r\n\tstatic get FADE_DURATION() { return 350; }\r\n\t/**\r\n\t * Actionbar scroll mode: hide on scroll.\r\n\t * See `Screen.setScrollMode(mode)`.\r\n\t */\r\n\tstatic get AB_MODE_HIDE() {return 1;}\r\n\t/**\r\n\t * Actionbar scroll mode: do not hide on scroll.\r\n\t * See `Screen.setScrollMode(mode)`.\r\n\t */\r\n\tstatic get AB_MODE_NONE() {return 0;}\r\n\t/**\r\n\t * Basic screen layout\r\n\t */\r\n\tstatic get LAYOUT() {return {\r\n\t\t\tclass: \"fw-screen\", type: \"div\", childs: {\r\n\t\t\t\troot: { type: \"div\", class: \"fw-root-container\" , childs: {\r\n\t\t\t\t\ttopbar: {type: \"div\", class: \"fw-topbar\", childs: {\r\n\t\t\t\t\t\tcontainer: {\r\n\t\t\t\t\t\t\ttype: \"div\", class: \"container\", childs: {\r\n\t\t\t\t\t\t\t\tz_home: { type: \"div\", class: \"zone-home\" },\r\n\t\t\t\t\t\t\t\tz_title: { type: \"div\", class: \"zone-title\" },\r\n\t\t\t\t\t\t\t\tz_right: { type: \"div\", class: \"zone-left\" }\r\n\t\t\t\t\t\t\t}\r\n\t\t\t\t\t\t}\r\n\t\t\t\t\t}},\r\n\t\t\t\t\tcontents: {type: \"div\", class: \"box-contents\", childs: {\r\n\t\t\t\t\t\ttbh_fixed: {type: \"div\", class: \"fw-topbar-holder\"},\r\n\t\t\t\t\t\tholder: {type: \"div\", class: \"holder\", childs: {\r\n\t\t\t\t\t\t\ttbh_scroll: {type: \"div\", class: \"fw-topbar-holder\"},\r\n\t\t\t\t\t\t\tcontainer: {type: \"div\", class: \"container\"}\r\n\t\t\t\t\t\t}}\r\n\t\t\t\t\t}}\r\n\t\t\t\t}}\r\n\t\t\t}\r\n\t\t};}\r\n\r\n\t/**\r\n\t * Default constructor for Screen\r\n\t * @param {*} data Anything taht you want give for `onCreate` method\r\n\t */\r\n\tconstructor(data) {\r\n\t\tvar t = this;\r\n\t\tthis.onInit();\r\n\t\t/**\r\n\t\t * Current activity mode. See `Screen.setMode(mode)`.\r\n\t\t * @type {number}\r\n\t\t */\r\n\t\tthis._activity_mode = 0;\r\n\t\t/**\r\n\t\t * SetInterval return code for timer reset\r\n\t\t */\r\n\t\tthis._refresh_timer = false;\r\n\t\t/**\r\n\t\t * Constructor data backup\r\n\t\t */\r\n\t\tthis._bundle = data;\r\n\t\t/**\r\n\t\t * Activity root block\r\n\t\t * @type {HTMLElement}\r\n\t\t */\r\n\t\tthis._activity_root = Utils.inflate(Screen.LAYOUT);\r\n\t\t/**\r\n\t\t * Activity actionbar root block\r\n\t\t * @type {HTMLElement}\r\n\t\t */\r\n\t\tthis._activity_ab_root = this._activity_root.root.topbar;\r\n\t\t/**\r\n\t\t * Symlink to activity contents\r\n\t\t * @type {HTMLElement}\r\n\t\t */\r\n\t\tthis._activity_contents = this._activity_root.root.contents.holder;\r\n\t\t/**\r\n\t\t * Action bar title\r\n\t\t * @type {string}\r\n\t\t */\r\n\t\tthis._ab_title = \"\";\r\n\t\t/**\r\n\t\t * Right zone action bar items\r\n\t\t * @type {MenuItem[]}\r\n\t\t */\r\n\t\tthis._ab_right = [];\r\n\t\t/**\r\n\t\t * Current action bar scroll mode.\r\n\t\t * See `Screen.setScrollMode(mode)`\r\n\t\t */\r\n\t\tthis._ab_scrollmod = 0;\r\n\r\n\t\tthis._activity_contents.addEventListener(\"scroll\", function(){\r\n\t\t\tt._ab_scrolltrg();\r\n\t\t});\r\n\t\tthis.initScrollMode();\r\n\t}\r\n\r\n\t/**\r\n\t * Set action bar behavior on page scroll.\r\n\t * \r\n\t * Use `Screen.AB_MODE_*` constants to provide mode.\r\n\t * Default mode is `AB_MODE_NONE`.\r\n\t * \r\n\t * @param {number} m Scrool mode.\r\n\t */\r\n\tsetScrollMode(m) {\r\n\t\tthis._ab_scrollmod = m;\r\n\t\tthis.initScrollMode();\r\n\t}\r\n\r\n\t/**\r\n\t * Initialize selected scroll mode\r\n\t */\r\n\tinitScrollMode() {\r\n\t\t/**\r\n\t\t * Previout scroll offset\r\n\t\t * @type {number}\r\n\t\t */\r\n\t\tthis._ab_scm_prev_scy = this.getScrollerBlock().scrollTop;\r\n\t\tif(this._ab_scrollmod == Screen.AB_MODE_HIDE) {\r\n\t\t\t// Use dynamic holder\r\n\t\t\tthis._activity_root.root.contents.tbh_fixed.classList.add(\"hide\");\r\n\t\t\tthis._activity_root.root.contents.holder.tbh_scroll.classList.remove(\"hide\");\r\n\t\t} else {\r\n\t\t\t// Use fixed holder\r\n\t\t\tthis._activity_root.root.contents.tbh_fixed.classList.remove(\"hide\");\r\n\t\t\tthis._activity_root.root.contents.holder.tbh_scroll.classList.add(\"hide\");\r\n\t\t}\r\n\t\tthis._ab_scrolltrg();\r\n\t}\r\n\r\n\t/**\r\n\t * Calls on scroll to provide ActionBar scroll mode\r\n\t */\r\n\t_ab_scrolltrg() {\r\n\t\tvar df = this.getScrollerBlock().scrollTop-this._ab_scm_prev_scy;\r\n\r\n\t\tthis._activity_ab_root.className = \"fw-topbar\";\r\n\r\n\t\tif(this.getScrollerBlock().scrollTop > 16) \r\n\t\t\tthis._activity_ab_root.className += \" mode-elevate\";\r\n\r\n\t\tif(df > 0 && this._ab_scrollmod == Screen.AB_MODE_HIDE) {\r\n\t\t\t// Down. Hide.\r\n\t\t\tthis._activity_ab_root.className += \" hide\";\r\n\t\t}\r\n\r\n\t\tthis._ab_scm_prev_scy = this.getScrollerBlock().scrollTop;\r\n\t}\r\n\r\n\t/**\r\n\t * Remove all actions from action bar\r\n\t */\r\n\twipeActions() {\r\n\t\tthis._ab_right = [];\r\n\t\tthis._rebuildActionbar();\r\n\t}\r\n\r\n\t/**\r\n\t * Add action to activity topbar.\r\n\t * @param {MenuItem} item Item to add\r\n\t */\r\n\taddAction(item) {\r\n\t\tthis._ab_right[this._ab_right.length] = item;\r\n\t\tthis._rebuildActionbar();\r\n\t}\r\n\r\n\t/**\r\n\t * Use item as screen home action.\r\n\t * @param {MenuItem} item Item\r\n\t */\r\n\tsetHomeAction(item) {\r\n\t\tthis._activity_ab_root.container.z_home.innerHTML = \"\";\r\n\r\n\t\tif(!item) return;\r\n\t\tlet b = item.inflate();\r\n\t\tthis._activity_ab_root.container.z_home.appendChild(b);\r\n\t}\r\n\r\n\t/**\r\n\t * Enable back button as home action.\r\n\t */\r\n\tsetHomeAsUpAction() {\r\n\t\tlet c = this;\r\n\t\tthis.setHomeAction(new MenuItem(\"Back\", \"arrow_back\", function () {\r\n\t\t\tc.finish();\r\n\t\t}));\r\n\t}\r\n\r\n\t/**\r\n\t * Set screen title in action bar\r\n\t * @param {string} title Title\r\n\t */\r\n\tsetTitle(title) {\r\n\t\tthis._ab_title = title;\r\n\t\tthis._rebuildActionbar();\r\n\t}\r\n\r\n\t/**\r\n\t * Re-generate action bar block contents\r\n\t */\r\n\t_rebuildActionbar() {\r\n\t\tlet root = this._activity_ab_root;\r\n\r\n\t\t// title\r\n\t\troot.container.z_title.innerHTML = this._ab_title;\r\n\r\n\t\t// Rightframe\r\n\t\troot.container.z_right.innerHTML = \"\";\r\n\t\tfor (var a in this._ab_right)\r\n\t\t\troot.container.z_right.appendChild(this._ab_right[a].inflate());\r\n\t}\r\n\r\n\t/**\r\n\t * Add automatic call to `onUpdate` in interval\r\n\t * \r\n\t * @todo Remove old timer before install new\r\n\t * @param {number} timer Refresh time in ms\r\n\t */\r\n\tdoAutoUpdate(timer) {\r\n\t\tlet c = this;\r\n\t\tc._refresh_timer = setInterval(function () {\r\n\t\t\tc.onUpdate();\r\n\t\t}, timer);\r\n\t}\r\n\r\n\t/**\r\n\t * Append view to screen.\r\n\t * \r\n\t * If `view.IS_FIXED_VIEW == true`, view will be added to relative zone.\r\n\t * \r\n\t * @param {View} view View to append\r\n\t */\r\n\tappendView(view) {\r\n\t\tif(!view.IS_VIEW) return false;\r\n\t\tif(view.IS_FIXED_VIEW)\r\n\t\t\tthis._activity_root.root.appendChild(view.getBlock());\r\n\t\telse\r\n\t\t\tthis._activity_contents.container.appendChild(view.getBlock());\r\n\t}\r\n\r\n\t/**\r\n\t * Set activity mode.\r\n\t * \r\n\t * Use `Screen.MODE_*` constants to set mode.\r\n\t * Default mode is `MODE_DEFAULT` (0).\r\n\t * \r\n\t * @param {number} mode Activity mode ID\r\n\t * @deprecated use markAsRoot() or addMod()\r\n\t */\r\n\tsetMode(mode) { \r\n\t\tconsole.warn(\"setMode(int mode) is deprecated and will be removed. Use markAsRoot() and addMod() instance of this.\");\r\n\t\tthis.markAsRoot();\r\n\t}\r\n\r\n\t/**\r\n\t * Install mod to this screen\r\n\t * \r\n\t * Mods are classes with name `*ScreenMod`. For example:\r\n\t * ```js\r\n\t * this.addMod(new NoAnimationScreenMod());\r\n\t * ```\r\n\t * This will disable screen open/close animations\r\n\t */\r\n\taddMod(mod) {\r\n\t\tmod.install(this);\r\n\t}\r\n\r\n\t/**\r\n\t * Mark screen as root.\r\n\t *\r\n\t * Root screen can't be dismissed, don't use animations\r\n\t * and etc.\r\n\t */\r\n\tmarkAsRoot() {\r\n\t\tthis.addMod(new NoAnimationScreenMod());\r\n\t\tthis.allowDismiss(false);\r\n\t}\r\n\t\r\n\t/**\r\n\t * Returns scrolling block from activity.\r\n\t * Used to setup onScroll listeners.\r\n\t * \r\n\t * @returns {HTMLElement}\r\n\t */\r\n\tgetScrollerBlock() {\r\n\t\treturn this._activity_contents;\r\n\t}\r\n\r\n\t/**\r\n\t * Remove all activity contents, except config and fixed views\r\n\t */\r\n\twipeContents() {\r\n\t\tthis._activity_contents.container.innerHTML = \"\";\r\n\t}\r\n\r\n\t// Events\r\n\t/**\r\n\t * Event listener, calls on screen start\r\n\t * @param {*} data User-rpovided data from constructor\r\n\t */\r\n\tonCreate(data) {\r\n\t\tLog.w(\"Screen\", \"onCreate is not overriden!\");\r\n\t}\r\n\r\n\t/**\r\n\t * Event listener, calls on screen refresh or manually\r\n\t */\r\n\tonUpdate() { }\r\n\t/**\r\n\t * Event listener, calls before screen construct\r\n\t */\r\n\tonInit() { }\r\n\t/**\r\n\t * Event listener, calls on screen destroy. Must return a boolean.\r\n\t * \r\n\t * If returns `false`, screen finish will be cancelled.\r\n\t * \r\n\t * @returns {boolean} is finish allowed?\r\n\t */\r\n\tonFinish() {\r\n\t\t// Always allow\r\n\t\treturn true;\r\n\t}\r\n\r\n\t// Actions\r\n\t/**\r\n\t * Do screen destory\r\n\t */\r\n\tfinish() {\r\n\t\tlet context = this, il = new InputLock();\r\n\t\tif (this.onFinish()) {\r\n\t\t\t// Finish allowed. Breaking...\r\n\t\t\tclearInterval(context._refresh_timer);\r\n\t\t\til.enable();\r\n\t\t\tUtils.timer(50).then(function () {\r\n\t\t\t\tcontext._activity_root.classList.remove(\"show\");\r\n\t\t\t\treturn Utils.timer(Screen.FADE_DURATION);\r\n\t\t\t}).then(function () {\r\n\t\t\t\til.disable();\r\n\t\t\t\tcontext._activity_root.remove();\r\n\t\t\t});\r\n\t\t}\r\n\t}\r\n\r\n\t/**\r\n\t * Do activity build and display\r\n\t */\r\n\tstart() {\r\n\t\tlet context = this, il = new InputLock;\r\n\t\tthis.onCreate(this._bundle);\r\n\t\tthis.onUpdate();\r\n\r\n\t\til.enable();\r\n\t\tdocument.body.appendChild(this._activity_root);\r\n\t\tUtils.timer(50).then(function () {\r\n\t\t\tcontext._activity_root.classList.add(\"show\");\r\n\t\t\treturn Utils.timer(Screen.FADE_DURATION);\r\n\t\t}).then(function () {\r\n\t\t\til.disable();\r\n\t\t});\r\n\t}\r\n}\r\n",
     "static": true,
     "longname": "C:/Users/Miha/Documents/MDFWjs/src/Frames/Screen.js",
     "access": "public",
@@ -2010,7 +2010,8 @@
     "longname": "src/Frames/Screen.js~Screen.MODE_ROOT",
     "access": "public",
     "description": "Root scren mode. This mode will disable open/close animations.\nSee `Screen.setMode(mode)`.",
-    "lineNumber": 22,
+    "lineNumber": 23,
+    "deprecated": "use mods!",
     "type": {
       "types": [
         "number"
@@ -2028,7 +2029,8 @@
     "longname": "src/Frames/Screen.js~Screen.MODE_DEFAULT",
     "access": "public",
     "description": "Default screen mode. See `Screen.setMode(mode)`.",
-    "lineNumber": 26,
+    "lineNumber": 28,
+    "deprecated": "use mods!",
     "type": {
       "types": [
         "number"
@@ -2046,7 +2048,7 @@
     "longname": "src/Frames/Screen.js~Screen.FADE_DURATION",
     "access": "public",
     "description": "Fade in/out duration",
-    "lineNumber": 31,
+    "lineNumber": 33,
     "deprecated": "Will be moved to Config",
     "type": {
       "types": [
@@ -2065,7 +2067,7 @@
     "longname": "src/Frames/Screen.js~Screen.AB_MODE_HIDE",
     "access": "public",
     "description": "Actionbar scroll mode: hide on scroll.\nSee `Screen.setScrollMode(mode)`.",
-    "lineNumber": 36,
+    "lineNumber": 38,
     "type": {
       "types": [
         "number"
@@ -2083,7 +2085,7 @@
     "longname": "src/Frames/Screen.js~Screen.AB_MODE_NONE",
     "access": "public",
     "description": "Actionbar scroll mode: do not hide on scroll.\nSee `Screen.setScrollMode(mode)`.",
-    "lineNumber": 41,
+    "lineNumber": 43,
     "type": {
       "types": [
         "number"
@@ -2101,7 +2103,7 @@
     "longname": "src/Frames/Screen.js~Screen.LAYOUT",
     "access": "public",
     "description": "Basic screen layout",
-    "lineNumber": 45,
+    "lineNumber": 47,
     "type": {
       "types": [
         "{\"class\": string, \"type\": string, \"childs\": *}"
@@ -2119,7 +2121,7 @@
     "longname": "src/Frames/Screen.js~Screen#constructor",
     "access": "public",
     "description": "Default constructor for Screen",
-    "lineNumber": 73,
+    "lineNumber": 74,
     "params": [
       {
         "nullable": null,
@@ -2142,7 +2144,7 @@
     "longname": "src/Frames/Screen.js~Screen#_activity_mode",
     "access": "private",
     "description": "Current activity mode. See `Screen.setMode(mode)`.",
-    "lineNumber": 80,
+    "lineNumber": 81,
     "type": {
       "nullable": null,
       "types": [
@@ -2161,7 +2163,7 @@
     "longname": "src/Frames/Screen.js~Screen#_refresh_timer",
     "access": "private",
     "description": "SetInterval return code for timer reset",
-    "lineNumber": 84,
+    "lineNumber": 85,
     "type": {
       "types": [
         "boolean"
@@ -2177,7 +2179,7 @@
     "longname": "src/Frames/Screen.js~Screen#_bundle",
     "access": "private",
     "description": "Constructor data backup",
-    "lineNumber": 88,
+    "lineNumber": 89,
     "type": {
       "types": [
         "*"
@@ -2193,7 +2195,7 @@
     "longname": "src/Frames/Screen.js~Screen#_activity_root",
     "access": "private",
     "description": "Activity root block",
-    "lineNumber": 93,
+    "lineNumber": 94,
     "type": {
       "nullable": null,
       "types": [
@@ -2212,7 +2214,7 @@
     "longname": "src/Frames/Screen.js~Screen#_activity_ab_root",
     "access": "private",
     "description": "Activity actionbar root block",
-    "lineNumber": 98,
+    "lineNumber": 99,
     "type": {
       "nullable": null,
       "types": [
@@ -2231,7 +2233,7 @@
     "longname": "src/Frames/Screen.js~Screen#_activity_contents",
     "access": "private",
     "description": "Symlink to activity contents",
-    "lineNumber": 103,
+    "lineNumber": 104,
     "type": {
       "nullable": null,
       "types": [
@@ -2250,7 +2252,7 @@
     "longname": "src/Frames/Screen.js~Screen#_ab_title",
     "access": "private",
     "description": "Action bar title",
-    "lineNumber": 108,
+    "lineNumber": 109,
     "type": {
       "nullable": null,
       "types": [
@@ -2263,13 +2265,13 @@
   {
     "__docId__": 140,
     "kind": "member",
-    "name": "_ab_left",
+    "name": "_ab_right",
     "memberof": "src/Frames/Screen.js~Screen",
     "static": false,
-    "longname": "src/Frames/Screen.js~Screen#_ab_left",
+    "longname": "src/Frames/Screen.js~Screen#_ab_right",
     "access": "private",
-    "description": "Left zone action bar items",
-    "lineNumber": 113,
+    "description": "Right zone action bar items",
+    "lineNumber": 114,
     "type": {
       "nullable": null,
       "types": [
@@ -2282,32 +2284,13 @@
   {
     "__docId__": 141,
     "kind": "member",
-    "name": "_ab_right",
-    "memberof": "src/Frames/Screen.js~Screen",
-    "static": false,
-    "longname": "src/Frames/Screen.js~Screen#_ab_right",
-    "access": "private",
-    "description": "Right zone action bar items",
-    "lineNumber": 118,
-    "type": {
-      "nullable": null,
-      "types": [
-        "MenuItem[]"
-      ],
-      "spread": false,
-      "description": null
-    }
-  },
-  {
-    "__docId__": 142,
-    "kind": "member",
     "name": "_ab_scrollmod",
     "memberof": "src/Frames/Screen.js~Screen",
     "static": false,
     "longname": "src/Frames/Screen.js~Screen#_ab_scrollmod",
     "access": "private",
     "description": "Current action bar scroll mode.\nSee `Screen.setScrollMode(mode)`",
-    "lineNumber": 123,
+    "lineNumber": 119,
     "type": {
       "types": [
         "number"
@@ -2315,7 +2298,7 @@
     }
   },
   {
-    "__docId__": 143,
+    "__docId__": 142,
     "kind": "method",
     "name": "setScrollMode",
     "memberof": "src/Frames/Screen.js~Screen",
@@ -2325,7 +2308,7 @@
     "longname": "src/Frames/Screen.js~Screen#setScrollMode",
     "access": "public",
     "description": "Set action bar behavior on page scroll.\n\nUse `Screen.AB_MODE_*` constants to provide mode.\nDefault mode is `AB_MODE_NONE`.",
-    "lineNumber": 139,
+    "lineNumber": 135,
     "params": [
       {
         "nullable": null,
@@ -2341,7 +2324,7 @@
     "return": null
   },
   {
-    "__docId__": 145,
+    "__docId__": 144,
     "kind": "method",
     "name": "initScrollMode",
     "memberof": "src/Frames/Screen.js~Screen",
@@ -2351,12 +2334,12 @@
     "longname": "src/Frames/Screen.js~Screen#initScrollMode",
     "access": "public",
     "description": "Initialize selected scroll mode",
-    "lineNumber": 147,
+    "lineNumber": 143,
     "params": [],
     "return": null
   },
   {
-    "__docId__": 146,
+    "__docId__": 145,
     "kind": "member",
     "name": "_ab_scm_prev_scy",
     "memberof": "src/Frames/Screen.js~Screen",
@@ -2364,7 +2347,7 @@
     "longname": "src/Frames/Screen.js~Screen#_ab_scm_prev_scy",
     "access": "private",
     "description": "Previout scroll offset",
-    "lineNumber": 152,
+    "lineNumber": 148,
     "type": {
       "nullable": null,
       "types": [
@@ -2375,7 +2358,7 @@
     }
   },
   {
-    "__docId__": 147,
+    "__docId__": 146,
     "kind": "method",
     "name": "_ab_scrolltrg",
     "memberof": "src/Frames/Screen.js~Screen",
@@ -2385,39 +2368,12 @@
     "longname": "src/Frames/Screen.js~Screen#_ab_scrolltrg",
     "access": "private",
     "description": "Calls on scroll to provide ActionBar scroll mode",
-    "lineNumber": 168,
+    "lineNumber": 164,
     "params": [],
     "return": null
   },
   {
-    "__docId__": 149,
-    "kind": "method",
-    "name": "addLeftIcon",
-    "memberof": "src/Frames/Screen.js~Screen",
-    "generator": false,
-    "async": false,
-    "static": false,
-    "longname": "src/Frames/Screen.js~Screen#addLeftIcon",
-    "access": "public",
-    "description": "Add icon to left action bar zone",
-    "lineNumber": 189,
-    "deprecated": "Left zone will be removed!",
-    "params": [
-      {
-        "nullable": null,
-        "types": [
-          "MenuItem"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "item",
-        "description": "Item to add"
-      }
-    ],
-    "return": null
-  },
-  {
-    "__docId__": 150,
+    "__docId__": 148,
     "kind": "method",
     "name": "wipeActions",
     "memberof": "src/Frames/Screen.js~Screen",
@@ -2427,39 +2383,12 @@
     "longname": "src/Frames/Screen.js~Screen#wipeActions",
     "access": "public",
     "description": "Remove all actions from action bar",
-    "lineNumber": 197,
+    "lineNumber": 183,
     "params": [],
     "return": null
   },
   {
-    "__docId__": 152,
-    "kind": "method",
-    "name": "addRightIcon",
-    "memberof": "src/Frames/Screen.js~Screen",
-    "generator": false,
-    "async": false,
-    "static": false,
-    "longname": "src/Frames/Screen.js~Screen#addRightIcon",
-    "access": "public",
-    "description": "Add icon to right action bar zone",
-    "lineNumber": 207,
-    "deprecated": "Use addAction instance of this!",
-    "params": [
-      {
-        "nullable": null,
-        "types": [
-          "MenuItem"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "item",
-        "description": "Item to add"
-      }
-    ],
-    "return": null
-  },
-  {
-    "__docId__": 153,
+    "__docId__": 150,
     "kind": "method",
     "name": "addAction",
     "memberof": "src/Frames/Screen.js~Screen",
@@ -2469,7 +2398,7 @@
     "longname": "src/Frames/Screen.js~Screen#addAction",
     "access": "public",
     "description": "Add action to activity topbar.",
-    "lineNumber": 216,
+    "lineNumber": 192,
     "params": [
       {
         "nullable": null,
@@ -2485,7 +2414,7 @@
     "return": null
   },
   {
-    "__docId__": 154,
+    "__docId__": 151,
     "kind": "method",
     "name": "setHomeAction",
     "memberof": "src/Frames/Screen.js~Screen",
@@ -2495,7 +2424,7 @@
     "longname": "src/Frames/Screen.js~Screen#setHomeAction",
     "access": "public",
     "description": "Use item as screen home action.",
-    "lineNumber": 225,
+    "lineNumber": 201,
     "params": [
       {
         "nullable": null,
@@ -2511,7 +2440,7 @@
     "return": null
   },
   {
-    "__docId__": 155,
+    "__docId__": 152,
     "kind": "method",
     "name": "setHomeAsUpAction",
     "memberof": "src/Frames/Screen.js~Screen",
@@ -2521,12 +2450,12 @@
     "longname": "src/Frames/Screen.js~Screen#setHomeAsUpAction",
     "access": "public",
     "description": "Enable back button as home action.",
-    "lineNumber": 236,
+    "lineNumber": 212,
     "params": [],
     "return": null
   },
   {
-    "__docId__": 156,
+    "__docId__": 153,
     "kind": "method",
     "name": "setTitle",
     "memberof": "src/Frames/Screen.js~Screen",
@@ -2536,7 +2465,7 @@
     "longname": "src/Frames/Screen.js~Screen#setTitle",
     "access": "public",
     "description": "Set screen title in action bar",
-    "lineNumber": 247,
+    "lineNumber": 223,
     "params": [
       {
         "nullable": null,
@@ -2552,7 +2481,7 @@
     "return": null
   },
   {
-    "__docId__": 158,
+    "__docId__": 155,
     "kind": "method",
     "name": "_rebuildActionbar",
     "memberof": "src/Frames/Screen.js~Screen",
@@ -2562,39 +2491,12 @@
     "longname": "src/Frames/Screen.js~Screen#_rebuildActionbar",
     "access": "private",
     "description": "Re-generate action bar block contents",
-    "lineNumber": 255,
+    "lineNumber": 231,
     "params": [],
     "return": null
   },
   {
-    "__docId__": 159,
-    "kind": "method",
-    "name": "addStyle",
-    "memberof": "src/Frames/Screen.js~Screen",
-    "generator": false,
-    "async": false,
-    "static": false,
-    "longname": "src/Frames/Screen.js~Screen#addStyle",
-    "access": "public",
-    "description": "Add style class to activity.",
-    "lineNumber": 277,
-    "deprecated": true,
-    "params": [
-      {
-        "nullable": null,
-        "types": [
-          "string"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "style",
-        "description": "Style name"
-      }
-    ],
-    "return": null
-  },
-  {
-    "__docId__": 160,
+    "__docId__": 156,
     "kind": "method",
     "name": "doAutoUpdate",
     "memberof": "src/Frames/Screen.js~Screen",
@@ -2604,7 +2506,7 @@
     "longname": "src/Frames/Screen.js~Screen#doAutoUpdate",
     "access": "public",
     "description": "Add automatic call to `onUpdate` in interval",
-    "lineNumber": 287,
+    "lineNumber": 249,
     "todo": [
       "Remove old timer before install new"
     ],
@@ -2623,7 +2525,7 @@
     "return": null
   },
   {
-    "__docId__": 161,
+    "__docId__": 157,
     "kind": "method",
     "name": "appendView",
     "memberof": "src/Frames/Screen.js~Screen",
@@ -2633,7 +2535,7 @@
     "longname": "src/Frames/Screen.js~Screen#appendView",
     "access": "public",
     "description": "Append view to screen.\n\nIf `view.IS_FIXED_VIEW == true`, view will be added to relative zone.",
-    "lineNumber": 301,
+    "lineNumber": 263,
     "params": [
       {
         "nullable": null,
@@ -2653,7 +2555,7 @@
     }
   },
   {
-    "__docId__": 162,
+    "__docId__": 158,
     "kind": "method",
     "name": "setMode",
     "memberof": "src/Frames/Screen.js~Screen",
@@ -2663,7 +2565,8 @@
     "longname": "src/Frames/Screen.js~Screen#setMode",
     "access": "public",
     "description": "Set activity mode.\n\nUse `Screen.MODE_*` constants to set mode.\nDefault mode is `MODE_DEFAULT` (0).",
-    "lineNumber": 317,
+    "lineNumber": 280,
+    "deprecated": "use markAsRoot() or addMod()",
     "params": [
       {
         "nullable": null,
@@ -2679,27 +2582,44 @@
     "return": null
   },
   {
-    "__docId__": 164,
+    "__docId__": 159,
     "kind": "method",
-    "name": "getRootBlock",
+    "name": "addMod",
     "memberof": "src/Frames/Screen.js~Screen",
     "generator": false,
     "async": false,
     "static": false,
-    "longname": "src/Frames/Screen.js~Screen#getRootBlock",
+    "longname": "src/Frames/Screen.js~Screen#addMod",
     "access": "public",
-    "description": "Returns activity contents root block",
-    "lineNumber": 323,
-    "deprecated": true,
-    "params": [],
-    "return": {
-      "types": [
-        "*"
-      ]
-    }
+    "description": "Install mod to this screen\n\nMods are classes with name `*ScreenMod`. For example:\n```js\nthis.addMod(new NoAnimationScreenMod());\n```\nThis will disable screen open/close animations",
+    "lineNumber": 294,
+    "params": [
+      {
+        "name": "mod",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": null
   },
   {
-    "__docId__": 165,
+    "__docId__": 160,
+    "kind": "method",
+    "name": "markAsRoot",
+    "memberof": "src/Frames/Screen.js~Screen",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/Frames/Screen.js~Screen#markAsRoot",
+    "access": "public",
+    "description": "Mark screen as root.\n\nRoot screen can't be dismissed, don't use animations\nand etc.",
+    "lineNumber": 304,
+    "params": [],
+    "return": null
+  },
+  {
+    "__docId__": 161,
     "kind": "method",
     "name": "getScrollerBlock",
     "memberof": "src/Frames/Screen.js~Screen",
@@ -2709,7 +2629,7 @@
     "longname": "src/Frames/Screen.js~Screen#getScrollerBlock",
     "access": "public",
     "description": "Returns scrolling block from activity.\nUsed to setup onScroll listeners.",
-    "lineNumber": 334,
+    "lineNumber": 315,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2727,7 +2647,7 @@
     "params": []
   },
   {
-    "__docId__": 166,
+    "__docId__": 162,
     "kind": "method",
     "name": "wipeContents",
     "memberof": "src/Frames/Screen.js~Screen",
@@ -2737,12 +2657,12 @@
     "longname": "src/Frames/Screen.js~Screen#wipeContents",
     "access": "public",
     "description": "Remove all activity contents, except config and fixed views",
-    "lineNumber": 341,
+    "lineNumber": 322,
     "params": [],
     "return": null
   },
   {
-    "__docId__": 167,
+    "__docId__": 163,
     "kind": "method",
     "name": "onCreate",
     "memberof": "src/Frames/Screen.js~Screen",
@@ -2752,7 +2672,7 @@
     "longname": "src/Frames/Screen.js~Screen#onCreate",
     "access": "public",
     "description": "Event listener, calls on screen start",
-    "lineNumber": 350,
+    "lineNumber": 331,
     "params": [
       {
         "nullable": null,
@@ -2768,7 +2688,7 @@
     "return": null
   },
   {
-    "__docId__": 168,
+    "__docId__": 164,
     "kind": "method",
     "name": "onUpdate",
     "memberof": "src/Frames/Screen.js~Screen",
@@ -2778,12 +2698,12 @@
     "longname": "src/Frames/Screen.js~Screen#onUpdate",
     "access": "public",
     "description": "Event listener, calls on screen refresh or manually",
-    "lineNumber": 357,
+    "lineNumber": 338,
     "params": [],
     "return": null
   },
   {
-    "__docId__": 169,
+    "__docId__": 165,
     "kind": "method",
     "name": "onInit",
     "memberof": "src/Frames/Screen.js~Screen",
@@ -2793,12 +2713,12 @@
     "longname": "src/Frames/Screen.js~Screen#onInit",
     "access": "public",
     "description": "Event listener, calls before screen construct",
-    "lineNumber": 361,
+    "lineNumber": 342,
     "params": [],
     "return": null
   },
   {
-    "__docId__": 170,
+    "__docId__": 166,
     "kind": "method",
     "name": "onFinish",
     "memberof": "src/Frames/Screen.js~Screen",
@@ -2808,7 +2728,7 @@
     "longname": "src/Frames/Screen.js~Screen#onFinish",
     "access": "public",
     "description": "Event listener, calls on screen destroy. Must return a boolean.\n\nIf returns `false`, screen finish will be cancelled.",
-    "lineNumber": 369,
+    "lineNumber": 350,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2826,7 +2746,7 @@
     "params": []
   },
   {
-    "__docId__": 171,
+    "__docId__": 167,
     "kind": "method",
     "name": "finish",
     "memberof": "src/Frames/Screen.js~Screen",
@@ -2836,12 +2756,12 @@
     "longname": "src/Frames/Screen.js~Screen#finish",
     "access": "public",
     "description": "Do screen destory",
-    "lineNumber": 378,
+    "lineNumber": 359,
     "params": [],
     "return": null
   },
   {
-    "__docId__": 172,
+    "__docId__": 168,
     "kind": "method",
     "name": "start",
     "memberof": "src/Frames/Screen.js~Screen",
@@ -2851,12 +2771,12 @@
     "longname": "src/Frames/Screen.js~Screen#start",
     "access": "public",
     "description": "Do activity build and display",
-    "lineNumber": 397,
+    "lineNumber": 378,
     "params": [],
     "return": null
   },
   {
-    "__docId__": 173,
+    "__docId__": 169,
     "kind": "file",
     "name": "src/Frames/WaitScreen.js",
     "content": "/**\r\n * Display loading overlay\r\n */\r\nclass WaitScreen {\r\n\t/**\r\n\t * Default contructor\r\n\t */\r\n\tconstructor() {\r\n\t\t/**\r\n\t\t * Root container\r\n\t\t * @type {HTMLElement}\r\n\t\t */\r\n\t\tthis.block = Utils.inflate({\r\n\t\t\ttype: \"div\",\r\n\t\t\tclass: \"fw-spinactivity\", childs: {\r\n\t\t\t\tspinner: { type: \"div\", class: \"fw-spinner\", inner: \"Please wait...\" }\r\n\t\t\t}\r\n\t\t});\r\n\t}\r\n\r\n\t/**\r\n\t * Show this overlay\r\n\t */\r\n\tshow() { document.body.appendChild(this.block); }\r\n\r\n\t/**\r\n\t * Hide this overlay\r\n\t */\r\n\thide() { this.block.remove(); }\r\n}\r\n\r\n",
@@ -2867,7 +2787,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 174,
+    "__docId__": 170,
     "kind": "class",
     "name": "WaitScreen",
     "memberof": "src/Frames/WaitScreen.js",
@@ -2882,7 +2802,7 @@
     "interface": false
   },
   {
-    "__docId__": 175,
+    "__docId__": 171,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/Frames/WaitScreen.js~WaitScreen",
@@ -2895,7 +2815,7 @@
     "lineNumber": 8
   },
   {
-    "__docId__": 176,
+    "__docId__": 172,
     "kind": "member",
     "name": "block",
     "memberof": "src/Frames/WaitScreen.js~WaitScreen",
@@ -2914,7 +2834,7 @@
     }
   },
   {
-    "__docId__": 177,
+    "__docId__": 173,
     "kind": "method",
     "name": "show",
     "memberof": "src/Frames/WaitScreen.js~WaitScreen",
@@ -2929,7 +2849,7 @@
     "return": null
   },
   {
-    "__docId__": 178,
+    "__docId__": 174,
     "kind": "method",
     "name": "hide",
     "memberof": "src/Frames/WaitScreen.js~WaitScreen",
@@ -2944,7 +2864,7 @@
     "return": null
   },
   {
-    "__docId__": 179,
+    "__docId__": 175,
     "kind": "file",
     "name": "src/index.js",
     "content": "// All other classes are automaticly imported by Babel\r\n\r\n/**\r\n * Framework initialization class. Technique usage only!\r\n */\r\nclass FWInit {\r\n    /**\r\n     * Initialize framework.\r\n     */\r\n    static init() {\r\n        if(FWInit.asdzx_init_complete) return Log.w(\"Init\", \"Secondary init call is blocked!\");\r\n        Config._init();\r\n        FWInit.cfgInit();\r\n\r\n        FWInit.asdzx_init_complete = true;\r\n    }\r\n\r\n    /**\r\n     * Parse local framework settings\r\n     */\r\n    static cfgInit() {\r\n        if(localStorage.fw_cfg_font_size)\r\n            document.documentElement.style.fontSize = localStorage.fw_cfg_font_size+\"rem\";\r\n\r\n        localStorage.fw_cfg_nightmode ? document.documentElement.classList.add(\"fw-bcfg-darkmode\") : \r\n            document.documentElement.classList.remove(\"fw-bcfg-darkmode\");\r\n    }\r\n}\r\n\r\nFWInit.init();\r\n",
@@ -2955,7 +2875,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 180,
+    "__docId__": 176,
     "kind": "class",
     "name": "FWInit",
     "memberof": "src/index.js",
@@ -2970,7 +2890,7 @@
     "interface": false
   },
   {
-    "__docId__": 181,
+    "__docId__": 177,
     "kind": "method",
     "name": "init",
     "memberof": "src/index.js~FWInit",
@@ -2989,7 +2909,7 @@
     }
   },
   {
-    "__docId__": 182,
+    "__docId__": 178,
     "kind": "method",
     "name": "cfgInit",
     "memberof": "src/index.js~FWInit",
@@ -3004,7 +2924,456 @@
     "return": null
   },
   {
+    "__docId__": 179,
+    "kind": "file",
+    "name": "src/Layout/ExpandableLayout.js",
+    "content": "/**\r\n * Expandable layout view\r\n * \r\n * This layout contain some columns with width diapasones.\r\n * If screen width is smaller than sum of minimal widths of all columns,\r\n * it will be shown as list.\r\n *\r\n * Example:\r\n * Layout with two columns: left menu and main content\r\n * Menu width is 360px. Minimal content width is\r\n * 480px. If screen is smaller then 840px (360+480), columns\r\n * will be collspased. If bigger, will be expanded and shown as columns\r\n */\r\nclass ExpandableLayout {\r\n\tget IS_VIEW() { return true; }\r\n\r\n\tconstructor() {\r\n\t\t/**\r\n\t\t * Layout root view\r\n\t\t */\r\n\t\tthis._root = Utils.inflate({type: \"div\", class: \"fw-layout-expandable\"});\r\n\t\t/**\r\n\t\t * Layout columns array\r\n\t\t */\r\n\t\tthis._columns = [];\r\n\t\t/**\r\n\t\t * Layout clumns min widths array\r\n\t\t */\r\n\t\tthis._columnMinWidths = [];\r\n\t\t/**\r\n\t\t * Layout clumns max widths array\r\n\t\t */\r\n\t\tthis._columnMaxWidths = [];\r\n\t\t/**\r\n\t\t * Is expanded now?\r\n\t\t */\r\n\t\t this.isExpanded = false;\r\n\t}\r\n\t\r\n\t/**\r\n\t * Remove window resize listener\r\n\t */\r\n\t_unregister() {\r\n\t\twindow.removeEventListener(\"resize\", this._eventListener);\r\n\t}\r\n\r\n\t/**\r\n\t * Create and apply window resize listener\r\n\t */\r\n\t_register() {\r\n\t\tvar ctx = this;\r\n\r\n\t\t/**\r\n\t\t * On resize event listener method. Must be saved for unregister\r\n\t\t * function\r\n\t\t */\r\n\t\tctx._eventListener = function() {\r\n\t\t\tif(!ctx._root.isConnected) ctx._unregister();\r\n\t\t\telse ctx._updateWidth();\r\n\t\t};\r\n\r\n\t\twindow.addEventListener(\"resize\", this._eventListener);\r\n\t}\r\n\r\n\t/**\r\n\t * Check new window width and update layout\r\n\t */\r\n\t_updateWidth() {\r\n\t\tvar windowWidth = document.body.getBoundingClientRect().width,\r\n\t\t\tminExpandWidth = this._getExpandWidth(),\r\n\t\t\tmaxExpandWidth = this._getMaxExpandWidth();\r\n\r\n\t\tif(windowWidth >= minExpandWidth) {\r\n\t\t\t// Expand\r\n\t\t\tthis._root.classList.add(\"expanded\");\r\n\r\n\t\t\tif(windowWidth > maxExpandWidth) {\r\n\t\t\t\tthis._root.style.maxWidth = maxExpandWidth+\"px\";\r\n\t\t\t}\r\n\r\n\t\t\tfor(var a in this._columns) {\r\n\t\t\t\tvar cv = this._columns[a];\r\n\t\t\t\tcv.style.minWidth = this._columnMinWidths[a]+\"px\";\r\n\t\t\t\tcv.style.maxWidth = this._columnMaxWidths[a]+\"px\";\r\n\t\t\t}\r\n\t\t} else {\r\n\t\t\t// Collspace\r\n\t\t\tthis._root.classList.remove(\"expanded\");\r\n\t\t\tthis._root.style.maxWidth = null;\r\n\t\t\tfor(var a in this._columns) {\r\n\t\t\t\tvar cv = this._columns[a];\r\n\t\t\t\tcv.style.minWidth = null;\r\n\t\t\t\tcv.style.maxWidth = null;\r\n\t\t\t}\r\n\t\t}\r\n\t}\r\n\r\n\t/**\r\n\t * Calculate minimal expand width\r\n\t * @returns width in px\r\n\t */\r\n\t_getExpandWidth() {\r\n\t\tvar width = 0;\r\n\t\tfor(var a in this._columnMinWidths)\r\n\t\t\twidth += this._columnMinWidths[a];\r\n\t\treturn width;\r\n\t}\r\n\r\n\t/**\r\n\t * Calculate maximal expand width\r\n\t * @returns width in px\r\n\t */\r\n\t_getMaxExpandWidth() {\r\n\t\tvar width = 0;\r\n\t\tfor(var a in this._columnMaxWidths)\r\n\t\t\twidth += this._columnMaxWidths[a];\r\n\t\treturn width;\r\n\t}\r\n\r\n\t/**\r\n\t * Get root view block\r\n\t */\r\n\t getBlock() {\r\n\t \tvar ctx = this;\r\n\t \tthis._register();\r\n \t\tctx._updateWidth();\r\n\t \treturn this._root;\r\n\t }\r\n\r\n\t /**\r\n\t  * Add new column\r\n\t  *\r\n\t  * @param minWidth minimal column width (integer)\r\n\t  * @param maxWidth maximal column width (integer)\r\n\t  * @returns new view\r\n\t  */\r\n\t  addColumn(minWidth, maxWidth) {\r\n\t  \tif(!maxWidth) maxWidth = minWidth;\r\n\t  \tif(!minWidth) minWidth = 200;\r\n\r\n\t  \tvar id = this._columns.length,\r\n\t  \t\tcolRoot = Utils.inflate({type: \"div\"});\r\n\r\n\t  \tthis._columns[id] = colRoot;\r\n\t  \tthis._columnMaxWidths[id] = maxWidth;\r\n\t  \tthis._columnMinWidths[id] = minWidth;\r\n\t  \tthis._root.appendView(colRoot);\r\n\t  \tthis._updateWidth();\r\n\t  \treturn colRoot;\r\n\t  }\r\n\r\n\t  /**\r\n\t   * Get column root by id\r\n\t   *\r\n\t   * @returns Column view\r\n\t   */\r\n\t  getColumnRoot(id) {\r\n\t  \treturn this._columns[id];\r\n\t  }\r\n}\r\n",
+    "static": true,
+    "longname": "C:/Users/Miha/Documents/MDFWjs/src/Layout/ExpandableLayout.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 180,
+    "kind": "class",
+    "name": "ExpandableLayout",
+    "memberof": "src/Layout/ExpandableLayout.js",
+    "static": true,
+    "longname": "src/Layout/ExpandableLayout.js~ExpandableLayout",
+    "access": "public",
+    "export": false,
+    "importPath": "mdfwjs/src/Layout/ExpandableLayout.js",
+    "importStyle": null,
+    "description": "Expandable layout view\n\nThis layout contain some columns with width diapasones.\nIf screen width is smaller than sum of minimal widths of all columns,\nit will be shown as list.\n\nExample:\nLayout with two columns: left menu and main content\nMenu width is 360px. Minimal content width is\n480px. If screen is smaller then 840px (360+480), columns\nwill be collspased. If bigger, will be expanded and shown as columns",
+    "lineNumber": 14,
+    "interface": false
+  },
+  {
+    "__docId__": 181,
+    "kind": "get",
+    "name": "IS_VIEW",
+    "memberof": "src/Layout/ExpandableLayout.js~ExpandableLayout",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/Layout/ExpandableLayout.js~ExpandableLayout#IS_VIEW",
+    "access": "public",
+    "description": null,
+    "lineNumber": 15,
+    "undocument": true,
+    "type": {
+      "types": [
+        "boolean"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 182,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "src/Layout/ExpandableLayout.js~ExpandableLayout",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/Layout/ExpandableLayout.js~ExpandableLayout#constructor",
+    "access": "public",
+    "description": null,
+    "lineNumber": 17,
+    "undocument": true,
+    "ignore": true
+  },
+  {
     "__docId__": 183,
+    "kind": "member",
+    "name": "_root",
+    "memberof": "src/Layout/ExpandableLayout.js~ExpandableLayout",
+    "static": false,
+    "longname": "src/Layout/ExpandableLayout.js~ExpandableLayout#_root",
+    "access": "private",
+    "description": "Layout root view",
+    "lineNumber": 21,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 184,
+    "kind": "member",
+    "name": "_columns",
+    "memberof": "src/Layout/ExpandableLayout.js~ExpandableLayout",
+    "static": false,
+    "longname": "src/Layout/ExpandableLayout.js~ExpandableLayout#_columns",
+    "access": "private",
+    "description": "Layout columns array",
+    "lineNumber": 25,
+    "type": {
+      "types": [
+        "*[]"
+      ]
+    }
+  },
+  {
+    "__docId__": 185,
+    "kind": "member",
+    "name": "_columnMinWidths",
+    "memberof": "src/Layout/ExpandableLayout.js~ExpandableLayout",
+    "static": false,
+    "longname": "src/Layout/ExpandableLayout.js~ExpandableLayout#_columnMinWidths",
+    "access": "private",
+    "description": "Layout clumns min widths array",
+    "lineNumber": 29,
+    "type": {
+      "types": [
+        "*[]"
+      ]
+    }
+  },
+  {
+    "__docId__": 186,
+    "kind": "member",
+    "name": "_columnMaxWidths",
+    "memberof": "src/Layout/ExpandableLayout.js~ExpandableLayout",
+    "static": false,
+    "longname": "src/Layout/ExpandableLayout.js~ExpandableLayout#_columnMaxWidths",
+    "access": "private",
+    "description": "Layout clumns max widths array",
+    "lineNumber": 33,
+    "type": {
+      "types": [
+        "*[]"
+      ]
+    }
+  },
+  {
+    "__docId__": 187,
+    "kind": "member",
+    "name": "isExpanded",
+    "memberof": "src/Layout/ExpandableLayout.js~ExpandableLayout",
+    "static": false,
+    "longname": "src/Layout/ExpandableLayout.js~ExpandableLayout#isExpanded",
+    "access": "public",
+    "description": "Is expanded now?",
+    "lineNumber": 37,
+    "type": {
+      "types": [
+        "boolean"
+      ]
+    }
+  },
+  {
+    "__docId__": 188,
+    "kind": "method",
+    "name": "_unregister",
+    "memberof": "src/Layout/ExpandableLayout.js~ExpandableLayout",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/Layout/ExpandableLayout.js~ExpandableLayout#_unregister",
+    "access": "private",
+    "description": "Remove window resize listener",
+    "lineNumber": 43,
+    "params": [],
+    "return": null
+  },
+  {
+    "__docId__": 189,
+    "kind": "method",
+    "name": "_register",
+    "memberof": "src/Layout/ExpandableLayout.js~ExpandableLayout",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/Layout/ExpandableLayout.js~ExpandableLayout#_register",
+    "access": "private",
+    "description": "Create and apply window resize listener",
+    "lineNumber": 50,
+    "params": [],
+    "return": null
+  },
+  {
+    "__docId__": 190,
+    "kind": "method",
+    "name": "_updateWidth",
+    "memberof": "src/Layout/ExpandableLayout.js~ExpandableLayout",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/Layout/ExpandableLayout.js~ExpandableLayout#_updateWidth",
+    "access": "private",
+    "description": "Check new window width and update layout",
+    "lineNumber": 68,
+    "params": [],
+    "return": null
+  },
+  {
+    "__docId__": 191,
+    "kind": "method",
+    "name": "_getExpandWidth",
+    "memberof": "src/Layout/ExpandableLayout.js~ExpandableLayout",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/Layout/ExpandableLayout.js~ExpandableLayout#_getExpandWidth",
+    "access": "private",
+    "description": "Calculate minimal expand width",
+    "lineNumber": 102,
+    "unknown": [
+      {
+        "tagName": "@returns",
+        "tagValue": "width in px"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "*"
+      ],
+      "spread": false,
+      "description": "width in px"
+    },
+    "params": []
+  },
+  {
+    "__docId__": 192,
+    "kind": "method",
+    "name": "_getMaxExpandWidth",
+    "memberof": "src/Layout/ExpandableLayout.js~ExpandableLayout",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/Layout/ExpandableLayout.js~ExpandableLayout#_getMaxExpandWidth",
+    "access": "private",
+    "description": "Calculate maximal expand width",
+    "lineNumber": 113,
+    "unknown": [
+      {
+        "tagName": "@returns",
+        "tagValue": "width in px"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "*"
+      ],
+      "spread": false,
+      "description": "width in px"
+    },
+    "params": []
+  },
+  {
+    "__docId__": 193,
+    "kind": "method",
+    "name": "getBlock",
+    "memberof": "src/Layout/ExpandableLayout.js~ExpandableLayout",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/Layout/ExpandableLayout.js~ExpandableLayout#getBlock",
+    "access": "public",
+    "description": "Get root view block",
+    "lineNumber": 123,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 194,
+    "kind": "method",
+    "name": "addColumn",
+    "memberof": "src/Layout/ExpandableLayout.js~ExpandableLayout",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/Layout/ExpandableLayout.js~ExpandableLayout#addColumn",
+    "access": "public",
+    "description": "Add new column",
+    "lineNumber": 137,
+    "unknown": [
+      {
+        "tagName": "@returns",
+        "tagValue": "new view"
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "minWidth",
+        "description": "minimal column width (integer)"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "maxWidth",
+        "description": "maximal column width (integer)"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "*"
+      ],
+      "spread": false,
+      "description": "new view"
+    }
+  },
+  {
+    "__docId__": 195,
+    "kind": "method",
+    "name": "getColumnRoot",
+    "memberof": "src/Layout/ExpandableLayout.js~ExpandableLayout",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/Layout/ExpandableLayout.js~ExpandableLayout#getColumnRoot",
+    "access": "public",
+    "description": "Get column root by id",
+    "lineNumber": 157,
+    "unknown": [
+      {
+        "tagName": "@returns",
+        "tagValue": "Column view"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "*"
+      ],
+      "spread": false,
+      "description": "Column view"
+    },
+    "params": [
+      {
+        "name": "id",
+        "types": [
+          "*"
+        ]
+      }
+    ]
+  },
+  {
+    "__docId__": 196,
+    "kind": "file",
+    "name": "src/Mods/NoAnimationScreenMod.js",
+    "content": "class NoAnimationScreenMod {\r\n\tinstall(screen) {\r\n\t\tscreen._activity_root.classList.add(\"noanim\");\r\n\t}\r\n}",
+    "static": true,
+    "longname": "C:/Users/Miha/Documents/MDFWjs/src/Mods/NoAnimationScreenMod.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 197,
+    "kind": "class",
+    "name": "NoAnimationScreenMod",
+    "memberof": "src/Mods/NoAnimationScreenMod.js",
+    "static": true,
+    "longname": "src/Mods/NoAnimationScreenMod.js~NoAnimationScreenMod",
+    "access": "public",
+    "export": false,
+    "importPath": "mdfwjs/src/Mods/NoAnimationScreenMod.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 1,
+    "undocument": true,
+    "interface": false,
+    "ignore": true
+  },
+  {
+    "__docId__": 198,
+    "kind": "method",
+    "name": "install",
+    "memberof": "src/Mods/NoAnimationScreenMod.js~NoAnimationScreenMod",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/Mods/NoAnimationScreenMod.js~NoAnimationScreenMod#install",
+    "access": "public",
+    "description": null,
+    "lineNumber": 2,
+    "undocument": true,
+    "params": [
+      {
+        "name": "screen",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": null,
+    "ignore": true
+  },
+  {
+    "__docId__": 199,
+    "kind": "file",
+    "name": "src/Mods/WideScreenMod.js",
+    "content": "class WideScreenMod {\r\n\tinstall(screen) {\r\n\t\tscreen._activity_root.classList.add(\"widescreen\");\r\n\t}\r\n}",
+    "static": true,
+    "longname": "C:/Users/Miha/Documents/MDFWjs/src/Mods/WideScreenMod.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 200,
+    "kind": "class",
+    "name": "WideScreenMod",
+    "memberof": "src/Mods/WideScreenMod.js",
+    "static": true,
+    "longname": "src/Mods/WideScreenMod.js~WideScreenMod",
+    "access": "public",
+    "export": false,
+    "importPath": "mdfwjs/src/Mods/WideScreenMod.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 1,
+    "undocument": true,
+    "interface": false,
+    "ignore": true
+  },
+  {
+    "__docId__": 201,
+    "kind": "method",
+    "name": "install",
+    "memberof": "src/Mods/WideScreenMod.js~WideScreenMod",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/Mods/WideScreenMod.js~WideScreenMod#install",
+    "access": "public",
+    "description": null,
+    "lineNumber": 2,
+    "undocument": true,
+    "params": [
+      {
+        "name": "screen",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": null,
+    "ignore": true
+  },
+  {
+    "__docId__": 202,
     "kind": "file",
     "name": "src/Utils/Log.js",
     "content": "/**\r\n * Logs provider class\r\n */\r\nclass Log {\r\n\t/**\r\n\t * Send debug log\r\n\t * @param {string} tag Class name or other identifer\r\n\t * @param {*} data Data to logging\r\n\t */\r\n\tstatic d(tag, data) {\r\n\t\tLog.journal += \"<div>[\" + tag + \"] \" + data + \"</div>\";\r\n\t\t//\t\tif(!AppConfig.enableDebug) return;\r\n\t\tconsole.log(\"[\" + tag + \"]\", data);\r\n\t}\r\n\r\n\t/**\r\n\t * Send info-level log\r\n\t * @param {string} tag Class name or other identifer\r\n\t * @param {*} data Data to logging\r\n\t */\r\n\tstatic i(tag, data) {\r\n\t\tLog.journal += \"<div style='color:#00a'>[\" + tag + \"] \" + data + \"</div>\";\r\n\t\tconsole.info(\"[\" + tag + \"]\", data);\r\n\t}\r\n\r\n\t/**\r\n\t * Send warring\r\n\t * @param {string} tag Class name or other identifer\r\n\t * @param {*} data Data to logging\r\n\t */\r\n\tstatic w(tag, data) {\r\n\t\tLog.journal += \"<div style='color:#aa0'>[\" + tag + \"] \" + data + \"</div>\";\r\n\t\tconsole.warn(\"[\" + tag + \"]\", data);\r\n\t}\r\n\r\n\t/**\r\n\t * Send error\r\n\t * @param {string} tag Class name or other identifer\r\n\t * @param {*} data Data to logging\r\n\t */\r\n\tstatic e(tag, data) {\r\n\t\tLog.journal += \"<div style='color:#f00'>[\" + tag + \"] \" + data + \"</div>\";\r\n\t\tconsole.error(\"[\" + tag + \"]\", data);\r\n\t}\r\n}\r\n\r\nLog.journal = \"\";\r\n",
@@ -3015,7 +3384,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 184,
+    "__docId__": 203,
     "kind": "class",
     "name": "Log",
     "memberof": "src/Utils/Log.js",
@@ -3030,7 +3399,7 @@
     "interface": false
   },
   {
-    "__docId__": 185,
+    "__docId__": 204,
     "kind": "method",
     "name": "d",
     "memberof": "src/Utils/Log.js~Log",
@@ -3066,7 +3435,7 @@
     "return": null
   },
   {
-    "__docId__": 186,
+    "__docId__": 205,
     "kind": "method",
     "name": "i",
     "memberof": "src/Utils/Log.js~Log",
@@ -3102,7 +3471,7 @@
     "return": null
   },
   {
-    "__docId__": 187,
+    "__docId__": 206,
     "kind": "method",
     "name": "w",
     "memberof": "src/Utils/Log.js~Log",
@@ -3138,7 +3507,7 @@
     "return": null
   },
   {
-    "__docId__": 188,
+    "__docId__": 207,
     "kind": "method",
     "name": "e",
     "memberof": "src/Utils/Log.js~Log",
@@ -3174,7 +3543,7 @@
     "return": null
   },
   {
-    "__docId__": 189,
+    "__docId__": 208,
     "kind": "file",
     "name": "src/Utils/MenuItem.js",
     "content": "/**\r\n * This class provide items for actionbar\r\n */\r\nclass MenuItem {\r\n\t/**\r\n\t * Create new MenuItem\r\n\t * \r\n\t * @param {string} title Accesibility name for icon\r\n\t * @param {string} icon Icon name (from material.io/icons palette)\r\n\t * @param {function} click On click function\r\n\t */\r\n\tconstructor(title, icon, click) {\r\n\t\t/**\r\n\t\t * Item acessibility title.\r\n\t\t * @type {string}\r\n\t\t */\r\n\t\tthis.title = title;\r\n\t\t/**\r\n\t\t * Item icon, by material.io/icons\r\n\t\t * @type {string}\r\n\t\t */\r\n\t\tthis.icon = icon;\r\n\t\t/**\r\n\t\t * Item click listener\r\n\t\t * @type {function}\r\n\t\t */\r\n\t\tthis.click = click;\r\n\t}\r\n\r\n\t/**\r\n\t * Built and returns item\r\n\t */\r\n\tinflate() {\r\n\t\tlet i = (new IconView(this.icon)).getBlock();\r\n\t\tlet b = document.createElement(\"a\");\r\n\t\tb.className = \"ab-btn\";\r\n\t\tb.appendChild(i);\r\n\t\tb.title = this.title;\r\n\t\tb.onclick = this.click;\r\n\t\treturn b;\r\n\t}\r\n}\r\n",
@@ -3185,7 +3554,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 190,
+    "__docId__": 209,
     "kind": "class",
     "name": "MenuItem",
     "memberof": "src/Utils/MenuItem.js",
@@ -3200,7 +3569,7 @@
     "interface": false
   },
   {
-    "__docId__": 191,
+    "__docId__": 210,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/Utils/MenuItem.js~MenuItem",
@@ -3245,7 +3614,7 @@
     ]
   },
   {
-    "__docId__": 192,
+    "__docId__": 211,
     "kind": "member",
     "name": "title",
     "memberof": "src/Utils/MenuItem.js~MenuItem",
@@ -3264,7 +3633,7 @@
     }
   },
   {
-    "__docId__": 193,
+    "__docId__": 212,
     "kind": "member",
     "name": "icon",
     "memberof": "src/Utils/MenuItem.js~MenuItem",
@@ -3283,7 +3652,7 @@
     }
   },
   {
-    "__docId__": 194,
+    "__docId__": 213,
     "kind": "member",
     "name": "click",
     "memberof": "src/Utils/MenuItem.js~MenuItem",
@@ -3302,7 +3671,7 @@
     }
   },
   {
-    "__docId__": 195,
+    "__docId__": 214,
     "kind": "method",
     "name": "inflate",
     "memberof": "src/Utils/MenuItem.js~MenuItem",
@@ -3321,7 +3690,7 @@
     }
   },
   {
-    "__docId__": 196,
+    "__docId__": 215,
     "kind": "file",
     "name": "src/Utils/Utils.js",
     "content": "\r\n/**\r\n * Framework utilities.\r\n */\r\nclass Utils {\r\n\t/**\r\n\t * Generate HTMLElement by user-provide schema\r\n\t * @param {object} data Structure for block generation\r\n\t * @returns {HTMLElement}\r\n\t */\r\n\tstatic inflate(data) {\r\n\t\tvar block = document.createElement(data.type);\r\n\t\tif (data.class) block.className = data.class;\r\n\t\tif (data.id) block.id = data.id;\r\n\t\tif (data.inner) block.innerHTML = data.inner;\r\n\t\tif (data.height) block.style.height = data.height;\r\n\t\tif (data.color) block.style.color = data.color;\r\n\r\n\t\tif (data.childs) for (var a in data.childs)\r\n\t\t\tblock[a] = block.appendChild(Utils.inflate(data.childs[a]));\r\n\r\n\t\t// Block-view hook\r\n\t\tblock.IS_VIEW = true;\r\n\t\tblock.getBlock = function() {return this;}\r\n\t\tblock.appendView = function(v) {\r\n\t\t\tif(!v.IS_VIEW) Log.w(\"HTMLInflatorView\", \"Not a view!\");\r\n\t\t\tthis.appendChild(v.getBlock());\r\n\t\t\treturn this;\r\n\t\t}\r\n\r\n\t\t// Install addons\r\n\t\tUtils.addLongTouchEvent(block);\r\n\r\n\t\treturn block;\r\n\t}\r\n\r\n\t/**\r\n\t * Create promise with timeout\r\n\t * @param {number} time Wait time in ms\r\n\t */\r\n\tstatic timer(time) {\r\n\t\treturn new Promise(function (resolve) {\r\n\t\t\tsetTimeout(function () {\r\n\t\t\t\tresolve();\r\n\t\t\t}, time);\r\n\t\t});\r\n\t}\r\n\r\n\t/**\r\n\t * Add LongTouch listener to block\r\n\t * \r\n\t * @param {HTMLElement} block Block to use\r\n\t */\r\n\tstatic addLongTouchEvent(block) {\r\n\t\tvar timer = -1;\r\n\r\n\t\tvar supportsPassive = false;\r\n\t\ttry {\r\n\t\t  var opts = Object.defineProperty({}, 'passive', {\r\n\t\t    get: function() {\r\n\t\t      supportsPassive = true;\r\n\t\t    }\r\n\t\t  });\r\n\t\t  window.addEventListener(\"testPassive\", null, opts);\r\n\t\t  window.removeEventListener(\"testPassive\", null, opts);\r\n\t\t} catch (e) {}\r\n\r\n\t\tblock.onlongtap = null;\r\n\t\tblock.addEventListener(\"touchstart\",function(e){\r\n\t\t\tif(!block.onlongtap) return true;\r\n\t\t\ttimer = setTimeout(function(e){\r\n\t\t\t\tif(block.onlongtap) block.onlongtap(e);\r\n\t\t\t}, 500);\r\n\t\t\treturn !block.onlongtap;\r\n\t\t}, supportsPassive ? {passive: true} : false);\r\n\t\tblock.addEventListener(\"touchmove\", function(){\r\n\t\t\tif(timer) clearTimeout(timer);\r\n\t\t}, supportsPassive ? {passive: true} : false);\r\n\t\tblock.addEventListener(\"touchend\", function(){\r\n\t\t\tif(timer) clearTimeout(timer);\r\n\t\t\treturn !block.onlongtap;\r\n\t\t});\r\n\t\tblock.oncontextmenu = function(e){\r\n\t\t\tif(block.onlongtap) block.onlongtap(e);\r\n\t\t\treturn !block.onlongtap;\r\n\t\t}\r\n\t}\r\n}\r\n\r\n",
@@ -3332,7 +3701,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 197,
+    "__docId__": 216,
     "kind": "class",
     "name": "Utils",
     "memberof": "src/Utils/Utils.js",
@@ -3347,7 +3716,7 @@
     "interface": false
   },
   {
-    "__docId__": 198,
+    "__docId__": 217,
     "kind": "method",
     "name": "inflate",
     "memberof": "src/Utils/Utils.js~Utils",
@@ -3386,7 +3755,7 @@
     }
   },
   {
-    "__docId__": 199,
+    "__docId__": 218,
     "kind": "method",
     "name": "timer",
     "memberof": "src/Utils/Utils.js~Utils",
@@ -3416,7 +3785,7 @@
     }
   },
   {
-    "__docId__": 200,
+    "__docId__": 219,
     "kind": "method",
     "name": "addLongTouchEvent",
     "memberof": "src/Utils/Utils.js~Utils",
@@ -3442,7 +3811,7 @@
     "return": null
   },
   {
-    "__docId__": 201,
+    "__docId__": 220,
     "kind": "file",
     "name": "src/View/IconView.js",
     "content": "/**\r\n * Simple icon widget\r\n */\r\nclass IconView {\r\n\tget IS_VIEW() { return true; }\r\n\r\n\t/**\r\n\t * Constuct new icon view widget\r\n\t * @param {string} icon Icon identifer from material design icon font\r\n\t */\r\n\tconstructor(icon) {\r\n\t\tthis.iconName = icon;\r\n\t}\r\n\r\n\t/**\r\n\t * Disable icon coloring. Useful if you need another color.\r\n\t * @returns {IconView} callback\r\n\t */\r\n\tdisableColor() {\r\n\t\tthis.nocolor = true;\r\n\t\treturn this;\r\n\t}\r\n\r\n\t/**\r\n\t * Create and returns IconView block.\r\n\t * @returns {HTMLElement}\r\n\t */\r\n\tgetBlock() {\r\n\t\tlet i = document.createElement(\"i\");\r\n\t\ti.className = \"material-icons\";\r\n\t\tif(!this.nocolor) i.style.color = Config.mainColor;\r\n\t\ti.innerHTML = this.iconName;\r\n\t\treturn i;\r\n\t}\r\n}\r\n",
@@ -3453,7 +3822,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 202,
+    "__docId__": 221,
     "kind": "class",
     "name": "IconView",
     "memberof": "src/View/IconView.js",
@@ -3468,7 +3837,7 @@
     "interface": false
   },
   {
-    "__docId__": 203,
+    "__docId__": 222,
     "kind": "get",
     "name": "IS_VIEW",
     "memberof": "src/View/IconView.js~IconView",
@@ -3488,7 +3857,7 @@
     "ignore": true
   },
   {
-    "__docId__": 204,
+    "__docId__": 223,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/View/IconView.js~IconView",
@@ -3513,7 +3882,7 @@
     ]
   },
   {
-    "__docId__": 205,
+    "__docId__": 224,
     "kind": "member",
     "name": "iconName",
     "memberof": "src/View/IconView.js~IconView",
@@ -3531,7 +3900,7 @@
     "ignore": true
   },
   {
-    "__docId__": 206,
+    "__docId__": 225,
     "kind": "method",
     "name": "disableColor",
     "memberof": "src/View/IconView.js~IconView",
@@ -3559,7 +3928,7 @@
     "params": []
   },
   {
-    "__docId__": 207,
+    "__docId__": 226,
     "kind": "member",
     "name": "nocolor",
     "memberof": "src/View/IconView.js~IconView",
@@ -3577,7 +3946,7 @@
     "ignore": true
   },
   {
-    "__docId__": 208,
+    "__docId__": 227,
     "kind": "method",
     "name": "getBlock",
     "memberof": "src/View/IconView.js~IconView",
@@ -3605,7 +3974,7 @@
     "params": []
   },
   {
-    "__docId__": 209,
+    "__docId__": 228,
     "kind": "file",
     "name": "src/View/RowView.js",
     "content": "/**\r\n * Row widget, great way to provide item in list\r\n */\r\nclass RowView {\r\n\tget IS_VIEW() { return true; }\r\n\r\n\t/**\r\n\t * Constructor :-)\r\n\t */\r\n\tconstructor() {\r\n\t\tthis._title = \"\";\r\n\t\tthis._icon = \"\";\r\n\t\tthis._subtitle = \"\";\r\n\t\tthis._click = null;\r\n\t\tthis._longtap = null;\r\n\t}\r\n\r\n\t/**\r\n\t * Set item title.\r\n\t * \r\n\t * @param {string} title Title value\r\n\t * @returns {RowView} self-return\r\n\t */\r\n\tsetTitle(title) {\r\n\t\tthis._title = title;\r\n\t\treturn this;\r\n\t}\r\n\r\n\t/**\r\n\t * Set item summary, second level information\r\n\t * \r\n\t * @param {string} title Summary value\r\n\t * @returns {RowView} self-return\r\n\t */\r\n\tsetSummary(title) {\r\n\t\tthis._subtitle = title;\r\n\t\treturn this;\r\n\t}\r\n\r\n\t/**\r\n\t * Set item icon.\r\n\t * \r\n\t * @param {string} icon Icon name from material.io/icons\r\n\t * @returns {RowView} self-return\r\n\t */\r\n\tsetIcon(icon) {\r\n\t\tthis._icon = icon;\r\n\t\treturn this;\r\n\t}\r\n\r\n\t/**\r\n\t * Add secondary action.\r\n\t * \r\n\t * @param {string} title Accesibility name\r\n\t * @param {string} icon Icon name from material.io/icons\r\n\t * @param {function} click On click function\r\n\t * @returns {RowView} self-return\r\n\t */\r\n\tsetAction(title,icon,click) {\r\n\t\tthis._action = {t: title, i: icon, c: click};\r\n\t\treturn this;\r\n\t}\r\n\r\n\t/**\r\n\t * Set on click function\r\n\t * \r\n\t * @param {function} c Function\r\n\t * @returns {RowView} self-return\r\n\t */\r\n\tsetOnClickListener(c) {\r\n\t\tthis._click = c;\r\n\t\treturn this;\r\n\t}\r\n\r\n\t/**\r\n\t * Set long touch event listner\r\n\t * \r\n\t * @param {function} c Function\r\n\t * @returns {RowView} self-return\r\n\t */\r\n\tsetOnLongTouchListener(c) {\r\n\t\tthis._longtap = c;\r\n\t\treturn this;\r\n\t}\r\n\r\n\t/**\r\n\t * Build and get block!\r\n\t */\r\n\tgetBlock() {\r\n\t\tlet b = Utils.inflate({ type: \"div\", class: \"fw-rowview\", childs: {\r\n\t\t\tbox_a: {type: \"div\"},\r\n\t\t\tbox_b: {type: \"div\", class: \"text\"},\r\n\t\t\tbox_c: {type: \"div\"}\r\n\t\t} }), ctx = this;\r\n\r\n\t\tUnFocusService.add(b);\r\n\r\n\t\tb.onclick = this._click;\r\n\t\tb.onlongtap = this._longtap;\r\n\t\tif(this._title) b.box_b.appendChild(Utils.inflate({\r\n\t\t\ttype: \"div\", class: \"title\", inner: this._title\r\n\t\t}));\r\n\r\n\t\tif(this._subtitle) {\r\n\t\t\tb.classList.add(\"twoline\");\r\n\t\t\tb.box_b.appendChild(Utils.inflate({\r\n\t\t\t\ttype: \"div\", class: \"summary\", inner: this._subtitle\r\n\t\t\t}));\r\n\t\t}\r\n\r\n\t\tif(this._icon) {\r\n\t\t\tb.box_a.className = \"icon\";\r\n\t\t\tb.box_a.appendView(new IconView(this._icon));\r\n\t\t}\r\n\r\n\t\tif(this._action) {\r\n\t\t\tb.box_c.className = \"action\";\r\n\t\t\tb.box_c.appendView(new IconView(this._action.i).disableColor());\r\n\t\t\tb.box_c.onclick = function(event){\r\n\t\t\t\tevent.preventDefault();\r\n\t\t\t\tevent.stopPropagation();\r\n\t\t\t\tctx._action.c();\r\n\t\t\t}\r\n\t\t\tb.box_c.title = this._action.t;\r\n\t\t}\r\n\r\n\t\treturn b;\r\n\t}\r\n}\r\n\r\n",
@@ -3616,7 +3985,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 210,
+    "__docId__": 229,
     "kind": "class",
     "name": "RowView",
     "memberof": "src/View/RowView.js",
@@ -3631,7 +4000,7 @@
     "interface": false
   },
   {
-    "__docId__": 211,
+    "__docId__": 230,
     "kind": "get",
     "name": "IS_VIEW",
     "memberof": "src/View/RowView.js~RowView",
@@ -3651,7 +4020,7 @@
     "ignore": true
   },
   {
-    "__docId__": 212,
+    "__docId__": 231,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/View/RowView.js~RowView",
@@ -3664,7 +4033,7 @@
     "lineNumber": 10
   },
   {
-    "__docId__": 213,
+    "__docId__": 232,
     "kind": "member",
     "name": "_title",
     "memberof": "src/View/RowView.js~RowView",
@@ -3682,7 +4051,7 @@
     "ignore": true
   },
   {
-    "__docId__": 214,
+    "__docId__": 233,
     "kind": "member",
     "name": "_icon",
     "memberof": "src/View/RowView.js~RowView",
@@ -3700,7 +4069,7 @@
     "ignore": true
   },
   {
-    "__docId__": 215,
+    "__docId__": 234,
     "kind": "member",
     "name": "_subtitle",
     "memberof": "src/View/RowView.js~RowView",
@@ -3718,7 +4087,7 @@
     "ignore": true
   },
   {
-    "__docId__": 216,
+    "__docId__": 235,
     "kind": "member",
     "name": "_click",
     "memberof": "src/View/RowView.js~RowView",
@@ -3736,7 +4105,7 @@
     "ignore": true
   },
   {
-    "__docId__": 217,
+    "__docId__": 236,
     "kind": "member",
     "name": "_longtap",
     "memberof": "src/View/RowView.js~RowView",
@@ -3754,7 +4123,7 @@
     "ignore": true
   },
   {
-    "__docId__": 218,
+    "__docId__": 237,
     "kind": "method",
     "name": "setTitle",
     "memberof": "src/View/RowView.js~RowView",
@@ -3793,7 +4162,7 @@
     }
   },
   {
-    "__docId__": 220,
+    "__docId__": 239,
     "kind": "method",
     "name": "setSummary",
     "memberof": "src/View/RowView.js~RowView",
@@ -3832,7 +4201,7 @@
     }
   },
   {
-    "__docId__": 222,
+    "__docId__": 241,
     "kind": "method",
     "name": "setIcon",
     "memberof": "src/View/RowView.js~RowView",
@@ -3871,7 +4240,7 @@
     }
   },
   {
-    "__docId__": 224,
+    "__docId__": 243,
     "kind": "method",
     "name": "setAction",
     "memberof": "src/View/RowView.js~RowView",
@@ -3930,7 +4299,7 @@
     }
   },
   {
-    "__docId__": 225,
+    "__docId__": 244,
     "kind": "member",
     "name": "_action",
     "memberof": "src/View/RowView.js~RowView",
@@ -3948,7 +4317,7 @@
     "ignore": true
   },
   {
-    "__docId__": 226,
+    "__docId__": 245,
     "kind": "method",
     "name": "setOnClickListener",
     "memberof": "src/View/RowView.js~RowView",
@@ -3987,7 +4356,7 @@
     }
   },
   {
-    "__docId__": 228,
+    "__docId__": 247,
     "kind": "method",
     "name": "setOnLongTouchListener",
     "memberof": "src/View/RowView.js~RowView",
@@ -4026,7 +4395,7 @@
     }
   },
   {
-    "__docId__": 230,
+    "__docId__": 249,
     "kind": "method",
     "name": "getBlock",
     "memberof": "src/View/RowView.js~RowView",
@@ -4045,7 +4414,7 @@
     }
   },
   {
-    "__docId__": 231,
+    "__docId__": 250,
     "kind": "file",
     "name": "src/View/SpoilerView.js",
     "content": "/**\r\n * Expandable row view.\r\n */\r\nclass SpoilerView extends RowView {\r\n\t/**\r\n\t * Default constructor\r\n\t */\r\n\tconstructor() {\r\n\t\tsuper();\r\n\r\n\t\tvar ctx = this;\r\n\t\tthis.contents = Utils.inflate({type: \"div\"});\r\n\t\tthis.contents.style.display = \"none\";\r\n\t\tthis._icon = \"keyboard_arrow_down\";\r\n\t\tthis._click = function() {\r\n\t\t\tctx.toggle();\r\n\t\t}\r\n\t}\r\n\r\n\tgetBlock() {\r\n\t\tthis.row = super.getBlock();\r\n\t\tvar b = Utils.inflate({type: \"div\"});\r\n\t\tb.appendChild(this.row);\r\n\t\tb.appendChild(this.contents);\r\n\t\treturn b;\r\n\t}\r\n\r\n\t/**\r\n\t * Append view to expandable container\r\n\t * @param {View} v view to append\r\n\t */\r\n\tappendView(v) {\r\n\t\treturn this.contents.appendView(v);\r\n\t}\r\n\r\n\t/**\r\n\t * Toggle contents visiblilty\r\n\t */\r\n\ttoggle() {\r\n\t\tif(this.contents.style.display == \"none\") {\r\n\t\t\t// Show!\r\n\t\t\tthis.contents.style.display = \"\";\r\n\t\t\tthis._icon = \"keyboard_arrow_up\";\r\n\r\n\t\t\tvar b = super.getBlock();\r\n\t\t\tthis.row = this.row.replaceWith(b);\r\n\t\t\tthis.row = b;\r\n\t\t} else {\r\n\t\t\t// Hide!\r\n\t\t\tthis.contents.style.display = \"none\";\r\n\t\t\tthis._icon = \"keyboard_arrow_down\";\r\n\r\n\t\t\tvar b = super.getBlock();\r\n\t\t\tthis.row = this.row.replaceWith(b);\r\n\t\t\tthis.row = b;\r\n\t\t}\r\n\t}\r\n}\r\n\r\n",
@@ -4056,7 +4425,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 232,
+    "__docId__": 251,
     "kind": "class",
     "name": "SpoilerView",
     "memberof": "src/View/SpoilerView.js",
@@ -4074,7 +4443,7 @@
     ]
   },
   {
-    "__docId__": 233,
+    "__docId__": 252,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/View/SpoilerView.js~SpoilerView",
@@ -4087,7 +4456,7 @@
     "lineNumber": 8
   },
   {
-    "__docId__": 234,
+    "__docId__": 253,
     "kind": "member",
     "name": "contents",
     "memberof": "src/View/SpoilerView.js~SpoilerView",
@@ -4105,7 +4474,7 @@
     "ignore": true
   },
   {
-    "__docId__": 235,
+    "__docId__": 254,
     "kind": "member",
     "name": "_icon",
     "memberof": "src/View/SpoilerView.js~SpoilerView",
@@ -4123,7 +4492,7 @@
     "ignore": true
   },
   {
-    "__docId__": 236,
+    "__docId__": 255,
     "kind": "method",
     "name": "getBlock",
     "memberof": "src/View/SpoilerView.js~SpoilerView",
@@ -4144,7 +4513,7 @@
     "ignore": true
   },
   {
-    "__docId__": 237,
+    "__docId__": 256,
     "kind": "member",
     "name": "row",
     "memberof": "src/View/SpoilerView.js~SpoilerView",
@@ -4162,7 +4531,7 @@
     "ignore": true
   },
   {
-    "__docId__": 238,
+    "__docId__": 257,
     "kind": "method",
     "name": "appendView",
     "memberof": "src/View/SpoilerView.js~SpoilerView",
@@ -4192,7 +4561,7 @@
     }
   },
   {
-    "__docId__": 239,
+    "__docId__": 258,
     "kind": "method",
     "name": "toggle",
     "memberof": "src/View/SpoilerView.js~SpoilerView",
@@ -4207,7 +4576,7 @@
     "return": null
   },
   {
-    "__docId__": 246,
+    "__docId__": 265,
     "kind": "file",
     "name": "src/View/TextView.js",
     "content": "/**\r\n * Simple text display widget.\r\n * \r\n * @todo Add configuration methods\r\n */\r\nclass TextView {\r\n\tget IS_VIEW() { return true; }\r\n\r\n\t/**\r\n\t * Build new view\r\n\t * @param {string} style TextView style name\r\n\t * @param {string} value Text to display\r\n\t */\r\n\tconstructor(style, value) {\r\n\t\tthis.blk = Utils.inflate({ type: \"div\", inner: value, class: \"fw-textview-style-\" + style });\r\n\t}\r\n\r\n\t/**\r\n\t * Returns block\r\n\t */\r\n\tgetBlock() {\r\n\t\treturn this.blk;\r\n\t}\r\n\r\n\t/**\r\n\t * Set new text\r\n\t */\r\n\t setText(text) {\r\n\t \tthis.blk.innerHTML = text;\r\n\t }\r\n}\r\n",
@@ -4218,7 +4587,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 247,
+    "__docId__": 266,
     "kind": "class",
     "name": "TextView",
     "memberof": "src/View/TextView.js",
@@ -4236,7 +4605,7 @@
     "interface": false
   },
   {
-    "__docId__": 248,
+    "__docId__": 267,
     "kind": "get",
     "name": "IS_VIEW",
     "memberof": "src/View/TextView.js~TextView",
@@ -4256,7 +4625,7 @@
     "ignore": true
   },
   {
-    "__docId__": 249,
+    "__docId__": 268,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/View/TextView.js~TextView",
@@ -4291,7 +4660,7 @@
     ]
   },
   {
-    "__docId__": 250,
+    "__docId__": 269,
     "kind": "member",
     "name": "blk",
     "memberof": "src/View/TextView.js~TextView",
@@ -4309,7 +4678,7 @@
     "ignore": true
   },
   {
-    "__docId__": 251,
+    "__docId__": 270,
     "kind": "method",
     "name": "getBlock",
     "memberof": "src/View/TextView.js~TextView",
@@ -4328,7 +4697,7 @@
     }
   },
   {
-    "__docId__": 252,
+    "__docId__": 271,
     "kind": "method",
     "name": "setText",
     "memberof": "src/View/TextView.js~TextView",
@@ -4350,7 +4719,7 @@
     "return": null
   },
   {
-    "__docId__": 253,
+    "__docId__": 272,
     "kind": "file",
     "name": "src/View/WaitlockView.js",
     "content": "/**\r\n * Spin animation activity lock view.\r\n */\r\nclass WaitlockView {\r\n\tget IS_VIEW() { return true; }\r\n\tget IS_FIXED_VIEW() { return true; }\r\n\r\n\t/**\r\n\t * Default constructor.\r\n\t * @param {Screen} ctx Context screen\r\n\t */\r\n\tconstructor(ctx) {\r\n\t\tthis.ctx = ctx;\r\n\t\tthis.block = Utils.inflate({type: \"div\", class: \"fw-waitlock-view\"});\r\n\t\tthis.block.appendView(new Spinner());\r\n\t}\r\n\r\n\tgetBlock() {return this.block;}\r\n\r\n\t/**\r\n\t * Show widget\r\n\t */\r\n\tshow() {\r\n\t\tthis.ctx._activity_contents.scrollTop = 0;\r\n\t\tthis.block.classList.add(\"show\");\r\n\t}\r\n\r\n\t/**\r\n\t * Hide widget\r\n\t */\r\n\thide() {\r\n\t\tthis.block.classList.remove(\"show\");\r\n\t}\r\n}\r\n",
@@ -4361,7 +4730,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 254,
+    "__docId__": 273,
     "kind": "class",
     "name": "WaitlockView",
     "memberof": "src/View/WaitlockView.js",
@@ -4376,7 +4745,7 @@
     "interface": false
   },
   {
-    "__docId__": 255,
+    "__docId__": 274,
     "kind": "get",
     "name": "IS_VIEW",
     "memberof": "src/View/WaitlockView.js~WaitlockView",
@@ -4396,7 +4765,7 @@
     "ignore": true
   },
   {
-    "__docId__": 256,
+    "__docId__": 275,
     "kind": "get",
     "name": "IS_FIXED_VIEW",
     "memberof": "src/View/WaitlockView.js~WaitlockView",
@@ -4416,7 +4785,7 @@
     "ignore": true
   },
   {
-    "__docId__": 257,
+    "__docId__": 276,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/View/WaitlockView.js~WaitlockView",
@@ -4441,7 +4810,7 @@
     ]
   },
   {
-    "__docId__": 258,
+    "__docId__": 277,
     "kind": "member",
     "name": "ctx",
     "memberof": "src/View/WaitlockView.js~WaitlockView",
@@ -4459,7 +4828,7 @@
     "ignore": true
   },
   {
-    "__docId__": 259,
+    "__docId__": 278,
     "kind": "member",
     "name": "block",
     "memberof": "src/View/WaitlockView.js~WaitlockView",
@@ -4477,7 +4846,7 @@
     "ignore": true
   },
   {
-    "__docId__": 260,
+    "__docId__": 279,
     "kind": "method",
     "name": "getBlock",
     "memberof": "src/View/WaitlockView.js~WaitlockView",
@@ -4498,7 +4867,7 @@
     "ignore": true
   },
   {
-    "__docId__": 261,
+    "__docId__": 280,
     "kind": "method",
     "name": "show",
     "memberof": "src/View/WaitlockView.js~WaitlockView",
@@ -4513,7 +4882,7 @@
     "return": null
   },
   {
-    "__docId__": 262,
+    "__docId__": 281,
     "kind": "method",
     "name": "hide",
     "memberof": "src/View/WaitlockView.js~WaitlockView",
@@ -4528,7 +4897,7 @@
     "return": null
   },
   {
-    "__docId__": 263,
+    "__docId__": 282,
     "kind": "file",
     "name": "src/Widget/Button.js",
     "content": "/**\r\n * Provides simple button widget\r\n */\r\nclass Button {\r\n\tget IS_VIEW() { return true; }\r\n\t/**\r\n\t * Flat (non-filled) button style id\r\n\t */\r\n\tstatic get STYLE_FLAT() { return \"style-flat\"; }\r\n\t/**\r\n\t * Contained (filled) button style id\r\n\t */\r\n\tstatic get STYLE_CONTAINED() { return \"style-contained\"; }\r\n\t/**\r\n\t * Outlined button style id\r\n\t */\r\n\tstatic get STYLE_OUTLINE() { return \"style-outline\"; }\r\n\r\n\t/**\r\n\t * Returns default button style\r\n\t */\r\n\t_getDefaultStyle() {\r\n\t\treturn Button.STYLE_FLAT;\r\n\t}\r\n\r\n\t/**\r\n\t * Default constructor\r\n\t */\r\n\tconstructor() {\r\n\t\tthis.mBlock = Utils.inflate({ type: \"button\", class: \"fw-button \" + this._getDefaultStyle() });\r\n\t\tUnFocusService.add(this.mBlock);\r\n\t\tthis.style = this._getDefaultStyle();\r\n\t\tthis._reDecorate();\r\n\t}\r\n\r\n\t/**\r\n\t * Re-install style-specific properties\r\n\t */\r\n\t_reDecorate() {\r\n\t\tif(this.style == Button.STYLE_FLAT || \r\n\t\t\tthis.style == Button.STYLE_OUTLINE) {\r\n\t\t\tthis.mBlock.style.backgroundColor = \"\";\r\n\t\t\tthis.mBlock.style.color = Config.mainColor;\r\n\t\t\tthis.mBlock.style.borderColor = Config.mainColor;\r\n\t\t} else if(this.style == Button.STYLE_CONTAINED) {\r\n\t\t\tthis.mBlock.style.backgroundColor = Config.mainColor;\r\n\t\t\tthis.mBlock.style.color = null;\r\n\t\t} else {\r\n\t\t\tLog.w(\"Button\", \"Style \"+this.style+\" isn't defined. Can't provide decoration!\");\r\n\t\t}\r\n\t}\r\n\r\n\t/**\r\n\t * Returns button block\r\n\t */\r\n\tgetBlock() {\r\n\t\treturn this.mBlock;\r\n\t}\r\n\r\n\t/**\r\n\t * Set text to display on button.\r\n\t * \r\n\t * @param {string} value Text to display\r\n\t * @returns {Button} self-return\r\n\t */\r\n\tsetText(value) {\r\n\t\tthis.mBlock.innerHTML = value;\r\n\t\treturn this;\r\n\t}\r\n\r\n\t/**\r\n\t * Set on button click function\r\n\t * \r\n\t * @param {function} fnc On click function\r\n\t * @returns {Button} self-return\r\n\t */\r\n\tsetOnClickListener(fnc) {\r\n\t\tthis.mBlock.onclick = fnc;\r\n\t\treturn this;\r\n\t}\r\n\r\n\t/**\r\n\t * Set button style. Use `Button.STYLE_*` constants.\r\n\t * \r\n\t * @param {string} style Style id\r\n\t * @returns {Button} self-return\r\n\t */\r\n\tsetStyle(style) {\r\n\t\tthis.mBlock.className = \"fw-button \" + style;\r\n\t\tthis.style = style;\r\n\t\tthis._reDecorate();\r\n\t\treturn this;\r\n\t}\r\n}\r\n\r\n",
@@ -4539,7 +4908,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 264,
+    "__docId__": 283,
     "kind": "class",
     "name": "Button",
     "memberof": "src/Widget/Button.js",
@@ -4554,7 +4923,7 @@
     "interface": false
   },
   {
-    "__docId__": 265,
+    "__docId__": 284,
     "kind": "get",
     "name": "IS_VIEW",
     "memberof": "src/Widget/Button.js~Button",
@@ -4574,7 +4943,7 @@
     "ignore": true
   },
   {
-    "__docId__": 266,
+    "__docId__": 285,
     "kind": "get",
     "name": "STYLE_FLAT",
     "memberof": "src/Widget/Button.js~Button",
@@ -4592,7 +4961,7 @@
     }
   },
   {
-    "__docId__": 267,
+    "__docId__": 286,
     "kind": "get",
     "name": "STYLE_CONTAINED",
     "memberof": "src/Widget/Button.js~Button",
@@ -4610,7 +4979,7 @@
     }
   },
   {
-    "__docId__": 268,
+    "__docId__": 287,
     "kind": "get",
     "name": "STYLE_OUTLINE",
     "memberof": "src/Widget/Button.js~Button",
@@ -4628,7 +4997,7 @@
     }
   },
   {
-    "__docId__": 269,
+    "__docId__": 288,
     "kind": "method",
     "name": "_getDefaultStyle",
     "memberof": "src/Widget/Button.js~Button",
@@ -4647,7 +5016,7 @@
     }
   },
   {
-    "__docId__": 270,
+    "__docId__": 289,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/Widget/Button.js~Button",
@@ -4660,7 +5029,7 @@
     "lineNumber": 29
   },
   {
-    "__docId__": 271,
+    "__docId__": 290,
     "kind": "member",
     "name": "mBlock",
     "memberof": "src/Widget/Button.js~Button",
@@ -4678,7 +5047,7 @@
     "ignore": true
   },
   {
-    "__docId__": 272,
+    "__docId__": 291,
     "kind": "member",
     "name": "style",
     "memberof": "src/Widget/Button.js~Button",
@@ -4696,7 +5065,7 @@
     "ignore": true
   },
   {
-    "__docId__": 273,
+    "__docId__": 292,
     "kind": "method",
     "name": "_reDecorate",
     "memberof": "src/Widget/Button.js~Button",
@@ -4711,7 +5080,7 @@
     "return": null
   },
   {
-    "__docId__": 274,
+    "__docId__": 293,
     "kind": "method",
     "name": "getBlock",
     "memberof": "src/Widget/Button.js~Button",
@@ -4730,7 +5099,7 @@
     }
   },
   {
-    "__docId__": 275,
+    "__docId__": 294,
     "kind": "method",
     "name": "setText",
     "memberof": "src/Widget/Button.js~Button",
@@ -4769,7 +5138,7 @@
     }
   },
   {
-    "__docId__": 276,
+    "__docId__": 295,
     "kind": "method",
     "name": "setOnClickListener",
     "memberof": "src/Widget/Button.js~Button",
@@ -4808,7 +5177,7 @@
     }
   },
   {
-    "__docId__": 277,
+    "__docId__": 296,
     "kind": "method",
     "name": "setStyle",
     "memberof": "src/Widget/Button.js~Button",
@@ -4847,7 +5216,7 @@
     }
   },
   {
-    "__docId__": 279,
+    "__docId__": 298,
     "kind": "file",
     "name": "src/Widget/FloatingActionButton.js",
     "content": "class FloatingActionButton {\r\n\tget IS_VIEW() { return true; }\r\n\tget IS_FIXED_VIEW() { return true; }\r\n\t\r\n\tstatic get MODE_DEFAULT() { return \"fab-default\"; }\r\n\tstatic get MODE_SMALL() { return \"fab-small\"; }\r\n\tstatic get MODE_EXPAND() { return \"fab-expand\"; }\r\n\tstatic get MODE_HIDE() { return \"fab-default hide\"; }\r\n\r\n\tconstructor() {\r\n\t\tthis.button = Utils.inflate({type: \"div\", class: \"fw-fab \"+FloatingActionButton.MODE_DEFAULT, childs: {\r\n            icon: {type: \"i\", class: \"material-icons\"},\r\n            textview: {type: \"a\", class: \"fab-text\"}\r\n        }});\r\n\t\tthis.button.style.backgroundColor = Config.mainColor;\r\n\t}\r\n\r\n\tsetIcon(icon) {\r\n        this.button.icon.innerHTML = icon;\r\n\t\treturn this;\r\n    }\r\n    \r\n    setTitle(title) {\r\n        this.button.textview.innerHTML = title;\r\n        return this;\r\n    }\r\n\r\n    setMode(mode) {\r\n        this.button.className = \"fw-fab \"+mode;\r\n        return this;\r\n\t}\r\n\t\r\n\tsetOnClickListener(c) {\r\n\t\tthis.button.onclick = c;\r\n\t\treturn this;\r\n\t}\r\n\r\n\tattachScreen(screen, modea, modeb) {\r\n\t\tvar ctx = this, prev = screen._activity_root.scrollTop;\r\n\t\t\r\n\t\tctx.setMode(modea);\r\n\t\tscreen.getScrollerBlock().addEventListener(\"scroll\",function(){\r\n\t\t\tvar df = prev-this.scrollTop;\r\n\t\t\tctx.setMode(df > 0 ? modea : modeb);\r\n\t\t\tprev = this.scrollTop;\r\n\t\t});\r\n\t\treturn this;\r\n\t}\r\n\r\n\tgetBlock() {\r\n\t\treturn this.button;\r\n\t}\r\n}\r\n",
@@ -4858,7 +5227,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 280,
+    "__docId__": 299,
     "kind": "class",
     "name": "FloatingActionButton",
     "memberof": "src/Widget/FloatingActionButton.js",
@@ -4875,7 +5244,7 @@
     "ignore": true
   },
   {
-    "__docId__": 281,
+    "__docId__": 300,
     "kind": "get",
     "name": "IS_VIEW",
     "memberof": "src/Widget/FloatingActionButton.js~FloatingActionButton",
@@ -4895,7 +5264,7 @@
     "ignore": true
   },
   {
-    "__docId__": 282,
+    "__docId__": 301,
     "kind": "get",
     "name": "IS_FIXED_VIEW",
     "memberof": "src/Widget/FloatingActionButton.js~FloatingActionButton",
@@ -4915,7 +5284,7 @@
     "ignore": true
   },
   {
-    "__docId__": 283,
+    "__docId__": 302,
     "kind": "get",
     "name": "MODE_DEFAULT",
     "memberof": "src/Widget/FloatingActionButton.js~FloatingActionButton",
@@ -4935,7 +5304,7 @@
     "ignore": true
   },
   {
-    "__docId__": 284,
+    "__docId__": 303,
     "kind": "get",
     "name": "MODE_SMALL",
     "memberof": "src/Widget/FloatingActionButton.js~FloatingActionButton",
@@ -4955,7 +5324,7 @@
     "ignore": true
   },
   {
-    "__docId__": 285,
+    "__docId__": 304,
     "kind": "get",
     "name": "MODE_EXPAND",
     "memberof": "src/Widget/FloatingActionButton.js~FloatingActionButton",
@@ -4975,7 +5344,7 @@
     "ignore": true
   },
   {
-    "__docId__": 286,
+    "__docId__": 305,
     "kind": "get",
     "name": "MODE_HIDE",
     "memberof": "src/Widget/FloatingActionButton.js~FloatingActionButton",
@@ -4995,7 +5364,7 @@
     "ignore": true
   },
   {
-    "__docId__": 287,
+    "__docId__": 306,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/Widget/FloatingActionButton.js~FloatingActionButton",
@@ -5010,7 +5379,7 @@
     "ignore": true
   },
   {
-    "__docId__": 288,
+    "__docId__": 307,
     "kind": "member",
     "name": "button",
     "memberof": "src/Widget/FloatingActionButton.js~FloatingActionButton",
@@ -5028,7 +5397,7 @@
     "ignore": true
   },
   {
-    "__docId__": 289,
+    "__docId__": 308,
     "kind": "method",
     "name": "setIcon",
     "memberof": "src/Widget/FloatingActionButton.js~FloatingActionButton",
@@ -5056,7 +5425,7 @@
     "ignore": true
   },
   {
-    "__docId__": 290,
+    "__docId__": 309,
     "kind": "method",
     "name": "setTitle",
     "memberof": "src/Widget/FloatingActionButton.js~FloatingActionButton",
@@ -5084,7 +5453,7 @@
     "ignore": true
   },
   {
-    "__docId__": 291,
+    "__docId__": 310,
     "kind": "method",
     "name": "setMode",
     "memberof": "src/Widget/FloatingActionButton.js~FloatingActionButton",
@@ -5112,7 +5481,7 @@
     "ignore": true
   },
   {
-    "__docId__": 292,
+    "__docId__": 311,
     "kind": "method",
     "name": "setOnClickListener",
     "memberof": "src/Widget/FloatingActionButton.js~FloatingActionButton",
@@ -5140,7 +5509,7 @@
     "ignore": true
   },
   {
-    "__docId__": 293,
+    "__docId__": 312,
     "kind": "method",
     "name": "attachScreen",
     "memberof": "src/Widget/FloatingActionButton.js~FloatingActionButton",
@@ -5180,7 +5549,7 @@
     "ignore": true
   },
   {
-    "__docId__": 294,
+    "__docId__": 313,
     "kind": "method",
     "name": "getBlock",
     "memberof": "src/Widget/FloatingActionButton.js~FloatingActionButton",
@@ -5201,7 +5570,7 @@
     "ignore": true
   },
   {
-    "__docId__": 295,
+    "__docId__": 314,
     "kind": "file",
     "name": "src/Widget/Spinner.js",
     "content": "/**\r\n * Spin animation view widget\r\n */\r\nclass Spinner {\r\n\tget IS_VIEW() {return true;}\r\n\r\n\tconstructor() {}\r\n\r\n\tgetBlock() {\r\n\t\tvar b = Utils.inflate({type: \"div\", class: \"fw-spinner\"});\r\n\t\tb.style.color = Config.mainColor;\r\n\t\treturn b;\r\n\t}\r\n}\r\n",
@@ -5212,7 +5581,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 296,
+    "__docId__": 315,
     "kind": "class",
     "name": "Spinner",
     "memberof": "src/Widget/Spinner.js",
@@ -5227,7 +5596,7 @@
     "interface": false
   },
   {
-    "__docId__": 297,
+    "__docId__": 316,
     "kind": "get",
     "name": "IS_VIEW",
     "memberof": "src/Widget/Spinner.js~Spinner",
@@ -5247,7 +5616,7 @@
     "ignore": true
   },
   {
-    "__docId__": 298,
+    "__docId__": 317,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/Widget/Spinner.js~Spinner",
@@ -5262,7 +5631,7 @@
     "ignore": true
   },
   {
-    "__docId__": 299,
+    "__docId__": 318,
     "kind": "method",
     "name": "getBlock",
     "memberof": "src/Widget/Spinner.js~Spinner",
@@ -5283,7 +5652,7 @@
     "ignore": true
   },
   {
-    "__docId__": 300,
+    "__docId__": 319,
     "kind": "file",
     "name": "src/Widget/SubHeader.js",
     "content": "/**\r\n * SubHeader is view (widget) that provides list separator with title.\r\n */\r\nclass SubHeader {\r\n\tget IS_VIEW() { return true; }\r\n\t/**\r\n\t * Constructor\r\n\t * @param {string} text Header value\r\n\t */\r\n\tconstructor(text) {\r\n\t\tthis.text = text;\r\n\t}\r\n\t/**\r\n\t * Build and return HTMLElement\r\n\t */\r\n\tgetBlock() {\r\n\t\tvar d = Utils.inflate({type: \"div\", class: \"fw-subheader\"});\r\n\t\td.innerHTML = this.text;\r\n\t\td.style.color = Config.mainColor;\r\n\t\treturn d;\r\n\t}\r\n}\r\n",
@@ -5294,7 +5663,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 301,
+    "__docId__": 320,
     "kind": "class",
     "name": "SubHeader",
     "memberof": "src/Widget/SubHeader.js",
@@ -5309,7 +5678,7 @@
     "interface": false
   },
   {
-    "__docId__": 302,
+    "__docId__": 321,
     "kind": "get",
     "name": "IS_VIEW",
     "memberof": "src/Widget/SubHeader.js~SubHeader",
@@ -5329,7 +5698,7 @@
     "ignore": true
   },
   {
-    "__docId__": 303,
+    "__docId__": 322,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/Widget/SubHeader.js~SubHeader",
@@ -5354,7 +5723,7 @@
     ]
   },
   {
-    "__docId__": 304,
+    "__docId__": 323,
     "kind": "member",
     "name": "text",
     "memberof": "src/Widget/SubHeader.js~SubHeader",
@@ -5372,7 +5741,7 @@
     "ignore": true
   },
   {
-    "__docId__": 305,
+    "__docId__": 324,
     "kind": "method",
     "name": "getBlock",
     "memberof": "src/Widget/SubHeader.js~SubHeader",
@@ -5391,7 +5760,7 @@
     }
   },
   {
-    "__docId__": 306,
+    "__docId__": 325,
     "kind": "file",
     "name": "src/Widget/TextInput.js",
     "content": "/**\r\n * Text input widget. Based on HTML Input.\r\n */\r\nclass TextInput {\r\n\tget IS_VIEW() { return true; }\r\n\t/**\r\n\t * Default contructor\r\n\t */\r\n    constructor() {\r\n        this.block = Utils.inflate({type: \"div\", class: \"fw-listitem textedit\", childs: {\r\n            titlebx: {type: \"div\", class: \"item-title\"},\r\n            editor: {type: \"input\", class: \"input\"}\r\n        }});\r\n    }\r\n\r\n\t/**\r\n\t * Mark input as readonly\r\n\t */\r\n\tmakeReadonly() {\r\n\t\tthis.block.editor.setAttribute(\"readonly\", \"true\");\r\n        this.block.classList.add(\"readonly\");\r\n        return this;\r\n    }\r\n\t\r\n\t/**\r\n\t * Remove readonly mark\r\n\t */\r\n\tunmakeReadonly() {\r\n\t\tthis.block.editor.setAttribute(\"readonly\", \"false\");\r\n\t\tthis.block.classList.remove(\"readonly\");\r\n        return this;\r\n    }\r\n\r\n\t/**\r\n\t * Set placeholder text\r\n\t * \r\n\t * @param {string} s Placeholder text\r\n\t */\r\n\tsetHolder(s) {\r\n        this.block.editor.placeholder = s;\r\n        return this;\r\n    }\r\n\r\n\t/**\r\n\t * Get block.\r\n\t */\r\n    getBlock() {return this.block;}\r\n\r\n\t/**\r\n\t * Get value of input\r\n\t * @returns {string} value\r\n\t */\r\n    toString() {\r\n        return this.block.editor.value;\r\n\t}\r\n\t\r\n\t/**\r\n\t * Set input type.\r\n\t * \r\n\t * Use any HTML4-5 compitable input type as parameter.\r\n\t * @param {string} type Input type\r\n\t * @returns {TextInput} Callback\r\n\t */\r\n\tsetType(type) {\r\n\t\tthis.block.editor.type = type;\r\n\t\treturn this;\r\n\t}\r\n\r\n\t/**\r\n\t * Set value to input\r\n\t * \r\n\t * @param {string} value Value\r\n\t */\r\n    fromString(value) {\r\n        this.block.editor.value = value;\r\n        return this;\r\n    }\r\n\r\n\t/**\r\n\t * Set input title\r\n\t * \r\n\t * @param {string} title Title\r\n\t */\r\n    setTitle(title) {\r\n        this.block.titlebx.innerHTML = title;\r\n        return this;\r\n    }\r\n\r\n\t/**\r\n\t * Remove block.\r\n\t */\r\n    remove() {\r\n        this.block.remove();\r\n    }\r\n}\r\n\r\n",
@@ -5402,7 +5771,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 307,
+    "__docId__": 326,
     "kind": "class",
     "name": "TextInput",
     "memberof": "src/Widget/TextInput.js",
@@ -5417,7 +5786,7 @@
     "interface": false
   },
   {
-    "__docId__": 308,
+    "__docId__": 327,
     "kind": "get",
     "name": "IS_VIEW",
     "memberof": "src/Widget/TextInput.js~TextInput",
@@ -5437,7 +5806,7 @@
     "ignore": true
   },
   {
-    "__docId__": 309,
+    "__docId__": 328,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/Widget/TextInput.js~TextInput",
@@ -5450,7 +5819,7 @@
     "lineNumber": 9
   },
   {
-    "__docId__": 310,
+    "__docId__": 329,
     "kind": "member",
     "name": "block",
     "memberof": "src/Widget/TextInput.js~TextInput",
@@ -5468,7 +5837,7 @@
     "ignore": true
   },
   {
-    "__docId__": 311,
+    "__docId__": 330,
     "kind": "method",
     "name": "makeReadonly",
     "memberof": "src/Widget/TextInput.js~TextInput",
@@ -5487,7 +5856,7 @@
     }
   },
   {
-    "__docId__": 312,
+    "__docId__": 331,
     "kind": "method",
     "name": "unmakeReadonly",
     "memberof": "src/Widget/TextInput.js~TextInput",
@@ -5506,7 +5875,7 @@
     }
   },
   {
-    "__docId__": 313,
+    "__docId__": 332,
     "kind": "method",
     "name": "setHolder",
     "memberof": "src/Widget/TextInput.js~TextInput",
@@ -5536,7 +5905,7 @@
     }
   },
   {
-    "__docId__": 314,
+    "__docId__": 333,
     "kind": "method",
     "name": "getBlock",
     "memberof": "src/Widget/TextInput.js~TextInput",
@@ -5555,7 +5924,7 @@
     }
   },
   {
-    "__docId__": 315,
+    "__docId__": 334,
     "kind": "method",
     "name": "toString",
     "memberof": "src/Widget/TextInput.js~TextInput",
@@ -5583,7 +5952,7 @@
     "params": []
   },
   {
-    "__docId__": 316,
+    "__docId__": 335,
     "kind": "method",
     "name": "setType",
     "memberof": "src/Widget/TextInput.js~TextInput",
@@ -5622,7 +5991,7 @@
     }
   },
   {
-    "__docId__": 317,
+    "__docId__": 336,
     "kind": "method",
     "name": "fromString",
     "memberof": "src/Widget/TextInput.js~TextInput",
@@ -5652,7 +6021,7 @@
     }
   },
   {
-    "__docId__": 318,
+    "__docId__": 337,
     "kind": "method",
     "name": "setTitle",
     "memberof": "src/Widget/TextInput.js~TextInput",
@@ -5682,7 +6051,7 @@
     }
   },
   {
-    "__docId__": 319,
+    "__docId__": 338,
     "kind": "method",
     "name": "remove",
     "memberof": "src/Widget/TextInput.js~TextInput",
@@ -5697,7 +6066,7 @@
     "return": null
   },
   {
-    "__docId__": 320,
+    "__docId__": 339,
     "kind": "file",
     "name": "src/Widget/Toolbar.js",
     "content": "/**\r\n * Toolbar widget.\r\n */\r\nclass Toolbar {\r\n\tget IS_VIEW(){return true;}\r\n\r\n\t/**\r\n\t * Default constuctor\r\n\t */\r\n\tconstructor() {\r\n\t\tthis.block = Utils.inflate({type: \"div\", class: \"fw-toolbar\"})\r\n\t}\r\n\r\n\tgetBlock() {return this.block;}\r\n\r\n\t/**\r\n\t * Remove all content from toolbar\r\n\t */\r\n\twipe() {\r\n\t\tthis.block.innerHTML = \"\";\r\n\t}\r\n\r\n\t/**\r\n\t * Add new icon to toolbar\r\n\t * \r\n\t * @param {string} title Title\r\n\t * @param {string} icon Icon name by material.io/icons\r\n\t * @param {function} click onclick function\r\n\t */\r\n\tadd(title, icon, click) {\r\n\t\tvar i = new IconView(icon).disableColor().getBlock();\r\n\t\ti.title = title;\r\n\t\ti.onclick = click;\r\n\t\tthis.block.appendChild(i);\r\n\t\treturn this;\r\n\t}\r\n\r\n\t/**\r\n\t * Add whitespace to toolbar\r\n\t */\r\n\taddSeparator() {\r\n\t\tthis.block.appendChild(Utils.inflate({type: \"a\"}));\r\n\t\treturn this;\r\n\t}\r\n}\r\n",
@@ -5708,7 +6077,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 321,
+    "__docId__": 340,
     "kind": "class",
     "name": "Toolbar",
     "memberof": "src/Widget/Toolbar.js",
@@ -5723,7 +6092,7 @@
     "interface": false
   },
   {
-    "__docId__": 322,
+    "__docId__": 341,
     "kind": "get",
     "name": "IS_VIEW",
     "memberof": "src/Widget/Toolbar.js~Toolbar",
@@ -5743,7 +6112,7 @@
     "ignore": true
   },
   {
-    "__docId__": 323,
+    "__docId__": 342,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/Widget/Toolbar.js~Toolbar",
@@ -5756,7 +6125,7 @@
     "lineNumber": 10
   },
   {
-    "__docId__": 324,
+    "__docId__": 343,
     "kind": "member",
     "name": "block",
     "memberof": "src/Widget/Toolbar.js~Toolbar",
@@ -5774,7 +6143,7 @@
     "ignore": true
   },
   {
-    "__docId__": 325,
+    "__docId__": 344,
     "kind": "method",
     "name": "getBlock",
     "memberof": "src/Widget/Toolbar.js~Toolbar",
@@ -5795,7 +6164,7 @@
     "ignore": true
   },
   {
-    "__docId__": 326,
+    "__docId__": 345,
     "kind": "method",
     "name": "wipe",
     "memberof": "src/Widget/Toolbar.js~Toolbar",
@@ -5810,7 +6179,7 @@
     "return": null
   },
   {
-    "__docId__": 327,
+    "__docId__": 346,
     "kind": "method",
     "name": "add",
     "memberof": "src/Widget/Toolbar.js~Toolbar",
@@ -5860,7 +6229,7 @@
     }
   },
   {
-    "__docId__": 328,
+    "__docId__": 347,
     "kind": "method",
     "name": "addSeparator",
     "memberof": "src/Widget/Toolbar.js~Toolbar",
@@ -5879,7 +6248,7 @@
     }
   },
   {
-    "__docId__": 329,
+    "__docId__": 348,
     "kind": "file",
     "name": "src/X/BigTextInput.js",
     "content": "class BigTextInput extends TextInput {\r\n\tconstructor() {\r\n\t\tsuper();\r\n        this.block = Utils.inflate({type: \"div\", class: \"fw-listitem textedit\", childs: {\r\n            titlebx: {type: \"div\", class: \"item-title\"},\r\n            editor: {type: \"textarea\", class: \"input ta\"}\r\n\t\t}});\r\n\t\t\r\n        this.block.editor.onkeyup = function() {\r\n            this.style.height = \"25px\";\r\n            this.style.height = (this.scrollHeight)+\"px\";\r\n        }\r\n\t}\r\n\r\n\tgetBlock() {\r\n\t\tvar b = super.getBlock();\r\n\t\tUtils.timer(50).then(function(){\r\n\t\t\tb.editor.onkeyup();\r\n\t\t});\r\n\t\treturn b;\r\n\t}\r\n\r\n\tfromString(value) {\r\n\t\tsuper.fromString(value);\r\n\t\tthis.block.editor.onkeyup();\r\n\t\treturn this;\r\n\t}\r\n}\r\n",
@@ -5890,7 +6259,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 330,
+    "__docId__": 349,
     "kind": "class",
     "name": "BigTextInput",
     "memberof": "src/X/BigTextInput.js",
@@ -5910,7 +6279,7 @@
     "ignore": true
   },
   {
-    "__docId__": 331,
+    "__docId__": 350,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/X/BigTextInput.js~BigTextInput",
@@ -5925,7 +6294,7 @@
     "ignore": true
   },
   {
-    "__docId__": 332,
+    "__docId__": 351,
     "kind": "member",
     "name": "block",
     "memberof": "src/X/BigTextInput.js~BigTextInput",
@@ -5943,7 +6312,7 @@
     "ignore": true
   },
   {
-    "__docId__": 333,
+    "__docId__": 352,
     "kind": "method",
     "name": "getBlock",
     "memberof": "src/X/BigTextInput.js~BigTextInput",
@@ -5964,7 +6333,7 @@
     "ignore": true
   },
   {
-    "__docId__": 334,
+    "__docId__": 353,
     "kind": "method",
     "name": "fromString",
     "memberof": "src/X/BigTextInput.js~BigTextInput",
@@ -5992,7 +6361,7 @@
     "ignore": true
   },
   {
-    "__docId__": 335,
+    "__docId__": 354,
     "kind": "file",
     "name": "src/X/FWSettingsScreen.js",
     "content": "/**\r\n * Framework setings screen.\r\n * \r\n * Usage:\r\n * ```js\r\n * new FWSettingsScreen().start();\r\n * // Or, if you need another localization, override\r\n * // FWSettingsScreen.LOCALE items:\r\n * \r\n * new FWSettingsScreen({\r\n *   // Provide your alternative for FWSettingsScreen.LOCALE strings here\r\n * }).start();\r\n * ```\r\n */\r\nclass FWSettingsScreen extends Screen {\r\n    /**\r\n     * Localization strings (default, english)\r\n     */\r\n    static get LOCALE() {return {\r\n        fontSizeTitle: \"Font size\",\r\n        accentColorTitle: \"Accent color (HEX, empty to default)\",\r\n        reloadRequired: \"Restart application to apply changes\",\r\n        cancel: \"Cancel\", ok: \"Ok\",\r\n        nightmode: \"Use black theme\", daymode: \"Use white theme\"\r\n    }};\r\n\r\n    /**\r\n     * OnCreate event override\r\n     * @param {Object} loc Localization override\r\n     */\r\n    onCreate(loc) {\r\n        var locale = FWSettingsScreen.LOCALE;\r\n        if(loc) for(var a in loc) locale[a] = loc[a];\r\n        this.setHomeAsUpAction();\r\n        this.locale = locale;\r\n        this.onUpdate();\r\n    }\r\n\r\n    /**\r\n     * OnUpdate event override\r\n     */\r\n    onUpdate() {\r\n        var loc = this.locale, ctx = this;\r\n        this.wipeContents();\r\n        \r\n        this.appendView(new RowView().setTitle(localStorage.fw_cfg_nightmode ? loc.nightmode : loc.daymode)\r\n            .setIcon(\"wb_sunny\").setSummary(loc.themeSummary).setOnClickListener(function(){\r\n                if(localStorage.fw_cfg_nightmode == \"true\") localStorage.fw_cfg_nightmode = \"\";\r\n                else localStorage.fw_cfg_nightmode = \"true\";\r\n                FWInit.cfgInit();\r\n            }));\r\n\r\n        if(!localStorage.fw_cfg_font_size) \r\n            localStorage.fw_cfg_font_size = 1;\r\n        \r\n        this.appendView(new RowView().setTitle(loc.fontSizeTitle)\r\n            .setIcon(\"format_size\")\r\n            .setSummary(Math.round(localStorage.fw_cfg_font_size*100)+\"% of default\")\r\n            .setOnClickListener(function(){\r\n                var te = new TextInput().setTitle(loc.fontSizeTitle)\r\n                    .fromString(Math.round(localStorage.fw_cfg_font_size*100));\r\n                \r\n                var d = new Dialog().appendView(te)\r\n                    .addButton(new Button().setText(loc.cancel).setOnClickListener(function(){\r\n                        d.hide();\r\n                    })).addButton(new Button().setText(loc.ok).setOnClickListener(function(){\r\n                        console.log(te.toString()/100);\r\n                        localStorage.fw_cfg_font_size = te.toString()/100;\r\n                        d.hide();\r\n                        ctx.onUpdate();\r\n                    })).show();\r\n            }));\r\n        \r\n        this.appendView(new RowView().setTitle(loc.accentColorTitle)\r\n            .setIcon(\"palette\")\r\n            .setSummary(localStorage.fw_main_color)\r\n            .setOnClickListener(function(){\r\n                var te = new TextInput().setTitle(loc.fontSizeTitle)\r\n                    .fromString(localStorage.fw_main_color);\r\n                \r\n                var d = new Dialog().appendView(te)\r\n                    .addButton(new Button().setText(loc.cancel).setOnClickListener(function(){\r\n                        d.hide();\r\n                    })).addButton(new Button().setText(loc.ok).setOnClickListener(function(){\r\n                        localStorage.fw_main_color = te.toString();\r\n                        d.hide();\r\n                        ctx.onUpdate();\r\n                    })).show();\r\n            }));\r\n\r\n            this.appendView(new TextView(\"info\", loc.reloadRequired));\r\n    }\r\n}",
@@ -6003,7 +6372,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 336,
+    "__docId__": 355,
     "kind": "class",
     "name": "FWSettingsScreen",
     "memberof": "src/X/FWSettingsScreen.js",
@@ -6021,7 +6390,7 @@
     ]
   },
   {
-    "__docId__": 337,
+    "__docId__": 356,
     "kind": "get",
     "name": "LOCALE",
     "memberof": "src/X/FWSettingsScreen.js~FWSettingsScreen",
@@ -6039,7 +6408,7 @@
     }
   },
   {
-    "__docId__": 338,
+    "__docId__": 357,
     "kind": "method",
     "name": "onCreate",
     "memberof": "src/X/FWSettingsScreen.js~FWSettingsScreen",
@@ -6065,7 +6434,7 @@
     "return": null
   },
   {
-    "__docId__": 339,
+    "__docId__": 358,
     "kind": "member",
     "name": "locale",
     "memberof": "src/X/FWSettingsScreen.js~FWSettingsScreen",
@@ -6083,7 +6452,7 @@
     "ignore": true
   },
   {
-    "__docId__": 340,
+    "__docId__": 359,
     "kind": "method",
     "name": "onUpdate",
     "memberof": "src/X/FWSettingsScreen.js~FWSettingsScreen",
@@ -6098,7 +6467,7 @@
     "return": null
   },
   {
-    "__docId__": 341,
+    "__docId__": 360,
     "kind": "file",
     "name": "src/X/SlidingScreen.js",
     "content": "/**\r\n * SlidingScreen - screen with multiple slides support.\r\n */\r\nclass SlidingScreen extends Screen {\r\n    /**\r\n     * Default constructor (overrides `super(data)` constructor)\r\n     * @param {*} data Data for onCreate event\r\n     */\r\n    constructor(data) {\r\n        super(data);\r\n\r\n        /**\r\n         * Root view of pager\r\n         */\r\n        this._ss_view = Utils.inflate({type: \"div\", class: \"fw-pager-view\", childs: {\r\n            wrapper: {type: \"div\", class: \"fw-pager-wrapper\"}\r\n        }});\r\n        this._ss_view.IS_FIXED_VIEW = true;\r\n\r\n        /**\r\n         * Is swipe enabled\r\n         * @type {boolean}\r\n         */\r\n        this._ss_swipeOn = true;\r\n        /**\r\n         * Pages array\r\n         * @type {SlideView[]}\r\n         */\r\n        this._ss_pages = [];\r\n        /**\r\n         * Active screen id\r\n         * @type {number}\r\n         */\r\n        this._ss_active = 0;\r\n\r\n        super.appendView(this._ss_view);\r\n        this._ss_swipeinit();\r\n    }\r\n\r\n    /**\r\n     * Append view locker method\r\n     * @param {View} v view\r\n     */\r\n\tappendView(view) {\r\n\t\tif(!view.IS_VIEW) return false;\r\n\t\tif(view.IS_FIXED_VIEW)\r\n\t\t\tthis._activity_root.root.appendChild(view.getBlock());\r\n\t\telse\r\n    \t\tLog.e(\"SlidingScreen\", \"Use getPage(page).appendView(view) instance of appendView!\");\r\n\t}\r\n\r\n    /**\r\n     * Get page ID\r\n     * @param {number} p Page ID\r\n     */\r\n    getPage(p) {\r\n        return this._ss_pages[p];\r\n    }\r\n\r\n    /**\r\n     * Remove all pages!\r\n     */\r\n    wipe() {\r\n        this._ss_pages = [];\r\n        this._ss_view.wrapper.innerHTML = \"\";\r\n    }\r\n\r\n    /**\r\n     * Add new clear page\r\n     */\r\n    newPage() {\r\n        var id = this._ss_pages.length,\r\n            blk = Utils.inflate({type: \"div\", class: \"fw-page\", childs: {\r\n                container: {type: \"div\", class: \"container\", childs: {\r\n                    filler: {type: \"div\", class: \"filler\"},\r\n                    contents: {type: \"div\", class: \"page-contents\"}\r\n                }}\r\n            }});\r\n\r\n\r\n        blk.style.left = (100*id)+\"%\";\r\n        this._ss_pages[id] = new SlideView(this, blk, id);\r\n        this._ss_view.wrapper.appendView(blk);\r\n\r\n        this._ss_cfgscroll(this._ss_active);\r\n        this.initScrollMode();\r\n        return this._ss_pages[id];\r\n    }\r\n\r\n    /**\r\n     * Go to page\r\n     * @param {number} p Page ID\r\n     */\r\n    openPage(p) {\r\n\t\tlet wrp = this._ss_view.wrapper, ctx = this;\r\n\t\tthis._ss_active = p;\r\n\r\n\t\twrp.style.transition = \"left 0.25s\";\r\n\t\tUtils.timer(2).then(function() {\r\n\t\t\twrp.style.left = -(100*p)+\"%\";\r\n\t\t\treturn Utils.timer(240);\r\n\t\t}).then(function(){\r\n            wrp.style.transition = \"\";\r\n            ctx._ss_cfgscroll(p);\r\n            ctx.initScrollMode();\r\n        }).catch(function(e) {\r\n            console.error(e);\r\n        });\r\n    }\r\n\r\n    /**\r\n     * Reconfigure page-scroll attachment\r\n     * @param {number} p Page ID\r\n     */\r\n    _ss_cfgscroll(p) {\r\n        if(this.getPage(p)) this._ss_scrl_blk = this.getPage(p).getBlock();\r\n        for(var a in this._ss_pages)\r\n            this._ss_pages[a].getBlock().scrollTop = 0;\r\n    }\r\n\r\n    /**\r\n     * Override getScrollBlock method\r\n     */\r\n    getScrollerBlock() {\r\n        if(!this._ss_scrl_blk) return super.getScrollerBlock();\r\n        return this._ss_scrl_blk;\r\n    }\r\n\r\n    /**\r\n     * Go to page back\r\n     */\r\n    prevPage() {\r\n        if(this._ss_active == 0) return;\r\n        this.openPage(this._ss_active-1);\r\n    }\r\n\r\n    /**\r\n     * Go to page next\r\n     */\r\n    nextPage() {\r\n        if(this._ss_active == this._ss_pages.length-1) return;\r\n        this.openPage(this._ss_active+1);\r\n    }\r\n\r\n    /**\r\n     * Set swipe mode enabled/disabled.\r\n     * @param {boolean} bool Is swipe enabled?\r\n     */\r\n    setSwipeEnabled(bool) {\r\n        this._ss_swipeOn = bool;\r\n    }\r\n\r\n    /**\r\n     * Init swipe events\r\n     */\r\n    _ss_swipeinit() {\r\n        var wrp = this._ss_view.wrapper,\r\n            touchData = {}, context = this;\r\n                \r\n        wrp.ontouchstart = function(e) {\r\n            if(!context._ss_swipeOn) return;\r\n            touchData.direction = null;\r\n            touchData.startX = e.targetTouches[0].pageX;\r\n            touchData.startY = e.targetTouches[0].pageY;\r\n            touchData.startPos = this.getBoundingClientRect().left;\r\n        };\r\n\r\n        wrp.ontouchmove = function(e) {\r\n            if(!context._ss_swipeOn) return;\r\n            var rx = e.targetTouches[0].pageX-touchData.startX;\r\n            var ry = e.targetTouches[0].pageY-touchData.startY;\r\n            if(touchData.direction == null) {\r\n                if( rx > 30 || rx < -30) touchData.direction = \"h\";\r\n                else if( ry > 30 || ry < -30) touchData.direction = \"v\";\r\n            }\r\n            if(touchData.direction == \"h\") {\r\n                e.stopPropagation();\r\n                e.preventDefault();\r\n                this.style.left = touchData.startPos+rx+\"px\";\r\n            }\r\n        };\r\n\r\n        wrp.ontouchend = function(e) {\r\n            if(!context._ss_swipeOn) return;\r\n            if(touchData.direction != \"h\") return;\r\n            var ex = e.changedTouches[0].pageX;\r\n            var newPage = context._ss_active;\r\n            if(ex < touchData.startX-75) newPage = context._ss_active+1;\r\n            else if(ex > touchData.startX+75) newPage = context._ss_active-1;\r\n\r\n            if(newPage == -1) newPage = 0;\r\n            else if(newPage > context._ss_pages.length-1) newPage = context._ss_pages.length-1;\r\n            context.openPage(newPage);\r\n        }\r\n    }\r\n}\r\n\r\n/**\r\n * Slide view widget\r\n */\r\nclass SlideView {\r\n    get IS_VIEW() {return true;}\r\n    \r\n    /**\r\n     * Default constructor\r\n     * \r\n     * @param {SlidingScreen} context Context screen\r\n     * @param {HTMLElement} block Page root block\r\n     * @param {number} id Page ID\r\n     */\r\n    constructor(context, block, id) {\r\n        this.ctx = context;\r\n        this.block = block;\r\n        this.id = id;\r\n        this.tb = new Toolbar();\r\n\r\n        block.appendView(this.tb);\r\n        block.addEventListener(\"scroll\", function(){\r\n\t\t\tif(context._ss_active == id) context._ab_scrolltrg();\r\n\t\t})\r\n\r\n        this.tb.add(\"Back\", \"arrow_back\", function(){\r\n            context.prevPage();\r\n        });\r\n        this.tb.add(\"Next\", \"arrow_forward\", function(){\r\n            context.nextPage();\r\n        });\r\n    }\r\n\r\n    /**\r\n     * Append view to page\r\n     * @param {View} v View\r\n     */\r\n    appendView(v) {\r\n        this.block.container.appendView(v);\r\n    }\r\n\r\n    /**\r\n     * Return page root block\r\n     */\r\n    getBlock() {\r\n        return this.block;\r\n    }\r\n\r\n    /**\r\n     * Return page toolbar (at bottom)\r\n     */\r\n    getToolbar() {\r\n        return this.tb;\r\n    }\r\n\r\n    /**\r\n     * Returns page ID\r\n     */\r\n    getId() {\r\n        return this.id;\r\n    }\r\n\r\n    /**\r\n     * Go to this page\r\n     */\r\n    open() {\r\n        this.ctx.openPage(this.id);\r\n    }\r\n}\r\n",
@@ -6109,7 +6478,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 342,
+    "__docId__": 361,
     "kind": "class",
     "name": "SlidingScreen",
     "memberof": "src/X/SlidingScreen.js",
@@ -6127,7 +6496,7 @@
     ]
   },
   {
-    "__docId__": 343,
+    "__docId__": 362,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/X/SlidingScreen.js~SlidingScreen",
@@ -6152,7 +6521,7 @@
     ]
   },
   {
-    "__docId__": 344,
+    "__docId__": 363,
     "kind": "member",
     "name": "_ss_view",
     "memberof": "src/X/SlidingScreen.js~SlidingScreen",
@@ -6168,7 +6537,7 @@
     }
   },
   {
-    "__docId__": 345,
+    "__docId__": 364,
     "kind": "member",
     "name": "_ss_swipeOn",
     "memberof": "src/X/SlidingScreen.js~SlidingScreen",
@@ -6187,7 +6556,7 @@
     }
   },
   {
-    "__docId__": 346,
+    "__docId__": 365,
     "kind": "member",
     "name": "_ss_pages",
     "memberof": "src/X/SlidingScreen.js~SlidingScreen",
@@ -6206,7 +6575,7 @@
     }
   },
   {
-    "__docId__": 347,
+    "__docId__": 366,
     "kind": "member",
     "name": "_ss_active",
     "memberof": "src/X/SlidingScreen.js~SlidingScreen",
@@ -6225,7 +6594,7 @@
     }
   },
   {
-    "__docId__": 348,
+    "__docId__": 367,
     "kind": "method",
     "name": "appendView",
     "memberof": "src/X/SlidingScreen.js~SlidingScreen",
@@ -6255,7 +6624,7 @@
     }
   },
   {
-    "__docId__": 349,
+    "__docId__": 368,
     "kind": "method",
     "name": "getPage",
     "memberof": "src/X/SlidingScreen.js~SlidingScreen",
@@ -6285,7 +6654,7 @@
     }
   },
   {
-    "__docId__": 350,
+    "__docId__": 369,
     "kind": "method",
     "name": "wipe",
     "memberof": "src/X/SlidingScreen.js~SlidingScreen",
@@ -6300,7 +6669,7 @@
     "return": null
   },
   {
-    "__docId__": 352,
+    "__docId__": 371,
     "kind": "method",
     "name": "newPage",
     "memberof": "src/X/SlidingScreen.js~SlidingScreen",
@@ -6319,7 +6688,7 @@
     }
   },
   {
-    "__docId__": 353,
+    "__docId__": 372,
     "kind": "method",
     "name": "openPage",
     "memberof": "src/X/SlidingScreen.js~SlidingScreen",
@@ -6345,7 +6714,7 @@
     "return": null
   },
   {
-    "__docId__": 355,
+    "__docId__": 374,
     "kind": "method",
     "name": "_ss_cfgscroll",
     "memberof": "src/X/SlidingScreen.js~SlidingScreen",
@@ -6371,7 +6740,7 @@
     "return": null
   },
   {
-    "__docId__": 356,
+    "__docId__": 375,
     "kind": "member",
     "name": "_ss_scrl_blk",
     "memberof": "src/X/SlidingScreen.js~SlidingScreen",
@@ -6389,7 +6758,7 @@
     "ignore": true
   },
   {
-    "__docId__": 357,
+    "__docId__": 376,
     "kind": "method",
     "name": "getScrollerBlock",
     "memberof": "src/X/SlidingScreen.js~SlidingScreen",
@@ -6408,7 +6777,7 @@
     }
   },
   {
-    "__docId__": 358,
+    "__docId__": 377,
     "kind": "method",
     "name": "prevPage",
     "memberof": "src/X/SlidingScreen.js~SlidingScreen",
@@ -6423,7 +6792,7 @@
     "return": null
   },
   {
-    "__docId__": 359,
+    "__docId__": 378,
     "kind": "method",
     "name": "nextPage",
     "memberof": "src/X/SlidingScreen.js~SlidingScreen",
@@ -6438,7 +6807,7 @@
     "return": null
   },
   {
-    "__docId__": 360,
+    "__docId__": 379,
     "kind": "method",
     "name": "setSwipeEnabled",
     "memberof": "src/X/SlidingScreen.js~SlidingScreen",
@@ -6464,7 +6833,7 @@
     "return": null
   },
   {
-    "__docId__": 362,
+    "__docId__": 381,
     "kind": "method",
     "name": "_ss_swipeinit",
     "memberof": "src/X/SlidingScreen.js~SlidingScreen",
@@ -6479,7 +6848,7 @@
     "return": null
   },
   {
-    "__docId__": 363,
+    "__docId__": 382,
     "kind": "class",
     "name": "SlideView",
     "memberof": "src/X/SlidingScreen.js",
@@ -6494,7 +6863,7 @@
     "interface": false
   },
   {
-    "__docId__": 364,
+    "__docId__": 383,
     "kind": "get",
     "name": "IS_VIEW",
     "memberof": "src/X/SlidingScreen.js~SlideView",
@@ -6514,7 +6883,7 @@
     "ignore": true
   },
   {
-    "__docId__": 365,
+    "__docId__": 384,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/X/SlidingScreen.js~SlideView",
@@ -6559,7 +6928,7 @@
     ]
   },
   {
-    "__docId__": 366,
+    "__docId__": 385,
     "kind": "member",
     "name": "ctx",
     "memberof": "src/X/SlidingScreen.js~SlideView",
@@ -6577,7 +6946,7 @@
     "ignore": true
   },
   {
-    "__docId__": 367,
+    "__docId__": 386,
     "kind": "member",
     "name": "block",
     "memberof": "src/X/SlidingScreen.js~SlideView",
@@ -6595,7 +6964,7 @@
     "ignore": true
   },
   {
-    "__docId__": 368,
+    "__docId__": 387,
     "kind": "member",
     "name": "id",
     "memberof": "src/X/SlidingScreen.js~SlideView",
@@ -6613,7 +6982,7 @@
     "ignore": true
   },
   {
-    "__docId__": 369,
+    "__docId__": 388,
     "kind": "member",
     "name": "tb",
     "memberof": "src/X/SlidingScreen.js~SlideView",
@@ -6631,7 +7000,7 @@
     "ignore": true
   },
   {
-    "__docId__": 370,
+    "__docId__": 389,
     "kind": "method",
     "name": "appendView",
     "memberof": "src/X/SlidingScreen.js~SlideView",
@@ -6657,7 +7026,7 @@
     "return": null
   },
   {
-    "__docId__": 371,
+    "__docId__": 390,
     "kind": "method",
     "name": "getBlock",
     "memberof": "src/X/SlidingScreen.js~SlideView",
@@ -6676,7 +7045,7 @@
     }
   },
   {
-    "__docId__": 372,
+    "__docId__": 391,
     "kind": "method",
     "name": "getToolbar",
     "memberof": "src/X/SlidingScreen.js~SlideView",
@@ -6695,7 +7064,7 @@
     }
   },
   {
-    "__docId__": 373,
+    "__docId__": 392,
     "kind": "method",
     "name": "getId",
     "memberof": "src/X/SlidingScreen.js~SlideView",
@@ -6714,7 +7083,7 @@
     }
   },
   {
-    "__docId__": 374,
+    "__docId__": 393,
     "kind": "method",
     "name": "open",
     "memberof": "src/X/SlidingScreen.js~SlideView",
@@ -6729,10 +7098,10 @@
     "return": null
   },
   {
-    "__docId__": 375,
+    "__docId__": 394,
     "kind": "file",
     "name": "src/X/TestScreen.js",
-    "content": "class TestScreen extends Screen {\r\n    onCreate() {\r\n        var wl = new WaitlockView(this),\r\n            ctx = this;\r\n\r\n        this.setHomeAsUpAction();\r\n        this.appendView(new TextView(\"title\", \"FW Test!\"));\r\n\r\n        // MAIN\r\n        this.appendView(new RowView().setTitle(\"Widgets test page\").setOnClickListener(function(){\r\n            new TestScreen2().start();\r\n        }));\r\n        this.appendView(new RowView().setTitle(\"SlidingScreen demo\").setOnClickListener(function(){\r\n            new TestScreen3().start();\r\n        }));\r\n        this.appendView(new RowView().setTitle(\"Framework settings screen\").setOnClickListener(function(){\r\n            new FWSettingsScreen().start();\r\n        }));\r\n        \r\n        this.appendView(new RowView().setTitle(\"Set color and reopen\").setOnClickListener(function(){\r\n            var c = \"#\";\r\n            c += Math.round(Math.random()*100);\r\n            c += Math.round(Math.random()*100);\r\n            c += Math.round(Math.random()*100);\r\n            Config.mainColor = c;\r\n\r\n            ctx.finish();\r\n            new TestScreen().start();\r\n        }));\r\n\r\n        // FAB\r\n        this.appendView(new SubHeader(\"Floating action button\"));\r\n        var fab = new FloatingActionButton().setIcon(\"star\").setTitle(\"Star\");\r\n        this.appendView(fab);\r\n        this.appendView(new RowView().setTitle(\"Default fab mode\").setOnClickListener(function(){\r\n            fab.setMode(FloatingActionButton.MODE_DEFAULT);\r\n        }));\r\n        this.appendView(new RowView().setTitle(\"Small fab mode\").setOnClickListener(function(){\r\n            fab.setMode(FloatingActionButton.MODE_SMALL);\r\n        }));\r\n        this.appendView(new RowView().setTitle(\"Expanded fab mode\").setOnClickListener(function(){\r\n            fab.setMode(FloatingActionButton.MODE_EXPAND);\r\n        }));\r\n        this.appendView(new RowView().setTitle(\"Scroll listen, expanding\").setOnClickListener(function(){\r\n            fab.attachScreen(ctx, FloatingActionButton.MODE_EXPAND, FloatingActionButton.MODE_DEFAULT);\r\n        }));\r\n        this.appendView(new RowView().setTitle(\"Scroll listen, hide\").setOnClickListener(function(){\r\n            fab.attachScreen(ctx, FloatingActionButton.MODE_DEFAULT, FloatingActionButton.MODE_HIDE);\r\n        }));\r\n\r\n        // AB\r\n        this.appendView(new SubHeader(\"AB tests\"));\r\n        this.appendView(new RowView().setTitle(\"AB SM Hide\").setOnClickListener(function(){\r\n            ctx.setScrollMode(Screen.AB_MODE_HIDE);\r\n        }));\r\n        this.appendView(new RowView().setTitle(\"AB SM None\").setOnClickListener(function(){\r\n            ctx.setScrollMode(Screen.AB_MODE_NONE);\r\n        }));\r\n        this.appendView(new RowView().setTitle(\"Set a very long title\").setOnClickListener(function(){\r\n            ctx.setTitle(\"Very very very very very very long title\")\r\n        }));\r\n        this.appendView(new RowView().setTitle(\"Add some actions to AB\").setOnClickListener(function(){\r\n            ctx.addAction(new MenuItem(\"action\", \"android\"));\r\n            ctx.addAction(new MenuItem(\"action2\", \"apple\"));\r\n        }));\r\n\r\n        // ETC\r\n        this.appendView(new SubHeader(\"etc\"));\r\n        this.appendView(new RowView().setTitle(\"Wipe page\").setOnClickListener(function(){\r\n            ctx.wipeContents();\r\n        }));\r\n        this.appendView(wl);\r\n        this.appendView(new RowView().setTitle(\"Enable waitlockview for 5 seconds\").setOnClickListener(function(){\r\n            wl.show();\r\n            Utils.timer(5000).then(function(){\r\n                console.log(\"ok\");\r\n                wl.hide();\r\n            }).catch(function(e){\r\n                console.warn(e);\r\n            });\r\n        }));\r\n\r\n    }\r\n}\r\n\r\nclass TestScreen2 extends Screen {\r\n    onCreate() {\r\n        var tv = new TextInput().setTitle(\"Text input demo\").setHolder(\"Empty\"),\r\n            tv2 = new TextInput().setTitle(\"Password input demo\").setHolder(\"Empty\").setType(\"password\"),\r\n            tv3 = new BigTextInput().setTitle(\"Big input demo\").setHolder(\"Empty\");\r\n\r\n        this.setHomeAsUpAction();\r\n        this.setTitle(\"Widgets test mode!\");\r\n\r\n        var tb = new Toolbar();\r\n        this.appendView(tb);\r\n\r\n        tb.add(\"android\",\"android\", function(){\r\n            alert(1);\r\n        });\r\n        tb.add(\"check\",\"check\", function(){\r\n            alert(2);\r\n        });\r\n        tb.addSeparator();\r\n        tb.add(\"undo\",\"undo\", function(){\r\n            alert(3);\r\n        });\r\n\r\n        var sp = new SpoilerView().setTitle(\"Spoiler test\").setSummary(\"Tap to open!\");\r\n        sp.appendView(new RowView().setTitle(\"Hidden row!\"));\r\n        this.appendView(sp);\r\n\r\n        this.appendView(new SubHeader(\"Input tests\"));\r\n        this.appendView(tv);\r\n        this.appendView(tv2);\r\n        this.appendView(tv3);\r\n        this.appendView(new RowView().setTitle(\"Show value\").setOnClickListener(function(){\r\n            new Alert().setTitle(\"Text form value:\").setMessage(tv.toString()).show();\r\n        }).setOnLongTouchListener(function(){\r\n            new Alert().setTitle(\"Long tap!\").show();\r\n        }));\r\n\r\n        this.appendView(new Spinner());\r\n\r\n        this.appendView(new TextView(\"info\", \"This is info TextView!\"));\r\n\r\n        this.appendView(new Button().setText(\"Default button\"));\r\n        this.appendView(new Button().setStyle(Button.STYLE_CONTAINED).setText(\"Contained button\"));\r\n        this.appendView(new Button().setStyle(Button.STYLE_FLAT).setText(\"Flat button\"));\r\n        this.appendView(new Button().setStyle(Button.STYLE_OUTLINE).setText(\"Flat button\"));\r\n\r\n        this.appendView(new SubHeader(\"RowView tests\"));\r\n        this.appendView(new RowView().setTitle(\"Single-line\"));\r\n        this.appendView(new RowView().setTitle(\"Single-line with icon\").setIcon(\"android\"));\r\n        this.appendView(new RowView().setTitle(\"Single-line with icon and action\").setIcon(\"android\").setAction(\"Hello\", \"more_vert\", function(){\r\n            new Alert().setMessage(\"Hello!\").show();\r\n        }));\r\n        \r\n        this.appendView(new RowView().setSummary(\"Description\").setTitle(\"Two-line\"));\r\n        this.appendView(new RowView().setSummary(\"Description\").setTitle(\"Two-line with icon\").setIcon(\"android\").setOnClickListener(function(){\r\n\r\n        }));\r\n        this.appendView(new RowView().setSummary(\"Description\").setTitle(\"Two-line with icon and action\").setIcon(\"android\").setAction(\"Hello\", \"more_vert\", function(){\r\n            new Alert().setTitle(\"It is menu!\").setMessage(\"Hello, World!\").setOnClickListener(function(){\r\n                console.log(2);\r\n            }).show();\r\n        }));\r\n    }\r\n}\r\n\r\nclass TestScreen3 extends SlidingScreen {\r\n    onCreate() {\r\n        this.setHomeAsUpAction();\r\n    }\r\n    onUpdate() {\r\n        this.wipe();\r\n\r\n        var a = this.newPage(),\r\n            b = this.newPage(),\r\n            ctx = this;\r\n\r\n        a.appendView(new TextView(\"title\", \"Page 1\"));\r\n        for(var i = 0; i < 50; i++) a.appendView(new RowView().setTitle(\"Row A\"+i));\r\n\r\n        b.appendView(new TextView(\"title\", \"Page 2\"));\r\n        for(var i = 0; i < 50; i++) b.appendView(new RowView()\r\n            .setTitle(\"Row B\"+i).setOnClickListener(function(){\r\n                ctx.onUpdate();\r\n            }));\r\n    }\r\n}\r\n\r\n/*\r\nclass TestScreen2 extends Screen {\r\n    onCreate() {\r\n        this.setHomeAsUpAction();\r\n        this.setTitle(\"Test mode!\");\r\n    }\r\n}\r\n*/\r\n",
+    "content": "class TestScreen extends Screen {\r\n    onCreate() {\r\n        var wl = new WaitlockView(this),\r\n            ctx = this;\r\n\r\n        this.setHomeAsUpAction();\r\n        this.addMod(new WideScreenMod());\r\n\r\n        // Expandable layout\r\n        var exp = new ExpandableLayout(),\r\n            c1 = exp.addColumn(360, 400),\r\n            c2 = exp.addColumn(360, 400);\r\n\r\n        this.appendView(exp);\r\n\r\n        // MAIN\r\n        c1.appendView(new SubHeader(\"Tests\"));\r\n        c1.appendView(new RowView().setTitle(\"Widgets test page\").setOnClickListener(function(){\r\n            new TestScreen2().start();\r\n        }));\r\n        c1.appendView(new RowView().setTitle(\"SlidingScreen demo\").setOnClickListener(function(){\r\n            new TestScreen3().start();\r\n        }));\r\n        c1.appendView(new RowView().setTitle(\"Framework settings screen\").setOnClickListener(function(){\r\n            new FWSettingsScreen().start();\r\n        }));\r\n        \r\n        c1.appendView(new RowView().setTitle(\"Set color and reopen\").setOnClickListener(function(){\r\n            var c = \"#\";\r\n            c += Math.round(Math.random()*100);\r\n            c += Math.round(Math.random()*100);\r\n            c += Math.round(Math.random()*100);\r\n            Config.mainColor = c;\r\n\r\n            ctx.finish();\r\n            new TestScreen().start();\r\n        }));\r\n\r\n        // FAB\r\n        c1.appendView(new SubHeader(\"Floating action button\"));\r\n        var fab = new FloatingActionButton().setIcon(\"star\").setTitle(\"Star\");\r\n        c1.appendView(fab);\r\n        c1.appendView(new RowView().setTitle(\"Default fab mode\").setOnClickListener(function(){\r\n            fab.setMode(FloatingActionButton.MODE_DEFAULT);\r\n        }));\r\n        c1.appendView(new RowView().setTitle(\"Small fab mode\").setOnClickListener(function(){\r\n            fab.setMode(FloatingActionButton.MODE_SMALL);\r\n        }));\r\n        c1.appendView(new RowView().setTitle(\"Expanded fab mode\").setOnClickListener(function(){\r\n            fab.setMode(FloatingActionButton.MODE_EXPAND);\r\n        }));\r\n        c1.appendView(new RowView().setTitle(\"Scroll listen, expanding\").setOnClickListener(function(){\r\n            fab.attachScreen(ctx, FloatingActionButton.MODE_EXPAND, FloatingActionButton.MODE_DEFAULT);\r\n        }));\r\n        c1.appendView(new RowView().setTitle(\"Scroll listen, hide\").setOnClickListener(function(){\r\n            fab.attachScreen(ctx, FloatingActionButton.MODE_DEFAULT, FloatingActionButton.MODE_HIDE);\r\n        }));\r\n\r\n        // AB\r\n        c2.appendView(new SubHeader(\"AB tests\"));\r\n        c2.appendView(new RowView().setTitle(\"AB SM Hide\").setOnClickListener(function(){\r\n            ctx.setScrollMode(Screen.AB_MODE_HIDE);\r\n        }));\r\n        c2.appendView(new RowView().setTitle(\"AB SM None\").setOnClickListener(function(){\r\n            ctx.setScrollMode(Screen.AB_MODE_NONE);\r\n        }));\r\n        c2.appendView(new RowView().setTitle(\"Set a very long title\").setOnClickListener(function(){\r\n            ctx.setTitle(\"Very very very very very very long title\")\r\n        }));\r\n        c2.appendView(new RowView().setTitle(\"Add some actions to AB\").setOnClickListener(function(){\r\n            ctx.addAction(new MenuItem(\"action\", \"android\"));\r\n            ctx.addAction(new MenuItem(\"action2\", \"apple\"));\r\n        }));\r\n\r\n        // ETC\r\n        c2.appendView(new SubHeader(\"etc\"));\r\n        c2.appendView(new RowView().setTitle(\"Wipe page\").setOnClickListener(function(){\r\n            ctx.wipeContents();\r\n        }));\r\n        c2.appendView(wl);\r\n        c2.appendView(new RowView().setTitle(\"Enable waitlockview for 5 seconds\").setOnClickListener(function(){\r\n            wl.show();\r\n            Utils.timer(5000).then(function(){\r\n                console.log(\"ok\");\r\n                wl.hide();\r\n            }).catch(function(e){\r\n                console.warn(e);\r\n            });\r\n        }));\r\n\r\n    }\r\n}\r\n\r\nclass TestScreen2 extends Screen {\r\n    onCreate() {\r\n        var tv = new TextInput().setTitle(\"Text input demo\").setHolder(\"Empty\"),\r\n            tv2 = new TextInput().setTitle(\"Password input demo\").setHolder(\"Empty\").setType(\"password\"),\r\n            tv3 = new BigTextInput().setTitle(\"Big input demo\").setHolder(\"Empty\");\r\n\r\n        this.setHomeAsUpAction();\r\n        this.setTitle(\"Widgets test mode!\");\r\n\r\n        var tb = new Toolbar();\r\n        this.appendView(tb);\r\n\r\n        tb.add(\"android\",\"android\", function(){\r\n            alert(1);\r\n        });\r\n        tb.add(\"check\",\"check\", function(){\r\n            alert(2);\r\n        });\r\n        tb.addSeparator();\r\n        tb.add(\"undo\",\"undo\", function(){\r\n            alert(3);\r\n        });\r\n\r\n        var sp = new SpoilerView().setTitle(\"Spoiler test\").setSummary(\"Tap to open!\");\r\n        sp.appendView(new RowView().setTitle(\"Hidden row!\"));\r\n        this.appendView(sp);\r\n\r\n        this.appendView(new SubHeader(\"Input tests\"));\r\n        this.appendView(tv);\r\n        this.appendView(tv2);\r\n        this.appendView(tv3);\r\n        this.appendView(new RowView().setTitle(\"Show value\").setOnClickListener(function(){\r\n            new Alert().setTitle(\"Text form value:\").setMessage(tv.toString()).show();\r\n        }).setOnLongTouchListener(function(){\r\n            new Alert().setTitle(\"Long tap!\").show();\r\n        }));\r\n\r\n        this.appendView(new Spinner());\r\n\r\n        this.appendView(new TextView(\"info\", \"This is info TextView!\"));\r\n\r\n        this.appendView(new Button().setText(\"Default button\"));\r\n        this.appendView(new Button().setStyle(Button.STYLE_CONTAINED).setText(\"Contained button\"));\r\n        this.appendView(new Button().setStyle(Button.STYLE_FLAT).setText(\"Flat button\"));\r\n        this.appendView(new Button().setStyle(Button.STYLE_OUTLINE).setText(\"Flat button\"));\r\n\r\n        this.appendView(new SubHeader(\"RowView tests\"));\r\n        this.appendView(new RowView().setTitle(\"Single-line\"));\r\n        this.appendView(new RowView().setTitle(\"Single-line with icon\").setIcon(\"android\"));\r\n        this.appendView(new RowView().setTitle(\"Single-line with icon and action\").setIcon(\"android\").setAction(\"Hello\", \"more_vert\", function(){\r\n            new Alert().setMessage(\"Hello!\").show();\r\n        }));\r\n        \r\n        this.appendView(new RowView().setSummary(\"Description\").setTitle(\"Two-line\"));\r\n        this.appendView(new RowView().setSummary(\"Description\").setTitle(\"Two-line with icon\").setIcon(\"android\").setOnClickListener(function(){\r\n\r\n        }));\r\n        this.appendView(new RowView().setSummary(\"Description\").setTitle(\"Two-line with icon and action\").setIcon(\"android\").setAction(\"Hello\", \"more_vert\", function(){\r\n            new Alert().setTitle(\"It is menu!\").setMessage(\"Hello, World!\").setOnClickListener(function(){\r\n                console.log(2);\r\n            }).show();\r\n        }));\r\n    }\r\n}\r\n\r\nclass TestScreen3 extends SlidingScreen {\r\n    onCreate() {\r\n        this.setHomeAsUpAction();\r\n    }\r\n    onUpdate() {\r\n        this.wipe();\r\n\r\n        var a = this.newPage(),\r\n            b = this.newPage(),\r\n            ctx = this;\r\n\r\n        a.appendView(new TextView(\"title\", \"Page 1\"));\r\n        for(var i = 0; i < 50; i++) a.appendView(new RowView().setTitle(\"Row A\"+i));\r\n\r\n        b.appendView(new TextView(\"title\", \"Page 2\"));\r\n        for(var i = 0; i < 50; i++) b.appendView(new RowView()\r\n            .setTitle(\"Row B\"+i).setOnClickListener(function(){\r\n                ctx.onUpdate();\r\n            }));\r\n    }\r\n}\r\n\r\n/*\r\nclass TestScreen2 extends Screen {\r\n    onCreate() {\r\n        this.setHomeAsUpAction();\r\n        this.setTitle(\"Test mode!\");\r\n    }\r\n}\r\n*/\r\n",
     "static": true,
     "longname": "C:/Users/Miha/Documents/MDFWjs/src/X/TestScreen.js",
     "access": "public",
@@ -6740,7 +7109,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 376,
+    "__docId__": 395,
     "kind": "class",
     "name": "TestScreen",
     "memberof": "src/X/TestScreen.js",
@@ -6760,7 +7129,7 @@
     "ignore": true
   },
   {
-    "__docId__": 377,
+    "__docId__": 396,
     "kind": "method",
     "name": "onCreate",
     "memberof": "src/X/TestScreen.js~TestScreen",
@@ -6777,7 +7146,7 @@
     "ignore": true
   },
   {
-    "__docId__": 378,
+    "__docId__": 397,
     "kind": "class",
     "name": "TestScreen2",
     "memberof": "src/X/TestScreen.js",
@@ -6788,7 +7157,7 @@
     "importPath": "mdfwjs/src/X/TestScreen.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 86,
+    "lineNumber": 94,
     "undocument": true,
     "interface": false,
     "extends": [
@@ -6797,7 +7166,7 @@
     "ignore": true
   },
   {
-    "__docId__": 379,
+    "__docId__": 398,
     "kind": "method",
     "name": "onCreate",
     "memberof": "src/X/TestScreen.js~TestScreen2",
@@ -6807,14 +7176,14 @@
     "longname": "src/X/TestScreen.js~TestScreen2#onCreate",
     "access": "public",
     "description": null,
-    "lineNumber": 87,
+    "lineNumber": 95,
     "undocument": true,
     "params": [],
     "return": null,
     "ignore": true
   },
   {
-    "__docId__": 380,
+    "__docId__": 399,
     "kind": "class",
     "name": "TestScreen3",
     "memberof": "src/X/TestScreen.js",
@@ -6825,7 +7194,7 @@
     "importPath": "mdfwjs/src/X/TestScreen.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 151,
+    "lineNumber": 159,
     "undocument": true,
     "interface": false,
     "extends": [
@@ -6834,7 +7203,7 @@
     "ignore": true
   },
   {
-    "__docId__": 381,
+    "__docId__": 400,
     "kind": "method",
     "name": "onCreate",
     "memberof": "src/X/TestScreen.js~TestScreen3",
@@ -6844,14 +7213,14 @@
     "longname": "src/X/TestScreen.js~TestScreen3#onCreate",
     "access": "public",
     "description": null,
-    "lineNumber": 152,
+    "lineNumber": 160,
     "undocument": true,
     "params": [],
     "return": null,
     "ignore": true
   },
   {
-    "__docId__": 382,
+    "__docId__": 401,
     "kind": "method",
     "name": "onUpdate",
     "memberof": "src/X/TestScreen.js~TestScreen3",
@@ -6861,7 +7230,7 @@
     "longname": "src/X/TestScreen.js~TestScreen3#onUpdate",
     "access": "public",
     "description": null,
-    "lineNumber": 155,
+    "lineNumber": 163,
     "undocument": true,
     "params": [],
     "return": null,
@@ -6877,7 +7246,7 @@
   },
   {
     "kind": "packageJSON",
-    "content": "{\r\n  \"name\": \"mdfwjs\",\r\n  \"version\": \"1.0.0\",\r\n  \"description\": \"Material Design Framework for JS\",\r\n  \"scripts\": {\r\n    \"dist\": \"babel src --out-file dist/mdfw.js --minified && sass src/index.scss dist/mdfw.css\"\r\n  },\r\n  \"repository\": {\r\n    \"type\": \"git\",\r\n    \"url\": \"git+https://github.com/mhbrgn/MDFWjs.git\"\r\n  },\r\n  \"author\": \"\",\r\n  \"license\": \"GPL-3.0\",\r\n  \"bugs\": {\r\n    \"url\": \"https://github.com/mhbrgn/MDFWjs/issues\"\r\n  },\r\n  \"homepage\": \"https://github.com/mhbrgn/MDFWjs#readme\",\r\n  \"devDependencies\": {\r\n    \"@babel/cli\": \"^7.8.4\",\r\n    \"@babel/core\": \"^7.8.4\",\r\n    \"@babel/preset-env\": \"^7.8.4\",\r\n    \"esdoc\": \"^1.1.0\",\r\n    \"esdoc-standard-plugin\": \"^1.0.0\",\r\n    \"sass\": \"^1.26.0\"\r\n  }\r\n}\r\n",
+    "content": "{\r\n  \"name\": \"mdfwjs\",\r\n  \"version\": \"2.0.0\",\r\n  \"description\": \"Material Design Framework for JS\",\r\n  \"scripts\": {\r\n    \"build\": \"babel src --out-file dist/mdfw.js --minified && sass src/index.scss dist/mdfw.css\",\r\n    \"esdoc\": \"esdoc\"\r\n  },\r\n  \"repository\": {\r\n    \"type\": \"git\",\r\n    \"url\": \"git+https://github.com/mhbrgn/MDFWjs.git\"\r\n  },\r\n  \"author\": \"\",\r\n  \"license\": \"GPL-3.0\",\r\n  \"bugs\": {\r\n    \"url\": \"https://github.com/mhbrgn/MDFWjs/issues\"\r\n  },\r\n  \"homepage\": \"https://github.com/mhbrgn/MDFWjs#readme\",\r\n  \"devDependencies\": {\r\n    \"@babel/cli\": \"^7.8.4\",\r\n    \"@babel/core\": \"^7.8.4\",\r\n    \"@babel/preset-env\": \"^7.8.4\",\r\n    \"esdoc\": \"^1.1.0\",\r\n    \"esdoc-standard-plugin\": \"^1.0.0\",\r\n    \"sass\": \"^1.26.0\"\r\n  }\r\n}\r\n",
     "longname": "C:\\Users\\Miha\\Documents\\MDFWjs\\package.json",
     "name": "package.json",
     "static": true,

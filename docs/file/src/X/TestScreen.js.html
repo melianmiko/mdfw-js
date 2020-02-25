@@ -36,6 +36,7 @@
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#frames">Frames</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Frames/InputLock.js~InputLock.html">InputLock</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Frames/Screen.js~Screen.html">Screen</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Frames/WaitScreen.js~WaitScreen.html">WaitScreen</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#layout">Layout</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Layout/ExpandableLayout.js~ExpandableLayout.html">ExpandableLayout</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#utils">Utils</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Utils/Log.js~Log.html">Log</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Utils/MenuItem.js~MenuItem.html">MenuItem</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Utils/Utils.js~Utils.html">Utils</a></span></span></li>
@@ -63,20 +64,28 @@
             ctx = this;
 
         this.setHomeAsUpAction();
-        this.appendView(new TextView(&quot;title&quot;, &quot;FW Test!&quot;));
+        this.addMod(new WideScreenMod());
+
+        // Expandable layout
+        var exp = new ExpandableLayout(),
+            c1 = exp.addColumn(360, 400),
+            c2 = exp.addColumn(360, 400);
+
+        this.appendView(exp);
 
         // MAIN
-        this.appendView(new RowView().setTitle(&quot;Widgets test page&quot;).setOnClickListener(function(){
+        c1.appendView(new SubHeader(&quot;Tests&quot;));
+        c1.appendView(new RowView().setTitle(&quot;Widgets test page&quot;).setOnClickListener(function(){
             new TestScreen2().start();
         }));
-        this.appendView(new RowView().setTitle(&quot;SlidingScreen demo&quot;).setOnClickListener(function(){
+        c1.appendView(new RowView().setTitle(&quot;SlidingScreen demo&quot;).setOnClickListener(function(){
             new TestScreen3().start();
         }));
-        this.appendView(new RowView().setTitle(&quot;Framework settings screen&quot;).setOnClickListener(function(){
+        c1.appendView(new RowView().setTitle(&quot;Framework settings screen&quot;).setOnClickListener(function(){
             new FWSettingsScreen().start();
         }));
         
-        this.appendView(new RowView().setTitle(&quot;Set color and reopen&quot;).setOnClickListener(function(){
+        c1.appendView(new RowView().setTitle(&quot;Set color and reopen&quot;).setOnClickListener(function(){
             var c = &quot;#&quot;;
             c += Math.round(Math.random()*100);
             c += Math.round(Math.random()*100);
@@ -88,48 +97,48 @@
         }));
 
         // FAB
-        this.appendView(new SubHeader(&quot;Floating action button&quot;));
+        c1.appendView(new SubHeader(&quot;Floating action button&quot;));
         var fab = new FloatingActionButton().setIcon(&quot;star&quot;).setTitle(&quot;Star&quot;);
-        this.appendView(fab);
-        this.appendView(new RowView().setTitle(&quot;Default fab mode&quot;).setOnClickListener(function(){
+        c1.appendView(fab);
+        c1.appendView(new RowView().setTitle(&quot;Default fab mode&quot;).setOnClickListener(function(){
             fab.setMode(FloatingActionButton.MODE_DEFAULT);
         }));
-        this.appendView(new RowView().setTitle(&quot;Small fab mode&quot;).setOnClickListener(function(){
+        c1.appendView(new RowView().setTitle(&quot;Small fab mode&quot;).setOnClickListener(function(){
             fab.setMode(FloatingActionButton.MODE_SMALL);
         }));
-        this.appendView(new RowView().setTitle(&quot;Expanded fab mode&quot;).setOnClickListener(function(){
+        c1.appendView(new RowView().setTitle(&quot;Expanded fab mode&quot;).setOnClickListener(function(){
             fab.setMode(FloatingActionButton.MODE_EXPAND);
         }));
-        this.appendView(new RowView().setTitle(&quot;Scroll listen, expanding&quot;).setOnClickListener(function(){
+        c1.appendView(new RowView().setTitle(&quot;Scroll listen, expanding&quot;).setOnClickListener(function(){
             fab.attachScreen(ctx, FloatingActionButton.MODE_EXPAND, FloatingActionButton.MODE_DEFAULT);
         }));
-        this.appendView(new RowView().setTitle(&quot;Scroll listen, hide&quot;).setOnClickListener(function(){
+        c1.appendView(new RowView().setTitle(&quot;Scroll listen, hide&quot;).setOnClickListener(function(){
             fab.attachScreen(ctx, FloatingActionButton.MODE_DEFAULT, FloatingActionButton.MODE_HIDE);
         }));
 
         // AB
-        this.appendView(new SubHeader(&quot;AB tests&quot;));
-        this.appendView(new RowView().setTitle(&quot;AB SM Hide&quot;).setOnClickListener(function(){
+        c2.appendView(new SubHeader(&quot;AB tests&quot;));
+        c2.appendView(new RowView().setTitle(&quot;AB SM Hide&quot;).setOnClickListener(function(){
             ctx.setScrollMode(Screen.AB_MODE_HIDE);
         }));
-        this.appendView(new RowView().setTitle(&quot;AB SM None&quot;).setOnClickListener(function(){
+        c2.appendView(new RowView().setTitle(&quot;AB SM None&quot;).setOnClickListener(function(){
             ctx.setScrollMode(Screen.AB_MODE_NONE);
         }));
-        this.appendView(new RowView().setTitle(&quot;Set a very long title&quot;).setOnClickListener(function(){
+        c2.appendView(new RowView().setTitle(&quot;Set a very long title&quot;).setOnClickListener(function(){
             ctx.setTitle(&quot;Very very very very very very long title&quot;)
         }));
-        this.appendView(new RowView().setTitle(&quot;Add some actions to AB&quot;).setOnClickListener(function(){
+        c2.appendView(new RowView().setTitle(&quot;Add some actions to AB&quot;).setOnClickListener(function(){
             ctx.addAction(new MenuItem(&quot;action&quot;, &quot;android&quot;));
             ctx.addAction(new MenuItem(&quot;action2&quot;, &quot;apple&quot;));
         }));
 
         // ETC
-        this.appendView(new SubHeader(&quot;etc&quot;));
-        this.appendView(new RowView().setTitle(&quot;Wipe page&quot;).setOnClickListener(function(){
+        c2.appendView(new SubHeader(&quot;etc&quot;));
+        c2.appendView(new RowView().setTitle(&quot;Wipe page&quot;).setOnClickListener(function(){
             ctx.wipeContents();
         }));
-        this.appendView(wl);
-        this.appendView(new RowView().setTitle(&quot;Enable waitlockview for 5 seconds&quot;).setOnClickListener(function(){
+        c2.appendView(wl);
+        c2.appendView(new RowView().setTitle(&quot;Enable waitlockview for 5 seconds&quot;).setOnClickListener(function(){
             wl.show();
             Utils.timer(5000).then(function(){
                 console.log(&quot;ok&quot;);
