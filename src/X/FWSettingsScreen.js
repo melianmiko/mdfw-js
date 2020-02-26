@@ -31,6 +31,7 @@ class FWSettingsScreen extends Screen {
     onCreate(loc) {
         var locale = FWSettingsScreen.LOCALE;
         if(loc) for(var a in loc) locale[a] = loc[a];
+        this.addMod(new RightSideScreenMod());
         this.setHomeAsUpAction();
         this.locale = locale;
         this.onUpdate();

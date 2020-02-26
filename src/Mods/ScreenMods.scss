@@ -1,0 +1,30 @@
+// Wide screen mod
+.fw-screen.widescreen > .fw-root-container > 
+    .box-contents > .holder > .container {max-width: 100%;}
+
+// Side screen mod (right)
+@media all and (min-width: 720px) {
+	.fw-screen.sidescreen-right {
+		.fw-root-container {
+			top: 0; right: -50%;
+			transition: right .5s;
+			width: 360*$dp; position: absolute;
+		}
+
+		&.show > .fw-root-container {
+			right: 0;
+		}
+	}
+
+	.fw-screen.sidescreen-left {
+		.fw-root-container {
+			top: 0; left: -50%;
+			transition: left .5s;
+			width: 360*$dp; position: absolute;
+		}
+
+		&.show > .fw-root-container {
+			left: 0;
+		}
+	}
+}

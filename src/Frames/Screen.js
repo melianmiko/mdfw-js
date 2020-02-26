@@ -117,6 +117,10 @@ class Screen {
 		 * See `Screen.setScrollMode(mode)`
 		 */
 		this._ab_scrollmod = 0;
+		/** 
+		 * Is screen dismiss allowed?
+		 */
+		this._allow_dismiss = true;
 
 		this._activity_contents.addEventListener("scroll", function(){
 			t._ab_scrolltrg();
@@ -304,6 +308,22 @@ class Screen {
 	markAsRoot() {
 		this.addMod(new NoAnimationScreenMod());
 		this.allowDismiss(false);
+	}
+
+	/**
+	 * Allow window close by dismiss events
+	 * Examples: outside click
+	 */
+	allowDismiss(isAllowed) {
+		this._allow_dismiss = isAllowed;
+	}
+
+	/**
+	 * Dismiss window, if allowed
+	 */
+	dismiss() {
+		if(!this._allow_dismiss) return;
+		this.finish();
 	}
 	
 	/**

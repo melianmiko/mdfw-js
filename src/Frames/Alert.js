@@ -1,27 +1,75 @@
+/**
+ * Alert dialog
+ *
+ * This class can be used to create simple message alert dialog.
+ * Example:
+ * ```js
+ * new Alert().setMessage("Hello, world!").show();
+ * ```
+ */
 class Alert {
+    /**
+     * Set message title
+     * @param t title string
+     * @returns this alert dialog
+     */
     setTitle(t) {
-        this.title = t;
+        /**
+         * Message title
+         */
+        this._title = t;
         return this;
     }
+
+    /**
+     * Set message content
+     * @param m message text
+     * @returns this alert dialog
+     */
     setMessage(m) {
-        this.message = m;
+        /**
+         * Message text
+         */
+        this._message = m;
         return this;
     }
+
+    /**
+     * Set on button click listener
+     * @param c function to execute
+     * @returns this alert dialog
+     */
     setOnClickListener(c) {
-        this.click = c;
+        /**
+         * CLick listener
+         */
+        this._click = c;
         return this;
     }
+
+    /**
+     * Set on dismiss listener
+     * @param c function to execute
+     * @returns this alert dialog
+     */
 	setOnCancelListener(c) {
-		this.oncancel = c;
+        /**
+         * On dismiss listener
+         */
+		this._oncancel = c;
 		return this;
 	}
+
+    /**
+     * Show this dialog
+     */
     show() {
         var c = this;
-		var d = new Dialog().setMessage(this.message).setTitle(this.title)
-			.setOnCancelListener(this.oncancel)
+		var d = new Dialog().setMessage(this._message).setTitle(this._title)
+			.setOnCancelListener(this._oncancel)
             .addButton(new Button().setText("Ok").setOnClickListener(function(){
                 d.hide();
-                c.click();
+                c._click();
             })).show();
     }
 }
