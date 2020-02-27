@@ -8,9 +8,15 @@ $activity_maxwidth: 560px;
 html {font-size: 16px;} // For pretty dp/sp calculation
 body {font-size: 16px; }
 
+// Darktheme
+html.darktheme {background: #000;}
+
 // Elevation function
 @function elevation($e) {
     @return 0 $e*$dp $e*2*$dp 0 rgba(0,0,0,0.2);
+}
+@function elevationWhite($e) {
+    @return 0 $e*$dp $e*2*$dp 0 rgba(255,255,255,0.1);
 }
 
 // Unselectable item mixin
@@ -57,9 +63,6 @@ body {font-size: 16px; }
 }
 
 // Imports
-@import "etc/ListView.scss";
-@import "etc/Dark.scss";
-
 @import "Frames/Frames.scss";
 @import "Frames/Dialog.scss";
 @import "Frames/Screen.scss";
@@ -70,10 +73,13 @@ body {font-size: 16px; }
 @import "Layout/ExpandableLayout.scss";
 @import "Mods/ScreenMods.scss";
 
-@import "Widget/FloatingActionButton.scss";
 @import "Widget/Button.scss";
+@import "Widget/Checkbox.scss";
+@import "Widget/FloatingActionButton.scss";
 @import "Widget/Spinner.scss";
 @import "Widget/SubHeader.scss";
 @import "Widget/Toolbar.scss";
+@import "Widget/TextInput.scss";
 
 @import "X/SlidingScreen.scss";
+@import "X/FWSettingsScreen.scss";

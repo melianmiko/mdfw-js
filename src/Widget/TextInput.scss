@@ -1,27 +1,23 @@
-// TODO: Refactor
-.fw-listitem {
+.fw-textinput {
     border-bottom: thin #eee solid;
     padding: 4px;
 
-    .item-title {
+    .title {
         font-size: .7em; padding: 4px 8px; 
         color: #555; @include noselect;
     }
 
-    &.textedit .input {
+    .input {
         border: none; background: none; width: 100%;
         box-sizing: border-box; font-size: 1em; padding: 8px;
 
         &.ta {resize: none; height: 40px;font-family: $font_family;}
     }
-
-    &.flex {
-        display: flex;
-
-        .flex-expand  {flex: 1;}
-    }
-
-    .material-icons {color: $fw_maincolor; font-size: 20px; }
 }
 
+html.darktheme .fw-textinput {
+	border-color: #222;
 
+	.title {color: #777;}
+	.input {color: #fff;}
+}

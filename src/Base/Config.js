@@ -29,6 +29,13 @@ class Config {
 	}
 
 	/**
+	 * Get default main color (ignore settings override)
+	 */
+	static get defaultColor() {
+		return Config._mainColor;
+	}
+
+	/**
 	 * Setter of main accent color from framework skin
 	 */
 	static set mainColor(c) {

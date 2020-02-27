@@ -7,8 +7,8 @@ class TextInput {
 	 * Default contructor
 	 */
     constructor() {
-        this.block = Utils.inflate({type: "div", class: "fw-listitem textedit", childs: {
-            titlebx: {type: "div", class: "item-title"},
+        this.block = Utils.inflate({type: "div", class: "fw-textinput", childs: {
+            titlebx: {type: "div", class: "title"},
             editor: {type: "input", class: "input"}
         }});
     }

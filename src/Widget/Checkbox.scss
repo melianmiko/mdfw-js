@@ -1,0 +1,21 @@
+.fw-checkbox-view {
+	margin: 8*$dp 0;
+	display: flex;
+
+	i {
+		font-size: 24*$sp;
+		width: 24*$sp; transition: background .5s;
+		padding: 8*$dp; border-radius: 50%;
+		background: transparent;
+	}
+
+	&:hover > i {background: rgba(0,0,0,0.05);}
+	&:active > i {background: rgba(0,0,0,0.1);}
+
+	.label {
+		margin-left: 8*$dp;
+		display: block; flex: 1;
+		line-height: 2.5em;
+		@include noselect;
+	}
+}

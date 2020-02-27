@@ -26,3 +26,17 @@
 
 }
 
+html.darktheme .fw-dialog {
+    background: rgba(0,0,0,0.4);
+
+    & > .container {
+        background: #000000;
+        box-shadow: elevationWhite(24);
+
+        & > .textbox {
+            & > .title {color:#ffffffde;}
+            & > .message {color: #ffffff99;}    
+        }
+    }
+}
+

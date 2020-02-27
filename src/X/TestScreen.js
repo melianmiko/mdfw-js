@@ -25,17 +25,6 @@ class TestScreen extends Screen {
             new FWSettingsScreen().start();
         }));
         
-        c1.appendView(new RowView().setTitle("Set color and reopen").setOnClickListener(function(){
-            var c = "#";
-            c += Math.round(Math.random()*100);
-            c += Math.round(Math.random()*100);
-            c += Math.round(Math.random()*100);
-            Config.mainColor = c;
-
-            ctx.finish();
-            new TestScreen().start();
-        }));
-
         // FAB
         c1.appendView(new SubHeader("Floating action button"));
         var fab = new FloatingActionButton().setIcon("star").setTitle("Star");
@@ -118,6 +107,8 @@ class TestScreen2 extends Screen {
         sp.appendView(new RowView().setTitle("Hidden row!"));
         this.appendView(sp);
 
+        this.appendView(new Checkbox().setTitle("Checkbox!"));
+
         this.appendView(new SubHeader("Input tests"));
         this.appendView(tv);
         this.appendView(tv2);
@@ -135,7 +126,7 @@ class TestScreen2 extends Screen {
         this.appendView(new Button().setText("Default button"));
         this.appendView(new Button().setStyle(Button.STYLE_CONTAINED).setText("Contained button"));
         this.appendView(new Button().setStyle(Button.STYLE_FLAT).setText("Flat button"));
-        this.appendView(new Button().setStyle(Button.STYLE_OUTLINE).setText("Flat button"));
+        this.appendView(new Button().setStyle(Button.STYLE_OUTLINE).setText("Outlined button"));
 
         this.appendView(new SubHeader("RowView tests"));
         this.appendView(new RowView().setTitle("Single-line"));

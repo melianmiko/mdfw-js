@@ -21,3 +21,8 @@
         padding-left: 1*$dp; background: #ddd;
     }
 }
+
+html.darktheme .fw-toolbar {
+    i {color: #777;}
+    a {background: #222;}
+}

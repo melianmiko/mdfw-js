@@ -1,0 +1,15 @@
+.fw-palette {
+	text-align: center;
+
+	.color {
+		width: 48px; height: 48px;
+		border-radius: 50%; display: inline-block;
+		border: 4px solid #fff; margin: 4px;
+	}
+	.color.selected {border-color: #ddd;}
+}
+
+html.darktheme .fw-palette {
+	.color {border-color: #000;}
+	.color.selected {border-color: #555;}
+}

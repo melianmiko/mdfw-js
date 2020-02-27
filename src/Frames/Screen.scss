@@ -87,3 +87,21 @@
         }
 	}
 }
+
+html.darktheme .fw-screen {
+    color: #fff;
+
+    &.show {
+        background: rgba(255, 255, 255, 0.05);
+    }
+
+    & > .fw-root-container {
+        background: #000;
+    }
+    
+    .fw-topbar.mode-elevate {
+        box-shadow: elevationWhite(4); background: #000000;
+    }
+
+}
+

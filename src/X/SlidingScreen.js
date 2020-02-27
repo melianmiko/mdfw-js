@@ -183,6 +183,7 @@ class SlidingScreen extends Screen {
         wrp.ontouchend = function(e) {
             if(!context._ss_swipeOn) return;
             if(touchData.direction != "h") return;
+            console.log(e);
             var ex = e.changedTouches[0].pageX;
             var newPage = context._ss_active;
             if(ex < touchData.startX-75) newPage = context._ss_active+1;

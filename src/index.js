@@ -22,8 +22,10 @@ class FWInit {
         if(localStorage.fw_cfg_font_size)
             document.documentElement.style.fontSize = localStorage.fw_cfg_font_size+"rem";
 
-        localStorage.fw_cfg_nightmode ? document.documentElement.classList.add("fw-bcfg-darkmode") : 
-            document.documentElement.classList.remove("fw-bcfg-darkmode");
+        localStorage.fw_cfg_nightmode ? 
+            document.documentElement.classList.add("darktheme")
+         : 
+            document.documentElement.classList.remove("darktheme");
     }
 }
 

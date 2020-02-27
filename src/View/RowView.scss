@@ -18,3 +18,13 @@
     &:hover {background: rgba(0,0,0,0.05)};
     &:active, &:focus {background: rgba(0,0,0,0.2)};
 }
+
+html.darktheme .fw-rowview {
+    border-color: #222;
+
+    .title {color: #ffffffde;}
+    .summary {color: #ffffff99;}
+
+    &:hover {background: rgba(255,255,255,0.05)};
+    &:active, &:focus {background: rgba(255,255,255,0.2)};
+}
