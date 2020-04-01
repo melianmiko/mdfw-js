@@ -1,8 +1,20 @@
 window.esdocSearchIndex = [
   [
+    "mdfwjs/src/frames/alert.js~alert",
+    "class/src/Frames/Alert.js~Alert.html",
+    "<span>Alert</span> <span class=\"search-result-import-path\">mdfwjs/src/Frames/Alert.js</span>",
+    "class"
+  ],
+  [
     "mdfwjs/src/widget/button.js~button",
     "class/src/Widget/Button.js~Button.html",
     "<span>Button</span> <span class=\"search-result-import-path\">mdfwjs/src/Widget/Button.js</span>",
+    "class"
+  ],
+  [
+    "mdfwjs/src/widget/checkbox.js~checkbox",
+    "class/src/Widget/Checkbox.js~Checkbox.html",
+    "<span>Checkbox</span> <span class=\"search-result-import-path\">mdfwjs/src/Widget/Checkbox.js</span>",
     "class"
   ],
   [
@@ -33,6 +45,12 @@ window.esdocSearchIndex = [
     "mdfwjs/src/x/fwsettingsscreen.js~fwsettingsscreen",
     "class/src/X/FWSettingsScreen.js~FWSettingsScreen.html",
     "<span>FWSettingsScreen</span> <span class=\"search-result-import-path\">mdfwjs/src/X/FWSettingsScreen.js</span>",
+    "class"
+  ],
+  [
+    "mdfwjs/src/frames/fragment.js~fragment",
+    "class/src/Frames/Fragment.js~Fragment.html",
+    "<span>Fragment</span> <span class=\"search-result-import-path\">mdfwjs/src/Frames/Fragment.js</span>",
     "class"
   ],
   [
@@ -456,6 +474,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/base/config.js~config.defaultcolor",
+    "class/src/Base/Config.js~Config.html#static-get-defaultColor",
+    "src/Base/Config.js~Config.defaultColor",
+    "member"
+  ],
+  [
     "src/base/config.js~config.maincolor",
     "class/src/Base/Config.js~Config.html#static-get-mainColor",
     "src/Base/Config.js~Config.mainColor",
@@ -492,6 +516,60 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "src/frames/alert.js~alert#_click",
+    "class/src/Frames/Alert.js~Alert.html#instance-member-_click",
+    "src/Frames/Alert.js~Alert#_click",
+    "member"
+  ],
+  [
+    "src/frames/alert.js~alert#_message",
+    "class/src/Frames/Alert.js~Alert.html#instance-member-_message",
+    "src/Frames/Alert.js~Alert#_message",
+    "member"
+  ],
+  [
+    "src/frames/alert.js~alert#_oncancel",
+    "class/src/Frames/Alert.js~Alert.html#instance-member-_oncancel",
+    "src/Frames/Alert.js~Alert#_oncancel",
+    "member"
+  ],
+  [
+    "src/frames/alert.js~alert#_title",
+    "class/src/Frames/Alert.js~Alert.html#instance-member-_title",
+    "src/Frames/Alert.js~Alert#_title",
+    "member"
+  ],
+  [
+    "src/frames/alert.js~alert#setmessage",
+    "class/src/Frames/Alert.js~Alert.html#instance-method-setMessage",
+    "src/Frames/Alert.js~Alert#setMessage",
+    "method"
+  ],
+  [
+    "src/frames/alert.js~alert#setoncancellistener",
+    "class/src/Frames/Alert.js~Alert.html#instance-method-setOnCancelListener",
+    "src/Frames/Alert.js~Alert#setOnCancelListener",
+    "method"
+  ],
+  [
+    "src/frames/alert.js~alert#setonclicklistener",
+    "class/src/Frames/Alert.js~Alert.html#instance-method-setOnClickListener",
+    "src/Frames/Alert.js~Alert#setOnClickListener",
+    "method"
+  ],
+  [
+    "src/frames/alert.js~alert#settitle",
+    "class/src/Frames/Alert.js~Alert.html#instance-method-setTitle",
+    "src/Frames/Alert.js~Alert#setTitle",
+    "method"
+  ],
+  [
+    "src/frames/alert.js~alert#show",
+    "class/src/Frames/Alert.js~Alert.html#instance-method-show",
+    "src/Frames/Alert.js~Alert#show",
+    "method"
+  ],
+  [
     "src/frames/confirm.js",
     "file/src/Frames/Confirm.js.html",
     "src/Frames/Confirm.js",
@@ -502,6 +580,102 @@ window.esdocSearchIndex = [
     "file/src/Frames/Dialog.js.html",
     "src/Frames/Dialog.js",
     "file"
+  ],
+  [
+    "src/frames/fragment.js",
+    "file/src/Frames/Fragment.js.html",
+    "src/Frames/Fragment.js",
+    "file"
+  ],
+  [
+    "src/frames/fragment.js~fragment#_activity_root",
+    "class/src/Frames/Fragment.js~Fragment.html#instance-member-_activity_root",
+    "src/Frames/Fragment.js~Fragment#_activity_root",
+    "member"
+  ],
+  [
+    "src/frames/fragment.js~fragment#_bundle",
+    "class/src/Frames/Fragment.js~Fragment.html#instance-member-_bundle",
+    "src/Frames/Fragment.js~Fragment#_bundle",
+    "member"
+  ],
+  [
+    "src/frames/fragment.js~fragment#_callback",
+    "class/src/Frames/Fragment.js~Fragment.html#instance-member-_callback",
+    "src/Frames/Fragment.js~Fragment#_callback",
+    "member"
+  ],
+  [
+    "src/frames/fragment.js~fragment#addaction",
+    "class/src/Frames/Fragment.js~Fragment.html#instance-method-addAction",
+    "src/Frames/Fragment.js~Fragment#addAction",
+    "method"
+  ],
+  [
+    "src/frames/fragment.js~fragment#appendview",
+    "class/src/Frames/Fragment.js~Fragment.html#instance-method-appendView",
+    "src/Frames/Fragment.js~Fragment#appendView",
+    "method"
+  ],
+  [
+    "src/frames/fragment.js~fragment#constructor",
+    "class/src/Frames/Fragment.js~Fragment.html#instance-constructor-constructor",
+    "src/Frames/Fragment.js~Fragment#constructor",
+    "method"
+  ],
+  [
+    "src/frames/fragment.js~fragment#doautoupdate",
+    "class/src/Frames/Fragment.js~Fragment.html#instance-method-doAutoUpdate",
+    "src/Frames/Fragment.js~Fragment#doAutoUpdate",
+    "method"
+  ],
+  [
+    "src/frames/fragment.js~fragment#getblock",
+    "class/src/Frames/Fragment.js~Fragment.html#instance-method-getBlock",
+    "src/Frames/Fragment.js~Fragment#getBlock",
+    "method"
+  ],
+  [
+    "src/frames/fragment.js~fragment#oncreate",
+    "class/src/Frames/Fragment.js~Fragment.html#instance-method-onCreate",
+    "src/Frames/Fragment.js~Fragment#onCreate",
+    "method"
+  ],
+  [
+    "src/frames/fragment.js~fragment#onupdate",
+    "class/src/Frames/Fragment.js~Fragment.html#instance-method-onUpdate",
+    "src/Frames/Fragment.js~Fragment#onUpdate",
+    "method"
+  ],
+  [
+    "src/frames/fragment.js~fragment#sethomeaction",
+    "class/src/Frames/Fragment.js~Fragment.html#instance-method-setHomeAction",
+    "src/Frames/Fragment.js~Fragment#setHomeAction",
+    "method"
+  ],
+  [
+    "src/frames/fragment.js~fragment#sethomeasupaction",
+    "class/src/Frames/Fragment.js~Fragment.html#instance-method-setHomeAsUpAction",
+    "src/Frames/Fragment.js~Fragment#setHomeAsUpAction",
+    "method"
+  ],
+  [
+    "src/frames/fragment.js~fragment#settitle",
+    "class/src/Frames/Fragment.js~Fragment.html#instance-method-setTitle",
+    "src/Frames/Fragment.js~Fragment#setTitle",
+    "method"
+  ],
+  [
+    "src/frames/fragment.js~fragment#wipeactions",
+    "class/src/Frames/Fragment.js~Fragment.html#instance-method-wipeActions",
+    "src/Frames/Fragment.js~Fragment#wipeActions",
+    "method"
+  ],
+  [
+    "src/frames/fragment.js~fragment#wipecontents",
+    "class/src/Frames/Fragment.js~Fragment.html#instance-method-wipeContents",
+    "src/Frames/Fragment.js~Fragment#wipeContents",
+    "method"
   ],
   [
     "src/frames/inputlock.js",
@@ -594,6 +768,12 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "src/frames/screen.js~screen#_allow_dismiss",
+    "class/src/Frames/Screen.js~Screen.html#instance-member-_allow_dismiss",
+    "src/Frames/Screen.js~Screen#_allow_dismiss",
+    "member"
+  ],
+  [
     "src/frames/screen.js~screen#_bundle",
     "class/src/Frames/Screen.js~Screen.html#instance-member-_bundle",
     "src/Frames/Screen.js~Screen#_bundle",
@@ -624,6 +804,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/frames/screen.js~screen#allowdismiss",
+    "class/src/Frames/Screen.js~Screen.html#instance-method-allowDismiss",
+    "src/Frames/Screen.js~Screen#allowDismiss",
+    "method"
+  ],
+  [
     "src/frames/screen.js~screen#appendview",
     "class/src/Frames/Screen.js~Screen.html#instance-method-appendView",
     "src/Frames/Screen.js~Screen#appendView",
@@ -633,6 +819,12 @@ window.esdocSearchIndex = [
     "src/frames/screen.js~screen#constructor",
     "class/src/Frames/Screen.js~Screen.html#instance-constructor-constructor",
     "src/Frames/Screen.js~Screen#constructor",
+    "method"
+  ],
+  [
+    "src/frames/screen.js~screen#dismiss",
+    "class/src/Frames/Screen.js~Screen.html#instance-method-dismiss",
+    "src/Frames/Screen.js~Screen#dismiss",
     "method"
   ],
   [
@@ -888,9 +1080,21 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "src/mods/leftsidescreenmod.js",
+    "file/src/Mods/LeftSideScreenMod.js.html",
+    "src/Mods/LeftSideScreenMod.js",
+    "file"
+  ],
+  [
     "src/mods/noanimationscreenmod.js",
     "file/src/Mods/NoAnimationScreenMod.js.html",
     "src/Mods/NoAnimationScreenMod.js",
+    "file"
+  ],
+  [
+    "src/mods/rightsidescreenmod.js",
+    "file/src/Mods/RightSideScreenMod.js.html",
+    "src/Mods/RightSideScreenMod.js",
     "file"
   ],
   [
@@ -1206,6 +1410,48 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "src/widget/checkbox.js",
+    "file/src/Widget/Checkbox.js.html",
+    "src/Widget/Checkbox.js",
+    "file"
+  ],
+  [
+    "src/widget/checkbox.js~checkbox#constructor",
+    "class/src/Widget/Checkbox.js~Checkbox.html#instance-constructor-constructor",
+    "src/Widget/Checkbox.js~Checkbox#constructor",
+    "method"
+  ],
+  [
+    "src/widget/checkbox.js~checkbox#getblock",
+    "class/src/Widget/Checkbox.js~Checkbox.html#instance-method-getBlock",
+    "src/Widget/Checkbox.js~Checkbox#getBlock",
+    "method"
+  ],
+  [
+    "src/widget/checkbox.js~checkbox#ischecked",
+    "class/src/Widget/Checkbox.js~Checkbox.html#instance-method-isChecked",
+    "src/Widget/Checkbox.js~Checkbox#isChecked",
+    "method"
+  ],
+  [
+    "src/widget/checkbox.js~checkbox#setchecked",
+    "class/src/Widget/Checkbox.js~Checkbox.html#instance-method-setChecked",
+    "src/Widget/Checkbox.js~Checkbox#setChecked",
+    "method"
+  ],
+  [
+    "src/widget/checkbox.js~checkbox#setoncheckedlistener",
+    "class/src/Widget/Checkbox.js~Checkbox.html#instance-method-setOnCheckedListener",
+    "src/Widget/Checkbox.js~Checkbox#setOnCheckedListener",
+    "method"
+  ],
+  [
+    "src/widget/checkbox.js~checkbox#settitle",
+    "class/src/Widget/Checkbox.js~Checkbox.html#instance-method-setTitle",
+    "src/Widget/Checkbox.js~Checkbox#setTitle",
+    "method"
+  ],
+  [
     "src/widget/floatingactionbutton.js",
     "file/src/Widget/FloatingActionButton.js.html",
     "src/Widget/FloatingActionButton.js",
@@ -1338,6 +1584,12 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "src/x/bottomnavigationscreen.js",
+    "file/src/X/BottomNavigationScreen.js.html",
+    "src/X/BottomNavigationScreen.js",
+    "file"
+  ],
+  [
     "src/x/fwsettingsscreen.js",
     "file/src/X/FWSettingsScreen.js.html",
     "src/X/FWSettingsScreen.js",
@@ -1350,10 +1602,10 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "src/x/fwsettingsscreen.js~fwsettingsscreen#onupdate",
-    "class/src/X/FWSettingsScreen.js~FWSettingsScreen.html#instance-method-onUpdate",
-    "src/X/FWSettingsScreen.js~FWSettingsScreen#onUpdate",
-    "method"
+    "src/x/fwsettingsscreen.js~fwsettingsscreen.colors",
+    "class/src/X/FWSettingsScreen.js~FWSettingsScreen.html#static-get-COLORS",
+    "src/X/FWSettingsScreen.js~FWSettingsScreen.COLORS",
+    "member"
   ],
   [
     "src/x/fwsettingsscreen.js~fwsettingsscreen.locale",

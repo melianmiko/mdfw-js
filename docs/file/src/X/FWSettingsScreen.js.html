@@ -33,7 +33,9 @@
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#base">Base</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Base/ColorFix.js~ColorFix.html">ColorFix</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Base/Config.js~Config.html">Config</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Base/UnFocusService.js~UnFocusService.html">UnFocusService</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#frames">Frames</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Frames/InputLock.js~InputLock.html">InputLock</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#frames">Frames</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Frames/Alert.js~Alert.html">Alert</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Frames/Fragment.js~Fragment.html">Fragment</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Frames/InputLock.js~InputLock.html">InputLock</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Frames/Screen.js~Screen.html">Screen</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Frames/WaitScreen.js~WaitScreen.html">WaitScreen</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#layout">Layout</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Layout/ExpandableLayout.js~ExpandableLayout.html">ExpandableLayout</a></span></span></li>
@@ -46,6 +48,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/View/TextView.js~TextView.html">TextView</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/View/WaitlockView.js~WaitlockView.html">WaitlockView</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#widget">Widget</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Widget/Button.js~Button.html">Button</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Widget/Checkbox.js~Checkbox.html">Checkbox</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Widget/Spinner.js~Spinner.html">Spinner</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Widget/SubHeader.js~SubHeader.html">SubHeader</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Widget/TextInput.js~TextInput.html">TextInput</a></span></span></li>
@@ -77,79 +80,158 @@ class FWSettingsScreen extends Screen {
      * Localization strings (default, english)
      */
     static get LOCALE() {return {
-        fontSizeTitle: &quot;Font size&quot;,
-        accentColorTitle: &quot;Accent color (HEX, empty to default)&quot;,
-        reloadRequired: &quot;Restart application to apply changes&quot;,
-        cancel: &quot;Cancel&quot;, ok: &quot;Ok&quot;,
-        nightmode: &quot;Use black theme&quot;, daymode: &quot;Use white theme&quot;
+        cancel: &quot;Cancel&quot;, ok: &quot;Ok&quot;, apply: &quot;Restart and apply&quot;,
+        darkTheme: &quot;Dark theme&quot;, bigMode: &quot;Interface scale&quot;,
+        restartRequired: &quot;Application restart required to apply this changes.&quot;,
+        titleColorAccent: &quot;Color&quot;, customColor: &quot;Set custom color&quot;
     }};
+    /**
+     * Colors palette
+     */
+    static get COLORS() {return [
+        &quot;#f44336&quot;, &quot;#E91E63&quot;, &quot;#9C27B0&quot;, &quot;#9C27B0&quot;,
+        &quot;#3F51B5&quot;, &quot;#2196F3&quot;, &quot;#03A9F4&quot;, &quot;#00BCD4&quot;,
+        &quot;#009688&quot;, &quot;#4CAF50&quot;, &quot;#8BC34A&quot;, &quot;#CDDC39&quot;,
+        &quot;#FFEB3B&quot;, &quot;#FFC107&quot;, &quot;#FF9800&quot;, &quot;#FF5722&quot;,
+        &quot;#795548&quot;, &quot;#9E9E9E&quot;, &quot;#607D8B&quot;
+    ]};
 
     /**
      * OnCreate event override
      * @param {Object} loc Localization override
      */
     onCreate(loc) {
-        var locale = FWSettingsScreen.LOCALE;
+        var locale = FWSettingsScreen.LOCALE, ctx = this;
         if(loc) for(var a in loc) locale[a] = loc[a];
+        this.addMod(new RightSideScreenMod());
         this.setHomeAsUpAction();
+        this.addAction(new MenuItem(locale.apply, &quot;check&quot;, () =&gt; {
+            location.reload();
+        }))
         this.locale = locale;
-        this.onUpdate();
+
+        this.appendView(new Checkbox()
+            .setTitle(locale.darkTheme)
+            .setChecked(localStorage.fw_cfg_nightmode === &quot;true&quot;)
+            .setOnCheckedListener((isChecked) =&gt; {
+                localStorage.fw_cfg_nightmode = (isChecked ? &quot;true&quot; : &quot;&quot;);
+            }));
+
+        this.appendView(new Checkbox()
+            .setTitle(locale.bigMode)
+            .setChecked(localStorage.fw_cfg_font_size === &quot;1.25&quot;)
+            .setOnCheckedListener((isChecked) =&gt; {
+                if(isChecked) localStorage.fw_cfg_font_size = &quot;1.25&quot;;
+                else localStorage.fw_cfg_font_size = &quot;&quot;;
+            }));
+
+        this.appendView(new SubHeader(locale.titleColorAccent));
+
+        this._palette = Utils.inflate({type: &quot;div&quot;, class: &quot;fw-palette&quot;});
+        this.appendView(this._palette);
+
+        this.appendView(new RowView()
+            .setTitle(locale.customColor)
+            .setIcon(&quot;palette&quot;)
+            .setOnClickListener(function() {
+                ctx.customColorDialog();
+            }));
+
+        this.updatePalette();
+    }
+
+    customColorDialog() {
+        var ctx = this;
+        var te = new TextInput()
+            .setTitle(this.locale.customColor)
+            .setType(&quot;color&quot;)
+            .fromString(&quot;#000000&quot;);
+
+        var d = new Dialog()
+            .addButton(new Button().setText(this.locale.ok).setOnClickListener(function() {
+                localStorage.fw_main_color = te.toString();
+                ctx.updatePalette();
+                d.hide();
+            })).addButton(new Button().setText(this.locale.cancel).setOnClickListener(function() {
+                d.hide();
+            })).appendView(te).show();
+    }
+
+    updatePalette() {
+        this._palette.innerHTML = &quot;&quot;;
+        this.addColor(Config.defaultColor);
+        for(var a in FWSettingsScreen.COLORS) {
+            this.addColor(FWSettingsScreen.COLORS[a]);
+        }
+    }
+
+    addColor(color) {
+        var ctx = this;
+        var view = Utils.inflate({
+            type: &quot;div&quot;, class: &quot;color &quot;+(Config.mainColor == color ? &quot;selected&quot; : &quot;&quot;)
+        });
+        view.onclick = function() {
+            localStorage.fw_main_color = color;
+            ctx.updatePalette();
+        };
+        view.style.backgroundColor = color;
+        this._palette.appendView(view)
     }
 
     /**
      * OnUpdate event override
      */
-    onUpdate() {
-        var loc = this.locale, ctx = this;
-        this.wipeContents();
+    // onUpdate() {
+    //     var loc = this.locale, ctx = this;
+    //     this.wipeContents();
         
-        this.appendView(new RowView().setTitle(localStorage.fw_cfg_nightmode ? loc.nightmode : loc.daymode)
-            .setIcon(&quot;wb_sunny&quot;).setSummary(loc.themeSummary).setOnClickListener(function(){
-                if(localStorage.fw_cfg_nightmode == &quot;true&quot;) localStorage.fw_cfg_nightmode = &quot;&quot;;
-                else localStorage.fw_cfg_nightmode = &quot;true&quot;;
-                FWInit.cfgInit();
-            }));
+    //     this.appendView(new RowView().setTitle(localStorage.fw_cfg_nightmode ? loc.nightmode : loc.daymode)
+    //         .setIcon(&quot;wb_sunny&quot;).setSummary(loc.themeSummary).setOnClickListener(function(){
+    //             if(localStorage.fw_cfg_nightmode == &quot;true&quot;) localStorage.fw_cfg_nightmode = &quot;&quot;;
+    //             else localStorage.fw_cfg_nightmode = &quot;true&quot;;
+    //             FWInit.cfgInit();
+    //         }));
 
-        if(!localStorage.fw_cfg_font_size) 
-            localStorage.fw_cfg_font_size = 1;
+    //     if(!localStorage.fw_cfg_font_size) 
+    //         localStorage.fw_cfg_font_size = 1;
         
-        this.appendView(new RowView().setTitle(loc.fontSizeTitle)
-            .setIcon(&quot;format_size&quot;)
-            .setSummary(Math.round(localStorage.fw_cfg_font_size*100)+&quot;% of default&quot;)
-            .setOnClickListener(function(){
-                var te = new TextInput().setTitle(loc.fontSizeTitle)
-                    .fromString(Math.round(localStorage.fw_cfg_font_size*100));
+    //     this.appendView(new RowView().setTitle(loc.fontSizeTitle)
+    //         .setIcon(&quot;format_size&quot;)
+    //         .setSummary(Math.round(localStorage.fw_cfg_font_size*100)+&quot;% of default&quot;)
+    //         .setOnClickListener(function(){
+    //             var te = new TextInput().setTitle(loc.fontSizeTitle)
+    //                 .fromString(Math.round(localStorage.fw_cfg_font_size*100));
                 
-                var d = new Dialog().appendView(te)
-                    .addButton(new Button().setText(loc.cancel).setOnClickListener(function(){
-                        d.hide();
-                    })).addButton(new Button().setText(loc.ok).setOnClickListener(function(){
-                        console.log(te.toString()/100);
-                        localStorage.fw_cfg_font_size = te.toString()/100;
-                        d.hide();
-                        ctx.onUpdate();
-                    })).show();
-            }));
+    //             var d = new Dialog().appendView(te)
+    //                 .addButton(new Button().setText(loc.cancel).setOnClickListener(function(){
+    //                     d.hide();
+    //                 })).addButton(new Button().setText(loc.ok).setOnClickListener(function(){
+    //                     console.log(te.toString()/100);
+    //                     localStorage.fw_cfg_font_size = te.toString()/100;
+    //                     d.hide();
+    //                     ctx.onUpdate();
+    //                 })).show();
+    //         }));
         
-        this.appendView(new RowView().setTitle(loc.accentColorTitle)
-            .setIcon(&quot;palette&quot;)
-            .setSummary(localStorage.fw_main_color)
-            .setOnClickListener(function(){
-                var te = new TextInput().setTitle(loc.fontSizeTitle)
-                    .fromString(localStorage.fw_main_color);
+    //     this.appendView(new RowView().setTitle(loc.accentColorTitle)
+    //         .setIcon(&quot;palette&quot;)
+    //         .setSummary(localStorage.fw_main_color)
+    //         .setOnClickListener(function(){
+    //             var te = new TextInput().setTitle(loc.fontSizeTitle)
+    //                 .fromString(localStorage.fw_main_color);
                 
-                var d = new Dialog().appendView(te)
-                    .addButton(new Button().setText(loc.cancel).setOnClickListener(function(){
-                        d.hide();
-                    })).addButton(new Button().setText(loc.ok).setOnClickListener(function(){
-                        localStorage.fw_main_color = te.toString();
-                        d.hide();
-                        ctx.onUpdate();
-                    })).show();
-            }));
+    //             var d = new Dialog().appendView(te)
+    //                 .addButton(new Button().setText(loc.cancel).setOnClickListener(function(){
+    //                     d.hide();
+    //                 })).addButton(new Button().setText(loc.ok).setOnClickListener(function(){
+    //                     localStorage.fw_main_color = te.toString();
+    //                     d.hide();
+    //                     ctx.onUpdate();
+    //                 })).show();
+    //         }));
 
-            this.appendView(new TextView(&quot;info&quot;, loc.reloadRequired));
-    }
+    //         this.appendView(new TextView(&quot;info&quot;, loc.reloadRequired));
+    // }
 }</code></pre>
 
 </div>

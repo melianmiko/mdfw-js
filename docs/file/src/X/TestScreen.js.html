@@ -33,7 +33,9 @@
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#base">Base</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Base/ColorFix.js~ColorFix.html">ColorFix</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Base/Config.js~Config.html">Config</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Base/UnFocusService.js~UnFocusService.html">UnFocusService</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#frames">Frames</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Frames/InputLock.js~InputLock.html">InputLock</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#frames">Frames</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Frames/Alert.js~Alert.html">Alert</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Frames/Fragment.js~Fragment.html">Fragment</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Frames/InputLock.js~InputLock.html">InputLock</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Frames/Screen.js~Screen.html">Screen</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Frames/WaitScreen.js~WaitScreen.html">WaitScreen</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#layout">Layout</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Layout/ExpandableLayout.js~ExpandableLayout.html">ExpandableLayout</a></span></span></li>
@@ -46,6 +48,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/View/TextView.js~TextView.html">TextView</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/View/WaitlockView.js~WaitlockView.html">WaitlockView</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#widget">Widget</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Widget/Button.js~Button.html">Button</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Widget/Checkbox.js~Checkbox.html">Checkbox</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Widget/Spinner.js~Spinner.html">Spinner</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Widget/SubHeader.js~SubHeader.html">SubHeader</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Widget/TextInput.js~TextInput.html">TextInput</a></span></span></li>
@@ -85,17 +88,6 @@
             new FWSettingsScreen().start();
         }));
         
-        c1.appendView(new RowView().setTitle(&quot;Set color and reopen&quot;).setOnClickListener(function(){
-            var c = &quot;#&quot;;
-            c += Math.round(Math.random()*100);
-            c += Math.round(Math.random()*100);
-            c += Math.round(Math.random()*100);
-            Config.mainColor = c;
-
-            ctx.finish();
-            new TestScreen().start();
-        }));
-
         // FAB
         c1.appendView(new SubHeader(&quot;Floating action button&quot;));
         var fab = new FloatingActionButton().setIcon(&quot;star&quot;).setTitle(&quot;Star&quot;);
@@ -178,6 +170,8 @@ class TestScreen2 extends Screen {
         sp.appendView(new RowView().setTitle(&quot;Hidden row!&quot;));
         this.appendView(sp);
 
+        this.appendView(new Checkbox().setTitle(&quot;Checkbox!&quot;));
+
         this.appendView(new SubHeader(&quot;Input tests&quot;));
         this.appendView(tv);
         this.appendView(tv2);
@@ -195,7 +189,7 @@ class TestScreen2 extends Screen {
         this.appendView(new Button().setText(&quot;Default button&quot;));
         this.appendView(new Button().setStyle(Button.STYLE_CONTAINED).setText(&quot;Contained button&quot;));
         this.appendView(new Button().setStyle(Button.STYLE_FLAT).setText(&quot;Flat button&quot;));
-        this.appendView(new Button().setStyle(Button.STYLE_OUTLINE).setText(&quot;Flat button&quot;));
+        this.appendView(new Button().setStyle(Button.STYLE_OUTLINE).setText(&quot;Outlined button&quot;));
 
         this.appendView(new SubHeader(&quot;RowView tests&quot;));
         this.appendView(new RowView().setTitle(&quot;Single-line&quot;));

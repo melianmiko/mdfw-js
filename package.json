@@ -18,10 +18,11 @@
   "homepage": "https://github.com/mhbrgn/MDFWjs#readme",
   "devDependencies": {
     "@babel/cli": "^7.8.4",
-    "@babel/core": "^7.8.4",
-    "@babel/preset-env": "^7.8.4",
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.0",
+    "core-js": "^3.6.4",
     "esdoc": "^1.1.0",
     "esdoc-standard-plugin": "^1.0.0",
-    "sass": "^1.26.0"
+    "sass": "^1.26.3"
   }
 }

@@ -20,15 +20,17 @@ class FWSettingsScreen extends Screen {
         cancel: "Cancel", ok: "Ok", apply: "Restart and apply",
         darkTheme: "Dark theme", bigMode: "Interface scale",
         restartRequired: "Application restart required to apply this changes.",
-        titleColorAccent: "Color"
+        titleColorAccent: "Color", customColor: "Set custom color"
     }};
     /**
      * Colors palette
      */
     static get COLORS() {return [
-        "#0099FF", "#0099CC", "#FF9900", "#DD0000",
-        "#FF0099", "#FFCC00", "#0033FF", "#0011CC",
-        "#FF00DD", "#333333", "#555555", "#AAAAAA"
+        "#f44336", "#E91E63", "#9C27B0", "#9C27B0",
+        "#3F51B5", "#2196F3", "#03A9F4", "#00BCD4",
+        "#009688", "#4CAF50", "#8BC34A", "#CDDC39",
+        "#FFEB3B", "#FFC107", "#FF9800", "#FF5722",
+        "#795548", "#9E9E9E", "#607D8B"
     ]};
 
     /**
@@ -36,11 +38,11 @@ class FWSettingsScreen extends Screen {
      * @param {Object} loc Localization override
      */
     onCreate(loc) {
-        var locale = FWSettingsScreen.LOCALE;
+        var locale = FWSettingsScreen.LOCALE, ctx = this;
         if(loc) for(var a in loc) locale[a] = loc[a];
         this.addMod(new RightSideScreenMod());
         this.setHomeAsUpAction();
-        this.addAction(new MenuItem(locale.apply, "checkbox", () => {
+        this.addAction(new MenuItem(locale.apply, "check", () => {
             location.reload();
         }))
         this.locale = locale;
@@ -64,7 +66,32 @@ class FWSettingsScreen extends Screen {
 
         this._palette = Utils.inflate({type: "div", class: "fw-palette"});
         this.appendView(this._palette);
+
+        this.appendView(new RowView()
+            .setTitle(locale.customColor)
+            .setIcon("palette")
+            .setOnClickListener(function() {
+                ctx.customColorDialog();
+            }));
+
         this.updatePalette();
+    }
+
+    customColorDialog() {
+        var ctx = this;
+        var te = new TextInput()
+            .setTitle(this.locale.customColor)
+            .setType("color")
+            .fromString("#000000");
+
+        var d = new Dialog()
+            .addButton(new Button().setText(this.locale.ok).setOnClickListener(function() {
+                localStorage.fw_main_color = te.toString();
+                ctx.updatePalette();
+                d.hide();
+            })).addButton(new Button().setText(this.locale.cancel).setOnClickListener(function() {
+                d.hide();
+            })).appendView(te).show();
     }
 
     updatePalette() {

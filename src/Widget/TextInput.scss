@@ -12,6 +12,7 @@
         box-sizing: border-box; font-size: 1em; padding: 8px;
 
         &.ta {resize: none; height: 40px;font-family: $font_family;}
+        &[type=color] {min-height: 2.5rem;}
     }
 }
 

@@ -12,7 +12,7 @@ class TextView {
 	 * @param {string} value Text to display
 	 */
 	constructor(style, value) {
-		this.blk = Utils.inflate({ type: "div", inner: value, class: "fw-textview-style-" + style });
+		this.blk = Utils.inflate({ type: "div", inner: value, class: "fw-textview-style "+style});
 	}
 
 	/**

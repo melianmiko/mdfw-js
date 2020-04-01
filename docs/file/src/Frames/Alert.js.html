@@ -33,7 +33,9 @@
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#base">Base</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Base/ColorFix.js~ColorFix.html">ColorFix</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Base/Config.js~Config.html">Config</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Base/UnFocusService.js~UnFocusService.html">UnFocusService</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#frames">Frames</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Frames/InputLock.js~InputLock.html">InputLock</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#frames">Frames</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Frames/Alert.js~Alert.html">Alert</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Frames/Fragment.js~Fragment.html">Fragment</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Frames/InputLock.js~InputLock.html">InputLock</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Frames/Screen.js~Screen.html">Screen</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Frames/WaitScreen.js~WaitScreen.html">WaitScreen</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#layout">Layout</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Layout/ExpandableLayout.js~ExpandableLayout.html">ExpandableLayout</a></span></span></li>
@@ -46,6 +48,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/View/TextView.js~TextView.html">TextView</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/View/WaitlockView.js~WaitlockView.html">WaitlockView</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#widget">Widget</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Widget/Button.js~Button.html">Button</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Widget/Checkbox.js~Checkbox.html">Checkbox</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Widget/Spinner.js~Spinner.html">Spinner</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Widget/SubHeader.js~SubHeader.html">SubHeader</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Widget/TextInput.js~TextInput.html">TextInput</a></span></span></li>
@@ -58,30 +61,78 @@
 </nav>
 
 <div class="content" data-ice="content"><h1 data-ice="title">src/Frames/Alert.js</h1>
-<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">class Alert {
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">/**
+ * Alert dialog
+ *
+ * This class can be used to create simple message alert dialog.
+ * Example:
+ * ```js
+ * new Alert().setMessage(&quot;Hello, world!&quot;).show();
+ * ```
+ */
+class Alert {
+    /**
+     * Set message title
+     * @param t title string
+     * @returns this alert dialog
+     */
     setTitle(t) {
-        this.title = t;
+        /**
+         * Message title
+         */
+        this._title = t;
         return this;
     }
+
+    /**
+     * Set message content
+     * @param m message text
+     * @returns this alert dialog
+     */
     setMessage(m) {
-        this.message = m;
+        /**
+         * Message text
+         */
+        this._message = m;
         return this;
     }
+
+    /**
+     * Set on button click listener
+     * @param c function to execute
+     * @returns this alert dialog
+     */
     setOnClickListener(c) {
-        this.click = c;
+        /**
+         * CLick listener
+         */
+        this._click = c;
         return this;
     }
+
+    /**
+     * Set on dismiss listener
+     * @param c function to execute
+     * @returns this alert dialog
+     */
 	setOnCancelListener(c) {
-		this.oncancel = c;
+        /**
+         * On dismiss listener
+         */
+		this._oncancel = c;
 		return this;
 	}
+
+    /**
+     * Show this dialog
+     */
     show() {
         var c = this;
-		var d = new Dialog().setMessage(this.message).setTitle(this.title)
-			.setOnCancelListener(this.oncancel)
+		var d = new Dialog().setMessage(this._message).setTitle(this._title)
+			.setOnCancelListener(this._oncancel)
             .addButton(new Button().setText(&quot;Ok&quot;).setOnClickListener(function(){
                 d.hide();
-                c.click();
+                c._click();
             })).show();
     }
 }

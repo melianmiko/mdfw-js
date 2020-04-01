@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../">
+  <title data-ice="title">src/X/BottomNavigationScreen.js | mdfwjs</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<meta name="description" content="Material Design Framework for JS"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="mdfwjs"><meta property="twitter:description" content="Material Design Framework for JS"></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/mhbrgn/MDFWjs"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/index.js~FWInit.html">FWInit</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#base">Base</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Base/ColorFix.js~ColorFix.html">ColorFix</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Base/Config.js~Config.html">Config</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Base/UnFocusService.js~UnFocusService.html">UnFocusService</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#frames">Frames</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Frames/Alert.js~Alert.html">Alert</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Frames/Fragment.js~Fragment.html">Fragment</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Frames/InputLock.js~InputLock.html">InputLock</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Frames/Screen.js~Screen.html">Screen</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Frames/WaitScreen.js~WaitScreen.html">WaitScreen</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#layout">Layout</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Layout/ExpandableLayout.js~ExpandableLayout.html">ExpandableLayout</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#utils">Utils</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Utils/Log.js~Log.html">Log</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Utils/MenuItem.js~MenuItem.html">MenuItem</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Utils/Utils.js~Utils.html">Utils</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#view">View</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/View/IconView.js~IconView.html">IconView</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/View/RowView.js~RowView.html">RowView</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/View/SpoilerView.js~SpoilerView.html">SpoilerView</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/View/TextView.js~TextView.html">TextView</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/View/WaitlockView.js~WaitlockView.html">WaitlockView</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#widget">Widget</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Widget/Button.js~Button.html">Button</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Widget/Checkbox.js~Checkbox.html">Checkbox</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Widget/Spinner.js~Spinner.html">Spinner</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Widget/SubHeader.js~SubHeader.html">SubHeader</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Widget/TextInput.js~TextInput.html">TextInput</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Widget/Toolbar.js~Toolbar.html">Toolbar</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#x">X</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/X/FWSettingsScreen.js~FWSettingsScreen.html">FWSettingsScreen</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/X/SlidingScreen.js~SlideView.html">SlideView</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/X/SlidingScreen.js~SlidingScreen.html">SlidingScreen</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">src/X/BottomNavigationScreen.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">// /**
+//  * Screen with bottom navigation on mobile (or left side for desktop)
+//  */
+// class BottomNavigationScreen extends Screen {
+// 	/**
+// 	 * Bottom navigation layout
+// 	 */
+// 	static get BN_LAYOUT() {return {type: &quot;div&quot;, class: &quot;fw-bns-root&quot;, contains: {
+// 		fragmentHost: {type: &quot;div&quot;, class: &quot;fragment-host&quot;},
+// 		menuHost: {type: &quot;div&quot;, class: &quot;extended-menu&quot;, contains: {
+// 			navTopBox: {type: &quot;div&quot;},
+// 			desktopOnlyMenu: {type: &quot;div&quot;, class: &quot;fw-nav-menu desktop-menu&quot;},
+// 			extendedMenu: {type: &quot;div&quot;, class: &quot;fw-nav-menu&quot;},
+// 			navBottomBox: {type: &quot;div&quot;}
+// 		}},
+// 		bottomNav: {type: &quot;div&quot;, class: &quot;bottom-nav&quot;}
+// 	}}};
+
+// 	/**
+// 	 * Default constructor
+// 	 */
+// 	constructor() {
+// 		super();
+// 		/**
+// 		 * Bottom nav icons limit
+// 		 */
+// 		this._bn_icons_limit = 4;
+// 		/**
+// 		 * Is extended menu icon visible?
+// 		 */
+// 		this._bn_show_extended = true;
+// 		/**
+// 		 * Current fragment
+// 		 */
+// 		this._current = -1;
+// 		/**
+// 		 * Page fragments array
+// 		 */
+// 		this._pages = [];
+// 		/**
+// 		 * Page fragment titles array
+// 		 */
+// 		this._page_titles = [];
+// 		/**
+// 		 * Page fragment icons array
+// 		 */
+// 		this._page_icons = [];
+// 		/**
+// 		 * Host root
+// 		 */
+// 		this._host = Utils.inflate(BottomNavigationScreen.BN_LAYOUT);
+// 	}
+
+// 	/**
+// 	 * Do activity build and display
+// 	 */
+// 	 start() {
+// 	 	// Create BottomNavigationScreen
+// 	 	this.addMod(new WideScreenMod());
+
+// 	 	// Do default screen creation
+// 	 	super.start();
+// 	 }
+
+// 	 /**
+// 	  * Add fragment to iterator
+// 	  */
+// 	addFragment(fragment, title, icon) {
+// 		var id = this._pages.length;
+// 		this._pages[id] = fragment;
+// 		this._page_titles[id] = title;
+// 		this._page_icons[id] = icon;
+
+// 		if(this._current &lt; 0) openFragment(0);
+// 		_rebuildMenus();
+// 		return id;
+// 	 }
+
+// 	 /**
+// 	  * Navigate to fragment with id
+// 	  */
+// 	 openFragment(id) {
+// 	 	this._current = id;
+// 	 	this._host.fragmentHost.innerHTML = &quot;&quot;;
+
+// 	 	var fragment = new this._pages[id];
+// 	 	this._host.fragmentHost.appendView(fragment);
+
+// 	 	this._rebuildMenus();
+// 	 }
+
+// 	 /**
+// 	  * Rebuild navigation menus
+// 	  */
+// 	 _rebuildMenus() {
+	 	
+// 	 }
+
+// 	 /**
+// 	  * Set bottom navigation icons limit.
+// 	  * Default: 4
+// 	  */
+// 	 setIconsLimit(limit) {
+// 	 	this._bn_icons_limit = limit;
+// 	 	this._rebuildMenus();
+// 	 }
+
+// 	 /**
+// 	  * Show extended menu icon in bottom navigation
+// 	  * Default: true
+// 	  */
+// 	 setShowExtendedMenuIcon(bool) {
+// 	 	this._bn_show_extended = bool;
+// 	 	this._rebuildMenus();
+// 	 }
+
+// 	/**
+// 	 * Append view to screen.
+// 	 * Disabled for this screen type
+// 	 */
+// 	appendView() {
+// 		console.warn(&quot;You can&apos;t directly append views to BottomNavigationScreen&quot;);
+// 	}
+// }
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

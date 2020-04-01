@@ -1,7 +1,7 @@
 {
-  "coverage": "58.52%",
-  "expectCount": 299,
-  "actualCount": 175,
+  "coverage": "62.53%",
+  "expectCount": 339,
+  "actualCount": 212,
   "files": {
     "src/Base/ColorFix.js": {
       "expectCount": 2,
@@ -9,8 +9,8 @@
       "undocumentLines": []
     },
     "src/Base/Config.js": {
-      "expectCount": 5,
-      "actualCount": 5,
+      "expectCount": 6,
+      "actualCount": 6,
       "undocumentLines": []
     },
     "src/Base/UnFocusService.js": {
@@ -20,19 +20,8 @@
     },
     "src/Frames/Alert.js": {
       "expectCount": 10,
-      "actualCount": 0,
-      "undocumentLines": [
-        1,
-        2,
-        3,
-        6,
-        7,
-        10,
-        11,
-        14,
-        15,
-        18
-      ]
+      "actualCount": 10,
+      "undocumentLines": []
     },
     "src/Frames/Confirm.js": {
       "expectCount": 15,
@@ -77,6 +66,13 @@
         62
       ]
     },
+    "src/Frames/Fragment.js": {
+      "expectCount": 17,
+      "actualCount": 16,
+      "undocumentLines": [
+        6
+      ]
+    },
     "src/Frames/InputLock.js": {
       "expectCount": 5,
       "actualCount": 4,
@@ -99,8 +95,8 @@
       ]
     },
     "src/Frames/Screen.js": {
-      "expectCount": 40,
-      "actualCount": 40,
+      "expectCount": 43,
+      "actualCount": 43,
       "undocumentLines": []
     },
     "src/Frames/WaitScreen.js": {
@@ -121,7 +117,23 @@
         17
       ]
     },
+    "src/Mods/LeftSideScreenMod.js": {
+      "expectCount": 2,
+      "actualCount": 0,
+      "undocumentLines": [
+        1,
+        2
+      ]
+    },
     "src/Mods/NoAnimationScreenMod.js": {
+      "expectCount": 2,
+      "actualCount": 0,
+      "undocumentLines": [
+        1,
+        2
+      ]
+    },
+    "src/Mods/RightSideScreenMod.js": {
       "expectCount": 2,
       "actualCount": 0,
       "undocumentLines": [
@@ -212,6 +224,16 @@
         32
       ]
     },
+    "src/Widget/Checkbox.js": {
+      "expectCount": 11,
+      "actualCount": 7,
+      "undocumentLines": [
+        13,
+        20,
+        42,
+        79
+      ]
+    },
     "src/Widget/FloatingActionButton.js": {
       "expectCount": 15,
       "actualCount": 0,
@@ -279,10 +301,14 @@
       ]
     },
     "src/X/FWSettingsScreen.js": {
-      "expectCount": 5,
+      "expectCount": 9,
       "actualCount": 4,
       "undocumentLines": [
-        35
+        48,
+        67,
+        80,
+        97,
+        105
       ]
     },
     "src/X/SlidingScreen.js": {
@@ -290,11 +316,11 @@
       "actualCount": 24,
       "undocumentLines": [
         116,
-        202,
-        212,
+        203,
         213,
         214,
-        215
+        215,
+        216
       ]
     },
     "src/X/TestScreen.js": {
@@ -303,11 +329,11 @@
       "undocumentLines": [
         1,
         2,
-        94,
-        95,
-        159,
-        160,
-        163
+        83,
+        84,
+        150,
+        151,
+        154
       ]
     }
   }

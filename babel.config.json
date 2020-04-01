@@ -4,11 +4,13 @@
       "@babel/env",
       {
         "targets": {
-          "edge": "17",
-          "firefox": "55",
-          "chrome": "60",
+          "edge": "11",
+          "firefox": "42",
+          "chrome": "50",
           "safari": "11.1"
-        }
+        },
+        "useBuiltIns": "entry",
+        "corejs": "3.6.4"
       }
     ]
   ]
