@@ -1,6 +1,5 @@
 class LeftSideScreenMod {
 	install(screen) {
-		console.warn("LeftSideScreenMod is experimental!");
 		screen._activity_root.classList.add("sidescreen-left");
 
 		// Install event listeners

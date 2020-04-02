@@ -1,6 +1,5 @@
 class RightSideScreenMod {
 	install(screen) {
-		console.warn("RightSideScreenMod is experimental!");
 		screen._activity_root.classList.add("sidescreen-right");
 
 		// Install event listeners
