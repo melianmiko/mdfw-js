@@ -12,7 +12,7 @@ class SlidingScreen extends Screen {
         /**
          * Root view of pager
          */
-        this._ss_view = Utils.inflate({type: "div", class: "fw-pager-view", childs: {
+        this._ss_view = Utils.inflate({type: "div", class: "fw-view-sliding", childs: {
             wrapper: {type: "div", class: "fw-pager-wrapper"}
         }});
         this._ss_view.IS_FIXED_VIEW = true;
