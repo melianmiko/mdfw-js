@@ -1,5 +1,6 @@
 .fw-button {
 	margin: 0 2*$dp;
+	margin: 8*$dp 4*$dp;
 
 	&.style-flat {
 		background: transparent; border: none; color: $fw_maincolor;
@@ -23,7 +24,7 @@
 		background: transparent; border: none; color: $fw_maincolor;
 		color: $fw_maincolor; padding: 0 8*$dp; font-size: 14*$sp;
 		min-width: 64*$dp; height: 36*$dp; line-height: 36*$dp;
-		margin: 8*$dp; border: thin #ccc solid; border-radius: 4*$dp;
+		border: thin #ccc solid; border-radius: 4*$dp;
 		text-transform: uppercase; position: relative;
 
 		&:hover::before {opacity: 0.2;}
@@ -43,7 +44,7 @@
 		padding: 0 16*$dp; font-size: 14*$sp;
 		min-width: 64*$dp; height: 36*$dp; line-height: 36*$dp;
 		text-transform: uppercase; border-radius: 4*$dp;
-		box-shadow: elevation(2);position: relative;
+		position: relative;
 
 		&:hover::before {opacity: 0.2;}
 		&:active::before {opacity: 0.4;}
