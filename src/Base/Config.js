@@ -36,6 +36,14 @@ class Config {
 	}
 
 	/**
+	 * Accent background color. This is mainColor with lightness 0.95
+	 */
+	static get accentBackgroundColor() {
+		// TODO: Make color darker for black theme
+		return Utils.setHexLightLevel(Config.mainColor, 0.9);
+	}
+
+	/**
 	 * Setter of main accent color from framework skin
 	 */
 	static set mainColor(c) {
