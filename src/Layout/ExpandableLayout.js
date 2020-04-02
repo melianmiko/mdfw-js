@@ -73,10 +73,7 @@ class ExpandableLayout {
 		if(windowWidth >= minExpandWidth) {
 			// Expand
 			this._root.classList.add("expanded");
-
-			if(windowWidth > maxExpandWidth) {
-				this._root.style.maxWidth = maxExpandWidth+"px";
-			}
+			this._root.style.maxWidth = maxExpandWidth+"px";
 
 			for(var a in this._columns) {
 				var cv = this._columns[a];
@@ -123,7 +120,7 @@ class ExpandableLayout {
 	 getBlock() {
 	 	var ctx = this;
 	 	this._register();
- 		ctx._updateWidth();
+	 	this._updateWidth();
 	 	return this._root;
 	 }
 
