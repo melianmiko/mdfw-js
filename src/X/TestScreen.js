@@ -82,15 +82,31 @@ class TestScreen extends Screen {
 
 class TestScreen2 extends Screen {
     onCreate() {
+        this.setHomeAsUpAction();
+        this.setTitle("Widgets test mode!");
+
+        var switcher = new Switcher(),
+            forms = switcher.add("Forms"),
+            widgets = switcher.add("Widgets"),
+            rows = switcher.add("RowView tests");
+
+        this.appendView(switcher);
+
+        // Forms
         var tv = new TextInput().setTitle("Text input demo").setHolder("Empty"),
             tv2 = new TextInput().setTitle("Password input demo").setHolder("Empty").setType("password"),
             tv3 = new BigTextInput().setTitle("Big input demo").setHolder("Empty");
 
-        this.setHomeAsUpAction();
-        this.setTitle("Widgets test mode!");
+        forms.appendView(new Checkbox().setTitle("Checkbox!"));
 
+        forms.appendView(new SubHeader("Input tests"));
+        forms.appendView(tv);
+        forms.appendView(tv2);
+        forms.appendView(tv3);
+
+        // Widgets
         var tb = new Toolbar();
-        this.appendView(tb);
+        widgets.appendView(tb);
 
         tb.add("android","android", function(){
             alert(1);
@@ -105,41 +121,33 @@ class TestScreen2 extends Screen {
 
         var sp = new SpoilerView().setTitle("Spoiler test").setSummary("Tap to open!");
         sp.appendView(new RowView().setTitle("Hidden row!"));
-        this.appendView(sp);
+        widgets.appendView(sp);
 
-        this.appendView(new Checkbox().setTitle("Checkbox!"));
+        widgets.appendView(new Spinner());
+        widgets.appendView(new TextView("info", "This is info TextView!"));
 
-        this.appendView(new SubHeader("Input tests"));
-        this.appendView(tv);
-        this.appendView(tv2);
-        this.appendView(tv3);
-        this.appendView(new RowView().setTitle("Show value").setOnClickListener(function(){
+        widgets.appendView(new Button().setText("Default button"));
+        widgets.appendView(new Button().setStyle(Button.STYLE_CONTAINED).setText("Contained button"));
+        widgets.appendView(new Button().setStyle(Button.STYLE_FLAT).setText("Flat button"));
+        widgets.appendView(new Button().setStyle(Button.STYLE_OUTLINE).setText("Outlined button"));
+
+        // Rows
+        rows.appendView(new RowView().setTitle("Single-line"));
+        rows.appendView(new RowView().setTitle("Single-line with icon").setIcon("android"));
+        rows.appendView(new RowView().setTitle("Single-line with icon and action").setIcon("android").setAction("Hello", "more_vert", function(){
+            new Alert().setMessage("Hello!").show();
+        }));
+        
+        rows.appendView(new RowView().setSummary("Description").setTitle("Two-line"));
+        rows.appendView(new RowView().setSummary("Description").setTitle("Two-line with icon").setIcon("android").setOnClickListener(function(){
+
+        }));
+        rows.appendView(new RowView().setTitle("Show value").setOnClickListener(function(){
             new Alert().setTitle("Text form value:").setMessage(tv.toString()).show();
         }).setOnLongTouchListener(function(){
             new Alert().setTitle("Long tap!").show();
         }));
-
-        this.appendView(new Spinner());
-
-        this.appendView(new TextView("info", "This is info TextView!"));
-
-        this.appendView(new Button().setText("Default button"));
-        this.appendView(new Button().setStyle(Button.STYLE_CONTAINED).setText("Contained button"));
-        this.appendView(new Button().setStyle(Button.STYLE_FLAT).setText("Flat button"));
-        this.appendView(new Button().setStyle(Button.STYLE_OUTLINE).setText("Outlined button"));
-
-        this.appendView(new SubHeader("RowView tests"));
-        this.appendView(new RowView().setTitle("Single-line"));
-        this.appendView(new RowView().setTitle("Single-line with icon").setIcon("android"));
-        this.appendView(new RowView().setTitle("Single-line with icon and action").setIcon("android").setAction("Hello", "more_vert", function(){
-            new Alert().setMessage("Hello!").show();
-        }));
-        
-        this.appendView(new RowView().setSummary("Description").setTitle("Two-line"));
-        this.appendView(new RowView().setSummary("Description").setTitle("Two-line with icon").setIcon("android").setOnClickListener(function(){
-
-        }));
-        this.appendView(new RowView().setSummary("Description").setTitle("Two-line with icon and action").setIcon("android").setAction("Hello", "more_vert", function(){
+        rows.appendView(new RowView().setSummary("Description").setTitle("Two-line with icon and action").setIcon("android").setAction("Hello", "more_vert", function(){
             new Alert().setTitle("It is menu!").setMessage("Hello, World!").setOnClickListener(function(){
                 console.log(2);
             }).show();

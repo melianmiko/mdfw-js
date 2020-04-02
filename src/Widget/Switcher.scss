@@ -1,0 +1,16 @@
+.fw-switcher-widget {
+	display: flex;
+
+	.buttons-area {
+		display: flex;
+		border: thin #ddd solid;
+		margin: 8px;
+		font-size: .9rem;
+		@include noselect;
+
+		div {
+			padding: 6px 12px; cursor: pointer;
+			border-right: thin #eee solid;
+		}
+	}
+}
