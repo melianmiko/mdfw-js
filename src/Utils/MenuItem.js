@@ -37,6 +37,7 @@ class MenuItem {
 		b.appendChild(i);
 		b.title = this.title;
 		b.onclick = this.click;
+		// TODO: Show title as block on icon hover (only for bigscreen)
 		return b;
 	}
 }
