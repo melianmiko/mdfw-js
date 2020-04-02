@@ -7,10 +7,26 @@ class TextInput {
 	 * Default contructor
 	 */
     constructor() {
+    	var view = this;
         this.block = Utils.inflate({type: "div", class: "fw-textinput", childs: {
             titlebx: {type: "div", class: "title"},
             editor: {type: "input", class: "input"}
         }});
+        this.block.editor.onfocus = function() {view.onFocusChanged(true); };
+        this.block.editor.onblur = function() {view.onFocusChanged(false); };
+        // TODO: Move title to content box, if no holder and no content is set
+    }
+
+    onFocusChanged(focused) {
+    	if(focused) {
+	        this.block.classList.add("focus");
+	        this.block.style.borderColor = Config.mainColor;
+	        this.block.titlebx.style.color = Config.mainColor;
+    	} else {
+	        this.block.classList.remove("focus");
+	        this.block.style.borderColor = "";
+	        this.block.titlebx.style.color = "";
+    	}
     }
 
 	/**

@@ -1,10 +1,24 @@
 .fw-textinput {
-    border-bottom: thin #eee solid;
-    padding: 4px;
+    border-bottom: 1px #999 solid;
+    padding: 8*$dp 6*$dp; margin: 8*$dp;
+    background: #fbfbfb;
+    transition: background .5s, border-color .5s, border-width .5s;
+
+    &:hover {background: #f8f8f8; }
+
+    &.focus {
+        background: #eee; border-width: 2px;
+        &:hover {background: #eee; }
+    }
+
+    &.big > .input {
+        min-height: 4em;
+    }
 
     .title {
         font-size: .7em; padding: 4px 8px; 
         color: #555; @include noselect;
+        transition: color .5s;
     }
 
     .input {
