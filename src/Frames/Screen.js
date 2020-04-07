@@ -397,6 +397,7 @@ class Screen {
 	 */
 	start() {
 		let context = this, il = new InputLock;
+		BackTracker.addToStack(context);
 		this.onCreate(this._bundle);
 		this.onUpdate();
 

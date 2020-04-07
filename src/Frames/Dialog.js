@@ -50,12 +50,18 @@ class Dialog {
 		this.shown = true;
 		this.modal = m;
 
+		BackTracker.addToStack(this);
+
 		m.show();
 		return this;
 	}
 
 	hide(c) {
 		this.modal.hide(c);
+	}
+
+	finish() {
+		this.hide();
 	}
 
 	setOnCancelListener(c) {

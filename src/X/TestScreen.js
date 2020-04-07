@@ -3,6 +3,8 @@ class TestScreen extends Screen {
         var wl = new WaitlockView(this),
             ctx = this;
 
+        BackTracker.enable();
+
         this.setHomeAsUpAction();
         this.addMod(new WideScreenMod());
 

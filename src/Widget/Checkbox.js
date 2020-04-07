@@ -1,3 +1,4 @@
+// TODO: Toggle switch widget
 /**
  * Checkbox widget.
  *

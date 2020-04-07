@@ -1,12 +1,12 @@
-
 /**
  * Framework utilities.
  */
 class Utils {
 	/**
 	 * Generate HTMLElement by user-provide schema
-	 * @param {object} data Structure for block generation
-	 * @returns {HTMLElement}
+	 *
+	 * @param     Object       data   Structure for block generation
+	 * @return    HTMLElement         New block
 	 */
 	static inflate(data) {
 		var block = document.createElement(data.type);
@@ -36,7 +36,8 @@ class Utils {
 
 	/**
 	 * Create promise with timeout
-	 * @param {number} time Wait time in ms
+	 *
+	 * @param    Number   time     Wait time in ms
 	 */
 	static timer(time) {
 		return new Promise(function (resolve) {
@@ -49,7 +50,7 @@ class Utils {
 	/**
 	 * Add LongTouch listener to block
 	 * 
-	 * @param {HTMLElement} block Block to use
+	 * @param   HTMLElement  block    Block to use
 	 */
 	static addLongTouchEvent(block) {
 		var timer = -1;
@@ -184,6 +185,8 @@ class Utils {
 
 	/**
 	 * Convert hex color to RGB
+	 * @param   String  hex   Hex color string
+	 * @param   Object        RGB color components 
 	 */
 	static hexToRgb(hex) {
 		var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
@@ -199,6 +202,13 @@ class Utils {
 		} : null;
 	}
 
+	/**
+	 * Change HEX color lightweight
+	 *
+	 * @param   String  hex       Initial color
+	 * @param   Number  newLight  New light level (0-1)
+	 * @return  String            New hex color
+	 */
 	static setHexLightLevel(hex, newLight) {
 		var rgb = Utils.hexToRgb(hex);
 		var hsl = Utils.rgbToHsl(rgb.r, rgb.g, rgb.b);
@@ -207,7 +217,6 @@ class Utils {
 		rgb = Utils.hslToRgb(hsl.h, hsl.s, hsl.l);
 		hex = Utils.rgbToHex(rgb.r, rgb.g, rgb.b);
 
-		console.log(hsl, rgb, hex);
 		return hex;
 	}
 }
