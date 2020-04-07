@@ -21,7 +21,7 @@
 	}
 
 	&.style-outline {
-		background: transparent; border: none; color: $fw_maincolor;
+		background: transparent; color: $fw_maincolor;
 		color: $fw_maincolor; padding: 0 8*$dp; font-size: 14*$sp;
 		min-width: 64*$dp; height: 36*$dp; line-height: 36*$dp;
 		border: thin #ccc solid; border-radius: 4*$dp;
@@ -40,8 +40,8 @@
 	}
 
 	&.style-contained {
-		background: $fw_maincolor; border: none; color: #fff;
-		padding: 0 16*$dp; font-size: 14*$sp;
+		background: $fw_maincolor; border: thin transparent solid; 
+		color: #fff; padding: 0 16*$dp; font-size: 14*$sp;
 		min-width: 64*$dp; height: 36*$dp; line-height: 36*$dp;
 		text-transform: uppercase; border-radius: 4*$dp;
 		position: relative;
